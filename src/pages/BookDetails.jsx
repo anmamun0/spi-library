@@ -143,9 +143,7 @@ const BookDetails = () => {
                 <span className="text-yellow-500">
                   {"★".repeat(review.rating)}{" "}
                   <span className="text-gray-400">
-                    {5 - review.rating > 0
-                      ? "☆".repeat(5 - review.rating)
-                      : ""}
+                    {5 - review.rating > 0 ? "☆".repeat(5 - review.rating) : ""}
                   </span>
                 </span>
               </div>

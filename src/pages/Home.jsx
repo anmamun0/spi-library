@@ -1,187 +1,303 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import campus from "../assets//images/campus.jpg";
+import campus1 from "../assets/images/campus-1.avif";
+import campus2 from "../assets/images/campus-2.webp";
 
 export default function Home() {
   return (
+    <div className="bg-white text-gray-800">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Column */}
+          <div className="lg:w-2/3">
+            <h2 className="text-blue-800 font-bold mb-2">What's On</h2>
+            <img
+              src={campus} // Change to your actual image path
+              alt="New Centennial Exhibition"
+              className="w-full h-96 object-cover rounded shadow"
+            />
+            <h3 className="text-2xl font-semibold mt-4">
+              New Centennial Exhibition! 100: A Century of Collections,
+              Community, and Creativity
+            </h3>
+            <p className="text-sm text-gray-600 mt-1">
+              OPEN NOW. THROUGH JUNE 30, 2026
+            </p>
+            <p className="text-sm text-gray-800">
+              Schomburg Center for Research in Black Culture
+            </p>
 
-    
+            <button className="mt-6 border border-blue-800 text-gray-800 px-6 py-2 rounded-full hover:bg-amber-100 transition">
+              SEE MORE . . .
+            </button>
+          </div>
 
-    <div className="bg-white text-slate-800 shadow-sm border-b ">
-<section className=" py-4 px-4  whitespace-nowrap scrollbar-hide bg-amber-50 border-green-200">
-  <div className="flex space-x-4 px-10 ">
-    {[
-      "Science",
-      "Technology",
-      "Engineering",
-      "Mathematics",
-      "Fiction",
-      "Non-Fiction",
-      "History",
-      "Biographies",
-      "Comics",
-      "Mystery",
-      "Romance",
-      "Programming",
-      "Python",
-      "Data Science",
-      "Machine Learning",
-      "Databases",
-    ].map((category, index) => (
-      <span
-        key={index}
-        className="inline-block bg-slate-300 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-200 transition cursor-pointer"
-      >
-        {category}
-      </span>
-    ))}
-  </div>
-</section>
+          {/* Right Column */}
+          <div className="lg:w-1/3 space-y-6">
+            {/* Tab Menu */}
+            <div className="grid grid-cols-3 justify-between border-b border-red-500 pb-2 text-sm font-semibold uppercase">
+              <span className="hover:text-red-600 cursor-pointer">
+                Author Talks & Conversations
+              </span>
+              <span className="text-red-600 border-b-2 border-red-600">
+                Exhibitions{" "}
+              </span>
+              <span className="hover:text-red-600 cursor-pointer">
+                Kids & Teens
+              </span>
+            </div>
 
-      
+            {/* Events List */}
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <img
+                  src={campus1}
+                  alt="A Century"
+                  className="w-20 h-20 object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-base">
+                    A Century of The New Yorker
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    OPEN NOW. THROUGH FEBRUARY 21, 2026
+                  </p>
+                  <p className="text-sm">Stephen A. Schwarzman Building</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <img
+                  src={campus2}
+                  alt="Jazz"
+                  className="w-20 h-20 object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-base">
+                    Rhythm Is My Business: Women Who Shaped Jazz
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    OPEN NOW. THROUGH JUNE 13, 2025
+                  </p>
+                  <p className="text-sm">Library for the Performing Arts</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <img
+                  src={campus}
+                  alt="Motherwell"
+                  className="w-20 h-20 object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-base">
+                    Robert Motherwell: At Home and in the Studio
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    OPEN NOW. THROUGH AUGUST 2, 2025
+                  </p>
+                  <p className="text-sm">Stephen A. Schwarzman Building</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <img
+                  src={campus}
+                  alt="Motherwell"
+                  className="w-20 h-20 object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-base">
+                    Robert Motherwell: At Home and in the Studio
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    OPEN NOW. THROUGH AUGUST 2, 2025
+                  </p>
+                  <p className="text-sm">Stephen A. Schwarzman Building</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      );
       {/* Hero Section */}
-      <section className="bg-amber-50 border-b border-amber-100 py-20 px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-amber-600">
-          Sylhet Polytechnic Library System
+      <section className="bg-gray-100 text-gray-800 py-12 px-4 md:px-16">
+        {/* Top Bar */}
+
+        {/* Search Section */}
+        <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row items-center md:justify-between">
+            <div className="flex items-center space-x-4">
+              <p className="text-lg md:text-xl font-medium max-w-xl">
+                Internet Archive is a non-profit library of millions of free
+                texts, movies, software, music, websites, and more.
+              </p>
+            </div>
+
+            <div className="mt-6 md:mt-0">
+              <input
+                type="text"
+                placeholder="Enter URL or keywords"
+                className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
+              />
+              <button className="px-4 py-2 bg-black text-white rounded-r-md">
+                Go
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Help Section */}
+        <div className="mt-10 grid md:grid-cols-4 gap-4 text-center">
+          <div className="bg-white p-4 rounded shadow">
+            🔍
+            <br />
+            How to search the archive
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            ⬇️
+            <br />
+            How to download files
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            🎵
+            <br />
+            Listening to music
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            🕰️
+            <br />
+            Find old web pages
+          </div>
+        </div>
+      </section>
+      <section className="bg-gradient-to-r from-red-100 to-amber-200 py-20 px-4 text-center">
+        <h1 className="text-5xl font-bold mb-4 text-red-800">
+          Welcome to Your Library
         </h1>
-        <p className="text-lg max-w-2xl mx-auto mb-8 text-slate-700">
-          Streamline your academic life. Borrow books, explore digital resources, and manage your library account — all from one place.
+        <p className="text-lg max-w-2xl mx-auto mb-8">
+          Explore a world of knowledge and entertainment. Access books, digital
+          resources, events, and more.
         </p>
         <div className="space-x-4">
           <Link
-            to="/login"
-            className="bg-green-600 text-white px-6 py-3 font-medium rounded hover:bg-green-700 transition"
+            to="/catalog"
+            className="bg-slate-800 text-white px-6 py-3 font-medium rounded hover:bg-amber-700 transition"
           >
-            Login
+            Browse Catalog
           </Link>
           <Link
-            to="/register"
-            className="bg-amber-100 text-slate-800 px-6 py-3 font-medium rounded hover:bg-amber-200 transition"
+            to="/events"
+            className="bg-white text-slate-700 px-6 py-3 font-medium rounded border border-slate-700 hover:bg-green-100 transition"
           >
-            Register
+            View Events
           </Link>
         </div>
       </section>
-
-      {/* About Section */}
-      <section className="py-16 px-6 max-w-5xl mx-auto text-center bg-slate-50">
-        <h2 className="text-3xl font-bold mb-4 text-slate-800">About Our Library</h2>
-        <p className="text-slate-700 text-lg">
-          SPI Library is your academic assistant. Access a wide collection of books and digital materials, manage borrowing, and stay informed with real-time updates.
-        </p>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-white">
+      {/* Featured Services */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-slate-800">Key Features</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Featured Services
+          </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Book Borrowing", desc: "Easily borrow and return physical or digital books." },
-              { title: "Student Dashboard", desc: "Track borrowed books, due dates, and history." },
-              { title: "Advanced Search", desc: "Find books by title, author, category, or ISBN." },
-              { title: "Digital Resources", desc: "Access e-books, PDFs, and study materials online." },
-              { title: "Notifications", desc: "Get alerts before due dates and new book arrivals." },
-              { title: "Admin Panel", desc: "Manage books, users, and inventory efficiently." },
-            ].map((feature, index) => (
+              {
+                title: "Digital Library",
+                description:
+                  "Access eBooks, audiobooks, and more from anywhere.",
+                link: "/digital-library",
+              },
+              {
+                title: "Meeting Rooms",
+                description: "Reserve spaces for your meetings and events.",
+                link: "/meeting-rooms",
+              },
+              {
+                title: "Research Resources",
+                description:
+                  "Explore databases and research tools for all ages.",
+                link: "/research",
+              },
+            ].map((service, index) => (
               <div
                 key={index}
-                className="bg-slate-50 rounded-lg p-6 border border-slate-200 hover:shadow transition"
+                className="bg-white p-6 rounded shadow hover:shadow-lg transition"
               >
-                <h3 className="text-xl font-semibold mb-2 text-green-700">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-700">{feature.desc}</p>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="mb-4">{service.description}</p>
+                <Link
+                  to={service.link}
+                  className="text-green-700 hover:underline"
+                >
+                  Learn More →
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* How It Works */}
-      <section className="py-16 bg-amber-50">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-10 text-slate-800">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            {[
-              {
-                step: "1",
-                title: "Create Account",
-                desc: "Register online with your student ID and credentials.",
-              },
-              {
-                step: "2",
-                title: "Browse & Borrow",
-                desc: "Search and borrow books easily from the system.",
-              },
-              {
-                step: "3",
-                title: "Track & Return",
-                desc: "View due dates and return books before deadlines.",
-              },
-            ].map((item) => (
-              <div
-                key={item.step}
-                className="bg-white p-6 rounded border border-slate-200 shadow-sm hover:shadow-md transition"
-              >
-                <div className="text-3xl font-bold text-amber-500 mb-2">
-                  Step {item.step}
-                </div>
-                <h3 className="text-xl font-semibold mb-1 text-slate-800">{item.title}</h3>
-                <p className="text-slate-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Book Showcase */}
-      <section className="py-16 bg-slate-50">
+      {/* Digital Resources */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10 text-slate-800">
-            Explore Popular Books
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Digital Resources
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
-            {["Clean Code", "The Pragmatic Programmer", "Data Structures", "Python Crash Course"].map(
-              (title, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white p-4 rounded shadow-sm hover:shadow-md transition text-center border border-slate-200"
+            {[
+              { name: "Freegal", link: "/freegal" },
+              { name: "Kanopy", link: "/kanopy" },
+              { name: "Universal Class", link: "/universal-class" },
+              { name: "Goodreads Reviews", link: "/goodreads" },
+            ].map((resource, index) => (
+              <div
+                key={index}
+                className="bg-gray-100 p-4 rounded text-center hover:bg-gray-200 transition"
+              >
+                <h3 className="text-lg font-medium mb-2">{resource.name}</h3>
+                <Link
+                  to={resource.link}
+                  className="text-green-700 hover:underline"
                 >
-                  <div className="h-40 bg-slate-100 rounded mb-3"></div>
-                  <p className="font-medium text-slate-800">{title}</p>
-                </div>
-              )
-            )}
+                  Learn More →
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-green-600 text-white text-center">
-        <h2 className="text-3xl font-bold mb-4">Ready to Explore?</h2>
-        <p className="mb-6 text-lg">
-          Register now and begin your journey with SPI Library.
-        </p>
-        <Link
-          to="/register"
-          className="bg-white text-green-700 px-6 py-3 font-semibold rounded hover:bg-slate-100"
-        >
-          Get Started
-        </Link>
-      </section>
-
-      {/* Contact / FAQ */}
-      <section className="py-16 px-4 text-center max-w-3xl mx-auto bg-white">
-        <h2 className="text-2xl font-bold mb-4 text-slate-800">Need Help?</h2>
-        <p className="text-slate-700 mb-4">
-          Reach out to us at{" "}
-          <a href="mailto:librarian@spi.edu.bd" className="underline text-amber-600">
-            librarian@spi.edu.bd
-          </a>{" "}
-          or visit the help desk.
-        </p>
-        <p className="text-slate-500 text-sm">
-          View our FAQ page for common questions and support.
-        </p>
+      {/* Library Locations */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Library Locations
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                name: "Civic Center Library",
+                address: "3839 N. Drinkwater Blvd, Scottsdale, AZ 85251",
+                hours: "Mon-Thu: 10am–7pm, Fri-Sat: 10am–5pm, Sun: 1pm–5pm",
+              },
+              {
+                name: "Mustang Library",
+                address: "10101 N. 90th St, Scottsdale, AZ 85258",
+                hours: "Mon-Thu: 10am–7pm, Fri-Sat: 10am–5pm, Sun: 1pm–5pm",
+              },
+            ].map((location, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded shadow hover:shadow-lg transition"
+              >
+                <h3 className="text-xl font-semibold mb-2">{location.name}</h3>
+                <p className="mb-1">{location.address}</p>
+                <p className="text-sm text-gray-600">{location.hours}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );
