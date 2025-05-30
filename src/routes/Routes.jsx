@@ -5,7 +5,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Book from "../pages/Book";
 import BookDetails from "../pages/BookDetails";
-
+import Test from "../pages/Test";
+import AuthRedirect from "../components/AuthRedirect";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -15,26 +17,34 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element:(<Home/>),
+        element: <Home />,
       },
-     {
+      {
         path: '/login',
-        element:(<Login/>),
+        element: <Login />,
       },
-     {
+      {
         path: '/register',
-        element:(<Register/>),
+        element: <Register />,
       },
       {
         path: '/book',
-        element:(<Book/>),
+        element: <Book />,
       },
-       {
+      {
         path: '/bookdetails',
-        element:(<BookDetails/>),
-     }
+        element: <BookDetails />,
+      },
+      {
+        path: '/auth-redirect',
+        element: <AuthRedirect />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+      }
     ]
-  },
+  }
 ]);
 
 export default router;

@@ -3,93 +3,70 @@ import { Link } from "react-router-dom";
 import campus from "../assets//images/campus.jpg";
 import campus1 from "../assets/images/campus-1.avif";
 import campus2 from "../assets/images/campus-2.webp";
+import Test from "./Test";
 
 export default function Home() {
   return (
-    <div className="bg-white text-gray-800">
+    <div className="bg-white text-gray-800"> 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
+
           {/* Left Column */}
           <div className="lg:w-2/3">
             <h2 className="text-blue-800 font-bold mb-2">What's On</h2>
-            <img
-              src={campus} // Change to your actual image path
-              alt="New Centennial Exhibition"
-              className="w-full h-96 object-cover rounded shadow"
-            />
+
+            <Test/>  
+           
+            <img src={campus}  alt="New Centennial Exhibition" className="w-full h-96 object-cover rounded shadow"/>
             <h3 className="text-2xl font-semibold mt-4">
               New Centennial Exhibition! 100: A Century of Collections,
               Community, and Creativity
             </h3>
-            <p className="text-sm text-gray-600 mt-1">
-              OPEN NOW. THROUGH JUNE 30, 2026
-            </p>
-            <p className="text-sm text-gray-800">
-              Schomburg Center for Research in Black Culture
-            </p>
-
+            <p className="text-sm text-gray-600 mt-1">  OPEN NOW. THROUGH JUNE 30, 2026 </p>
+            <p className="text-sm text-gray-800"> Schomburg Center for Research in Black Culture </p>
             <button className="mt-6 border border-blue-800 text-gray-800 px-6 py-2 rounded-full hover:bg-amber-100 transition">
-              SEE MORE . . .
-            </button>
+              SEE MORE . . . </button>
+            
           </div>
 
           {/* Right Column */}
           <div className="lg:w-1/3 space-y-6">
+            
             {/* Tab Menu */}
             <div className="grid grid-cols-3 justify-between border-b border-red-500 pb-2 text-sm font-semibold uppercase">
-              <span className="hover:text-red-600 cursor-pointer">
-                Author Talks & Conversations
-              </span>
-              <span className="text-red-600 border-b-2 border-red-600">
-                Exhibitions{" "}
-              </span>
-              <span className="hover:text-red-600 cursor-pointer">
-                Kids & Teens
-              </span>
+              <span className="hover:text-red-600 cursor-pointer"> Author Talks & Conversations </span>
+              <span className="text-red-600 border-b-2 border-red-600"> Exhibitions{" "} </span>
+              <span className="hover:text-red-600 cursor-pointer"> Kids & Teens </span>
             </div>
 
             {/* Events List */}
             <div className="space-y-4">
               <div className="flex gap-4">
-                <img
-                  src={campus1}
-                  alt="A Century"
-                  className="w-20 h-20 object-cover"
-                />
+                <img src={campus1} alt="A Century" className="w-20 h-20 object-cover" />
                 <div>
-                  <h4 className="font-semibold text-base">
-                    A Century of The New Yorker
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    OPEN NOW. THROUGH FEBRUARY 21, 2026
-                  </p>
+                  <h4 className="font-semibold text-base"> A Century of The New Yorker </h4>
+                  <p className="text-sm text-gray-600"> OPEN NOW. THROUGH FEBRUARY 21, 2026 </p>
                   <p className="text-sm">Stephen A. Schwarzman Building</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <img
-                  src={campus2}
-                  alt="Jazz"
-                  className="w-20 h-20 object-cover"
-                />
+                <img  src={campus2} alt="Jazz"  className="w-20 h-20 object-cover" />
                 <div>
                   <h4 className="font-semibold text-base">
                     Rhythm Is My Business: Women Who Shaped Jazz
                   </h4>
+
                   <p className="text-sm text-gray-600">
                     OPEN NOW. THROUGH JUNE 13, 2025
                   </p>
+
                   <p className="text-sm">Library for the Performing Arts</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <img
-                  src={campus}
-                  alt="Motherwell"
-                  className="w-20 h-20 object-cover"
-                />
+                <img  src={campus} alt="Motherwell" className="w-20 h-20 object-cover" />
                 <div>
                   <h4 className="font-semibold text-base">
                     Robert Motherwell: At Home and in the Studio
@@ -101,11 +78,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <img
-                  src={campus}
-                  alt="Motherwell"
-                  className="w-20 h-20 object-cover"
-                />
+                <img src={campus} alt="Motherwell" className="w-20 h-20 object-cover"/>
                 <div>
                   <h4 className="font-semibold text-base">
                     Robert Motherwell: At Home and in the Studio
@@ -121,6 +94,7 @@ export default function Home() {
         </div>
       </div>
       );
+    
       {/* Hero Section */}
       <section className="bg-gray-100 text-gray-800 py-12 px-4 md:px-16">
         {/* Top Bar */}
@@ -137,11 +111,8 @@ export default function Home() {
             </div>
 
             <div className="mt-6 md:mt-0">
-              <input
-                type="text"
-                placeholder="Enter URL or keywords"
-                className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
-              />
+              <input type="text" placeholder="Enter URL or keywords"
+                className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80" />
               <button className="px-4 py-2 bg-black text-white rounded-r-md">
                 Go
               </button>
