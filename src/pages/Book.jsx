@@ -167,12 +167,10 @@ export default function Book() {
                 key={book.id}
                 className="bg-white border border-slate-200 p-4 rounded shadow hover:shadow-lg transition"
               >
-                <img
-                  src={book.image}
-                  alt={book.title}
-                  className="w-full h-48 object-cover mb-3 rounded"
+                <img src={book.image} alt={book.title}  className="w-full h-48 object-cover mb-3 rounded"
                 />
                 <h3 className="text-xl font-bold text-slate-700 mb-1">
+                  
                   {book.title}
                 </h3>
                 <p className="text-slate-700">Author: {book.author}</p>

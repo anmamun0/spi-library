@@ -69,7 +69,7 @@ const Login = () => {
             <div className="relative w-60 h-60 flex items-center justify-center">
               <div
                 className={clsx(
-                  "absolute w-full h-full border-4 border-t-transparent border-b-transparent border-l-transparent border-r-blue-800 rounded-full animate-spin",
+                  "absolute w-full h-full border-4 border-t-transparent border-b-slate-500 border-l-transparent border-r-blue-800 rounded-full animate-spin",
                   !formSubmit && "hidden"
                 )} />
               {/* https://cdn-icons-png.flaticon.com/512/747/747376.png */}
@@ -110,7 +110,9 @@ const Login = () => {
             <div className="space-y-6">
               <div className="relative">
                 <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-gray-500">
-                  <i className="fa-solid fa-user"></i>
+                  {profileImage ?<i class="fa-solid fa-check text-green-500"></i>: <i className="fa-solid fa-user"></i>  }
+                  
+                  
                 </span>
                 <input
                   type="email"

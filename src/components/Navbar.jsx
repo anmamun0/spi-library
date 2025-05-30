@@ -36,10 +36,11 @@ export default function Navbar() {
         {/* Logo and Name */}
         <div className="flex space-x-2">
           <div>
-            <img src={logo} alt="Library Logo" className="w-16 h-16" />
+            <Link path='/'><img src={logo} alt="Library Logo" className="w-16 h-16" /> </Link>
+            
           </div>
           <div className="block pt-1">
-            <span className="text-xl text-left font-bold text-blue-700 uppercase"> SPI-Library </span>
+            <span className="text-xl text-left font-bold text-blue-700 uppercase"> <Link path='/'>SPI-Library </Link> </span>
             <span className="block text-sm">Sylhet Polytechnic Institute</span>
           </div>
         </div>
@@ -76,7 +77,7 @@ export default function Navbar() {
             onMouseEnter={() => setShowCategories(true)}
             onMouseLeave={() => setShowCategories(false)}
           >
-            <NavLink to="/" className="hover:text-amber-400"> Catalog </NavLink>
+            <NavLink to="/category" className="hover:text-amber-400"> Catalog </NavLink>
 
             {showCategories && (
               <div className="absolute left-0 mt-3 bg-white text-slate-800 shadow-lg rounded w-[700px] z-10 p-4">
@@ -95,11 +96,11 @@ export default function Navbar() {
 
           {/* Other links */}
           <li> <NavLink to="/book" className=" hover:text-amber-400"> eBooks & Audiobooks </NavLink>  </li>
-          <li> <NavLink to="/" className="hover:text-amber-400">  Teen Zone                </NavLink>    </li>
-          <li> <NavLink to="/" className="hover:text-amber-400"> Research & Databases   </NavLink>    </li>
-          <li> <NavLink to="/" className="hover:text-amber-400">  Events & Programs  </NavLink>   </li>
-          <li> <NavLink to="/" className="hover:text-amber-400"> Help & Support    </NavLink>   </li>
-          <li> <NavLink to="/" className="hover:text-amber-400 ">  Library Card </NavLink>   </li>
+          <li> <NavLink to="/teen" className="hover:text-amber-400">  Teen Zone                </NavLink>    </li>
+          <li> <NavLink to="/research" className="hover:text-amber-400"> Research & Databases   </NavLink>    </li>
+          <li> <NavLink to="/enent" className="hover:text-amber-400">  Events & Programs  </NavLink>   </li>
+          <li> <NavLink to="/help" className="hover:text-amber-400"> Help & Support    </NavLink>   </li>
+          <li> <NavLink to="/card" className="hover:text-amber-400 ">  Library Card </NavLink>   </li>
 
         </ul>
         </div>
