@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import clsx from "clsx"; 
+import clsx from "clsx";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -83,13 +83,11 @@ const Login = () => {
                   alt="Login"
                   className="w-44 h-44 rounded-full z-10 object-cover bg-white"
                 />
-                {profileImage &&
-                 <button className="absolute bottom-0 right-8 bg-green-600 hover:bg-green-700 text-white  px-1 rounded-full transition shadow-md">
-                  <i className="fa-solid fa-check"></i>
-                </button>
-                }
-                
-
+                {profileImage && (
+                  <button className="absolute bottom-0 right-8 bg-green-600 hover:bg-green-700 text-white  px-1 rounded-full transition shadow-md">
+                    <i className="fa-solid fa-check"></i>
+                  </button>
+                )}
               </div>
             </div>
             <div className="mt-4 text-center">

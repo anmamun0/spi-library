@@ -2,10 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Profile = ( ) => {
-    const student = {};
-    const borrowedBooks = [];
-    const transactions = [] 
+const Profile = () => {
+  const student = {};
+  const borrowedBooks = [];
+  const transactions = [];
 
   const {
     username,
@@ -24,19 +24,20 @@ const Profile = ( ) => {
     image_url,
   } = student;
 
-
-
   // Calculate some summary stats
   const totalBooks = borrowedBooks.length;
-  const overdueBooks = borrowedBooks.filter(book => {
+  const overdueBooks = borrowedBooks.filter((book) => {
     if (!book.dueDate) return false;
     return new Date(book.dueDate) < new Date() && book.status !== "Returned";
   }).length;
-  const totalFines = transactions.reduce((sum, tx) => sum + (tx.amount || 0), 0);
+  const totalFines = transactions.reduce(
+    (sum, tx) => sum + (tx.amount || 0),
+    0
+  );
 
   const navigate = useNavigate();
-  
- const handleLogout = async () => {
+
+  const handleLogout = async () => {
     const token = localStorage.getItem("token_id");
     if (!token) {
       alert("No token found, you are probably already logged out.");
@@ -54,14 +55,13 @@ const Profile = ( ) => {
         }
       );
       localStorage.removeItem("token_id");
-      navigate('/login');  // <-- use navigate here
-      alert("Logged out successfully!"); 
+      navigate("/login"); // <-- use navigate here
+      alert("Logged out successfully!");
     } catch (error) {
       console.error("Logout failed:", error);
       alert("Logout failed. Please try again.");
     }
   };
-
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center p-6">

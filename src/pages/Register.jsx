@@ -3,7 +3,22 @@ import axios from "axios";
 import clsx from "clsx";
 
 const Register = () => {
-  const initialFormState = {  username: "",  full_name: "", password: "", email: "",phone: "",roll: "",registration: "",session: "",department: "",address: "",blood: "A+",nationality_type: "NID",nationality_number: "",role: "student",};
+  const initialFormState = {
+    username: "",
+    full_name: "",
+    password: "",
+    email: "",
+    phone: "",
+    roll: "",
+    registration: "",
+    session: "",
+    department: "",
+    address: "",
+    blood: "A+",
+    nationality_type: "NID",
+    nationality_number: "",
+    role: "student",
+  };
   const [formData, setFormData] = useState(initialFormState);
   const [duplicateError, setDuplicateError] = useState({});
   const [registerAnimation, setregisterAnimation] = useState(null);
@@ -16,12 +31,10 @@ const Register = () => {
     { value: "BIRTH", label: "Birth Certificate" },
   ];
 
-
   const handleChange = (e) => {
-    const { name, value } = e.target; 
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,11 +45,10 @@ const Register = () => {
         "https://spi-library.onrender.com/user/register/",
         formData
       );
-      console.log(response.data); 
+      console.log(response.data);
       setFormData(initialFormState); // Reset after successful submission
-      setDuplicateError(prev => ({ ...prev, successRegistration: true }));
+      setDuplicateError((prev) => ({ ...prev, successRegistration: true }));
       setregisterAnimation(false);
-
     } catch (error) {
       setregisterAnimation(false);
 
@@ -143,7 +155,7 @@ const Register = () => {
               required
               className="border border-gray-400 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             />
-           </div>
+          </div>
 
           {/* Password */}
           <div className="flex flex-col">
