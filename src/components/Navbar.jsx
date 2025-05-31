@@ -49,7 +49,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center space-x-4">
           <div className="mt-6 md:mt-0">
             <input type="text" placeholder="Enter URL or keywords" className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80" />
-            <button className="px-4 py-2 bg-black text-white rounded-r-md"> Go </button>
+            <button className="px-4 py-2 bg-slate-800 text-white rounded-r-md"> Go </button>
           </div>
 
           <div className="flex">
@@ -105,6 +105,7 @@ export default function Navbar() {
         </ul>
         </div>
       </div>
+
 
       {/* Mobile Menu */}
       {isOpen && (

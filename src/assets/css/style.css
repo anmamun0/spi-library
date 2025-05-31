@@ -7,4 +7,16 @@
 font-family: "Open Sans", sans-serif;
 }
 
- 
+ @keyframes borderFlow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-borderFlow {
+  position: absolute;
+  animation: borderFlow 2s linear infinite;
+}

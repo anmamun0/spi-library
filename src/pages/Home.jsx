@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import campus from "../assets//images/campus.jpg";
-import campus1 from "../assets/images/campus-1.avif";
-import campus2 from "../assets/images/campus-2.webp";
+import campus from "../assets//images/spi-5.jpg";
+import campus1 from "../assets/images/spi-3.jpg";
+import campus2 from "../assets/images/spi-6.jpg";
+import campus3 from "../assets/images/spi-1.jpg";
+
 import Test from "./Test";
 
 export default function Home() {
@@ -14,9 +16,7 @@ export default function Home() {
           {/* Left Column */}
           <div className="lg:w-2/3">
             <h2 className="text-blue-800 font-bold mb-2">What's On</h2>
-
-            <Test/>  
-           
+ 
             <img src={campus}  alt="New Centennial Exhibition" className="w-full h-96 object-cover rounded shadow"/>
             <h3 className="text-2xl font-semibold mt-4">
               New Centennial Exhibition! 100: A Century of Collections,
@@ -78,7 +78,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <img src={campus} alt="Motherwell" className="w-20 h-20 object-cover"/>
+                <img src={campus3} alt="Motherwell" className="w-20 h-20 object-cover"/>
                 <div>
                   <h4 className="font-semibold text-base">
                     Robert Motherwell: At Home and in the Studio

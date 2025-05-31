@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Profile = ( ) => {
     const student = {};
@@ -22,6 +24,8 @@ const Profile = ( ) => {
     image_url,
   } = student;
 
+
+
   // Calculate some summary stats
   const totalBooks = borrowedBooks.length;
   const overdueBooks = borrowedBooks.filter(book => {
@@ -30,28 +34,76 @@ const Profile = ( ) => {
   }).length;
   const totalFines = transactions.reduce((sum, tx) => sum + (tx.amount || 0), 0);
 
+  const navigate = useNavigate();
+  
+ const handleLogout = async () => {
+    const token = localStorage.getItem("token_id");
+    if (!token) {
+      alert("No token found, you are probably already logged out.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "https://spi-library.onrender.com/user/logout/",
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`, // or `Bearer ${token}` depending on your API
+          },
+        }
+      );
+      localStorage.removeItem("token_id");
+      navigate('/login');  // <-- use navigate here
+      alert("Logged out successfully!"); 
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Logout failed. Please try again.");
+    }
+  };
+
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center p-6">
       <div className="max-w-6xl w-full backdrop-blur-md bg-white/60 border border-blue-800/30 rounded-3xl shadow-lg p-8 text-slate-800">
-
         <h1 className="text-4xl font-bold mb-8 text-center text-blue-800 tracking-wide drop-shadow-sm">
           Library Student Dashboard
         </h1>
 
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+        >
+          Logout
+        </button>
+
         {/* Top Summary Cards */}
         <div className="flex flex-wrap justify-center gap-6 mb-12">
-          <SummaryCard label="Total Books Borrowed" value={totalBooks} color="blue" />
-          <SummaryCard label="Overdue Books" value={overdueBooks} color="yellow" />
-          <SummaryCard label="Total Fines (BDT)" value={totalFines.toFixed(2)} color="slate" />
+          <SummaryCard
+            label="Total Books Borrowed"
+            value={totalBooks}
+            color="blue"
+          />
+          <SummaryCard
+            label="Overdue Books"
+            value={overdueBooks}
+            color="yellow"
+          />
+          <SummaryCard
+            label="Total Fines (BDT)"
+            value={totalFines.toFixed(2)}
+            color="slate"
+          />
         </div>
 
         <div className="flex flex-col md:flex-row gap-12">
-
           {/* Left: Profile Info */}
           <div className="flex-shrink-0 w-full md:w-1/3">
             <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-yellow-400/50 shadow-md mx-auto md:mx-0 mb-6">
               <img
-                src={image_url || "https://via.placeholder.com/176?text=No+Image"}
+                src={
+                  image_url || "https://via.placeholder.com/176?text=No+Image"
+                }
                 alt={`${full_name}'s profile`}
                 className="object-cover w-full h-full"
               />
@@ -68,7 +120,10 @@ const Profile = ( ) => {
               <ProfileRow label="Address" value={address} />
               <ProfileRow label="Blood Group" value={blood} />
               <ProfileRow label="Nationality Type" value={nationality_type} />
-              <ProfileRow label="Nationality Number" value={nationality_number} />
+              <ProfileRow
+                label="Nationality Number"
+                value={nationality_number}
+              />
               <ProfileRow label="Role" value={role} />
             </div>
           </div>
@@ -80,7 +135,9 @@ const Profile = ( ) => {
                 Borrowed Books
               </h2>
               {borrowedBooks.length === 0 ? (
-                <p className="text-slate-600 italic">No borrowed books found.</p>
+                <p className="text-slate-600 italic">
+                  No borrowed books found.
+                </p>
               ) : (
                 <div className="overflow-x-auto rounded-lg border border-blue-800/30 shadow-sm">
                   <table className="w-full text-left text-slate-800">
@@ -93,21 +150,31 @@ const Profile = ( ) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {borrowedBooks.map(({ id, title, borrowDate, dueDate, status }) => (
-                        <tr
-                          key={id}
-                          className={`border-t border-blue-800/20 ${
-                            status === "Overdue" || (new Date(dueDate) < new Date() && status !== "Returned")
-                              ? "bg-yellow-100"
-                              : ""
-                          }`}
-                        >
-                          <td className="px-4 py-3 font-medium">{title}</td>
-                          <td className="px-4 py-3">{new Date(borrowDate).toLocaleDateString()}</td>
-                          <td className="px-4 py-3">{dueDate ? new Date(dueDate).toLocaleDateString() : "-"}</td>
-                          <td className="px-4 py-3 capitalize">{status}</td>
-                        </tr>
-                      ))}
+                      {borrowedBooks.map(
+                        ({ id, title, borrowDate, dueDate, status }) => (
+                          <tr
+                            key={id}
+                            className={`border-t border-blue-800/20 ${
+                              status === "Overdue" ||
+                              (new Date(dueDate) < new Date() &&
+                                status !== "Returned")
+                                ? "bg-yellow-100"
+                                : ""
+                            }`}
+                          >
+                            <td className="px-4 py-3 font-medium">{title}</td>
+                            <td className="px-4 py-3">
+                              {new Date(borrowDate).toLocaleDateString()}
+                            </td>
+                            <td className="px-4 py-3">
+                              {dueDate
+                                ? new Date(dueDate).toLocaleDateString()
+                                : "-"}
+                            </td>
+                            <td className="px-4 py-3 capitalize">{status}</td>
+                          </tr>
+                        )
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -134,7 +201,9 @@ const Profile = ( ) => {
                     <tbody>
                       {transactions.map(({ id, date, type, amount, notes }) => (
                         <tr key={id} className="border-t border-blue-800/20">
-                          <td className="px-4 py-3">{new Date(date).toLocaleDateString()}</td>
+                          <td className="px-4 py-3">
+                            {new Date(date).toLocaleDateString()}
+                          </td>
                           <td className="px-4 py-3 capitalize">{type}</td>
                           <td className="px-4 py-3">{amount.toFixed(2)}</td>
                           <td className="px-4 py-3">{notes || "-"}</td>

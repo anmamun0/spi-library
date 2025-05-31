@@ -64,16 +64,17 @@ const Login = () => {
     <div className="container mx-auto min-h-[85vh] flex items-center justify-center">
       <div className="bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
         {/* Left Image Section */}
-        <div className="flex justify-center col-span-3">
-          <div>
+        <div className="flex justify-center col-span-3   py-16 rounded-lg">
+          <div className="">
             <div className="relative w-60 h-60 flex items-center justify-center">
               <div
                 className={clsx(
-                  "absolute w-full h-full border-4 border-t-transparent border-b-slate-500 border-l-transparent border-r-blue-800 rounded-full animate-spin",
+                  "absolute w-full h-full border-4 border-t-transparent border-b-green-400 border-l-transparent border-r-green-500 rounded-full animate-spin",
                   !formSubmit && "hidden"
-                )} />
+                )}
+              />
               {/* https://cdn-icons-png.flaticon.com/512/747/747376.png */}
-              <div>
+              <div className="relative">
                 <img
                   src={
                     profileImage ||
@@ -82,10 +83,23 @@ const Login = () => {
                   alt="Login"
                   className="w-44 h-44 rounded-full z-10 object-cover bg-white"
                 />
+                {profileImage &&
+                 <button className="absolute bottom-0 right-8 bg-green-600 hover:bg-green-700 text-white  px-1 rounded-full transition shadow-md">
+                  <i className="fa-solid fa-check"></i>
+                </button>
+                }
+                
+
               </div>
             </div>
             <div className="mt-4 text-center">
-              <button  onClick={() => navigate(`/profile`)} className={clsx("bg-blue-600 text-white py-2 px-6 rounded-full font-semibold hover:bg-blue-700 transition",!profileImage && 'hidden' )} >
+              <button
+                onClick={() => navigate(`/profile`)}
+                className={clsx(
+                  "bg-blue-600 text-white py-2 px-6 rounded-full font-semibold hover:bg-blue-700 transition",
+                  !profileImage && "hidden"
+                )}
+              >
                 Go to Profile
               </button>
             </div>
@@ -94,7 +108,7 @@ const Login = () => {
 
         {/* Right Form Section */}
         <div className="col-span-2">
-          <div className="mb-10 text-center space-y-2">
+          <div className="mb-10 text-center space-y-2 ">
             <h2
               className="text-4xl font-semibold text-slate-800"
               style={{ fontFamily: `"Open Sans", sans-serif` }}
@@ -110,9 +124,11 @@ const Login = () => {
             <div className="space-y-6">
               <div className="relative">
                 <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-gray-500">
-                  {profileImage ?<i class="fa-solid fa-check text-green-500"></i>: <i className="fa-solid fa-user"></i>  }
-                  
-                  
+                  {profileImage ? (
+                    <i class="fa-solid fa-check text-green-500"></i>
+                  ) : (
+                    <i className="fa-solid fa-user"></i>
+                  )}
                 </span>
                 <input
                   type="email"
