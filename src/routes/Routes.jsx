@@ -48,6 +48,11 @@ const router = createBrowserRouter([
         path: '/profile',
         element: <Profile />,
       }
+      ,
+      {
+        path: '/test',
+        element: <Test />,
+      }
     ]
   },
   {

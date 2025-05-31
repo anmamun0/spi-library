@@ -31,7 +31,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="container mx-auto px-4 py-3 flex max-w-7xl justify-between items-center">
 
         {/* Logo and Name */}
         <div className="flex space-x-2">
@@ -70,7 +70,7 @@ export default function Navbar() {
 
       {/* Full Menu Bar  container mx-auto */}
       <div className="bg-slate-800  "> 
-      <div className="container mx-auto px-4  text-white text-sm font-medium hidden lg:flex relative">
+      <div className="container max-w-7xl mx-auto px-4  text-white text-sm font-medium hidden lg:flex relative">
         <ul className="flex space-x-6 py-3">
           {/* Catalog with Dropdown */}
           <li className="relative"

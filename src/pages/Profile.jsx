@@ -1,39 +1,111 @@
 import React from "react";
-import axios from "axios";
+import { BookOpen, CalendarDays, UserCheck, Clock, Activity, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Profile = () => {
-  const student = {};
-  const borrowedBooks = [];
-  const transactions = [];
+  const student = {
+    name: "Nur Mohummod Al Mamun",
+    role: "Product Designer",
+    rating: 8.6,
+    phone: "+123 456 7890",
+    address: "1234 Web Street, NY 10001",
+    email: "hello@jeremyrose.com",
+    website: "jeremyrose.com",
+    birthday: "June 5, 1992",
+    gender: "Male",
+    blood: "O+",
+    username: "anmamun0",
+    department: "CSE",
+    roll: "676229",
+    registration: "1502221114",
+    session: "2122",
+    nationality_type: "NID",
+    nationality_number: "3242334",
+    permanentAddress: "123 Permanent Ave, NY 10001",
+    residentialAddress: "456 Residential Blvd, NY 10002",
+    avatar: "https://i.ibb.co/0RyZjLt7/cv-Profile.png",
+    work: ["Spotify New York", "Metropolitan Museum"],
+    tags: ["Branding", "Visual", "Product Design", "Print & Editorial"],
+    education: [
+      {
+        level: "Masters",
+        institution: "Vision Institute of Pharmacy",
+        marks: "80%",
+        year: "2015-2018",
+      },
+      {
+        level: "Bachelors",
+        institution: "Vision Institute of Pharmacy",
+        marks: "80%",
+        year: "2009-2015",
+      },
+    ],
+  };
+  const transactions = [
+    {
+      id: 1,
+      status: "pending",
+      book_title: "Atomic Habits",
+      profile: "Mamun",
+      request_date: "2025-05-24",
+    },
+    {
+      id: 2,
+      status: "borrow",
+      book_title: "Clean Code",
+      profile: "Mamun",
+      request_date: "2025-05-25",
+    },
+    {
+      id: 3,
+      status: "returned",
+      book_title: "The Pragmatic Programmer",
+      profile: "Mamun",
+      request_date: "2025-05-20",
+    },
+      {
+      id: 4,
+      status: "pending",
+      book_title: "The Pragmatic Programmer",
+      profile: "Mamun",
+      request_date: "2025-05-20",
+    },
+        {
+      id: 5,
+      status: "borrow",
+      book_title: "The Pragmatic Programmer",
+      profile: "Mamun",
+      request_date: "2025-05-20",
+    },
+          {
+      id: 6,
+      status: "pending",
+      book_title: "The Pragmatic Programmer",
+      profile: "Mamun",
+      request_date: "2025-05-20",
+    },
+            {
+      id: 7,
+      status: "borrow",
+      book_title: "The Pragmatic Programmer",
+      profile: "Mamun",
+      request_date: "2025-05-20",
+    },
+  ];
 
-  const {
-    username,
-    full_name,
-    email,
-    phone,
-    roll,
-    registration,
-    session,
-    department,
-    address,
-    blood,
-    nationality_type,
-    nationality_number,
-    role,
-    image_url,
-  } = student;
-
-  // Calculate some summary stats
-  const totalBooks = borrowedBooks.length;
-  const overdueBooks = borrowedBooks.filter((book) => {
-    if (!book.dueDate) return false;
-    return new Date(book.dueDate) < new Date() && book.status !== "Returned";
-  }).length;
-  const totalFines = transactions.reduce(
-    (sum, tx) => sum + (tx.amount || 0),
-    0
-  );
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "pending":
+        return <Clock className="text-yellow-500 w-5 h-5" />;
+      case "borrow":
+        return <BookOpen className="text-blue-600 w-5 h-5" />;
+      case "returned":
+        return <CheckCircle className="text-green-600 w-5 h-5" />;
+      default:
+        return <Clock className="text-gray-400 w-5 h-5" />;
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -64,182 +136,217 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col items-center p-6">
-      <div className="max-w-6xl w-full backdrop-blur-md bg-white/60 border border-blue-800/30 rounded-3xl shadow-lg p-8 text-slate-800">
-        <h1 className="text-4xl font-bold mb-8 text-center text-blue-800 tracking-wide drop-shadow-sm">
-          Library Student Dashboard
-        </h1>
+    <div className="bg-gray-100 py-6 flex justify-center">
+      <div className="w-full max-w-7xl  rounded-lg  ">
+        {/* Header */}
+        <div className="flex flex-col bg-white md:flex-row md:justify-between items-center border-b border-gray-300 pb-6 mb-6 p-8 rounded-md">
+          <div className="flex items-center space-x-6">
+            <img
+              src={student.avatar}
+              alt="Avatar"
+              className="w-36 h-36 rounded-full object-cover"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">{student.name}</h2> 
+              <p className="text-gray-600">anmamun0@gmail.com</p>
+              <p className="text-gray-600">+8801782 059949</p>
+              <p className="text-gray-600">CSE 21-22</p>
+              <p className="text-blue-600 font-semibold text-sm">
+                {student.rating} ★★★★★
+              </p>
+            </div>
+          </div>
+<div className="flex flex-wrap items-start gap-6 p-6 bg-white rounded-lg shadow-sm max-w-lg">
+  {/* Student Info */}
+  <ul className="flex flex-col gap-3 text-gray-700 text-sm flex-grow">
+    <li className="flex items-center gap-3">
+      <BookOpen className="w-5 h-5 text-gray-500" />
+      <span><strong>Books Read:</strong> {student.booksRead}</span>
+    </li>
+    <li className="flex items-center gap-3">
+      <UserCheck className="w-5 h-5 text-gray-500" />
+      <span><strong>Account Activated:</strong> {student.accountCreated}</span>
+    </li>
+    <li className="flex items-center gap-3">
+      <Clock className="w-5 h-5 text-gray-500" />
+      <span><strong>Last Active:</strong> 4 July 2025</span>
+    </li>
+  </ul>
 
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-        >
-          Logout
-        </button>
+  {/* Buttons Stack */}
+  <div className="flex flex-col gap-3">
+      <button className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 text-gray-800 text-sm transition">
+      Books
+    </button> 
+    <button onClick={handleLogout} className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 text-gray-800 text-sm transition">
+      Logout
+    </button>
+ 
+  </div>
+</div>
 
-        {/* Top Summary Cards */}
-        <div className="flex flex-wrap justify-center gap-6 mb-12">
-          <SummaryCard
-            label="Total Books Borrowed"
-            value={totalBooks}
-            color="blue"
-          />
-          <SummaryCard
-            label="Overdue Books"
-            value={overdueBooks}
-            color="yellow"
-          />
-          <SummaryCard
-            label="Total Fines (BDT)"
-            value={totalFines.toFixed(2)}
-            color="slate"
-          />
+
+          
+
         </div>
 
-        <div className="flex flex-col md:flex-row gap-12">
-          {/* Left: Profile Info */}
-          <div className="flex-shrink-0 w-full md:w-1/3">
-            <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-yellow-400/50 shadow-md mx-auto md:mx-0 mb-6">
-              <img
-                src={
-                  image_url || "https://via.placeholder.com/176?text=No+Image"
-                }
-                alt={`${full_name}'s profile`}
-                className="object-cover w-full h-full"
-              />
+        {/* Personal Details */}
+        <div className="grid md:grid-cols-2 gap-6 mb-6 my-4 ">
+          <div className="bg-white rounded-md  p-10 shadow-sm">
+            <div className="flex justify-between pb-3">
+              <h3 className="font-semibold text-lg mb-4">Personal Details</h3>
+              <i class="fa-solid fa-pen text-gray-600"></i>
             </div>
-            <div className="space-y-4 text-center md:text-left">
-              <ProfileRow label="Full Name" value={full_name} />
-              <ProfileRow label="Username" value={username} />
-              <ProfileRow label="Email" value={email} />
-              <ProfileRow label="Phone" value={phone} />
-              <ProfileRow label="Roll" value={roll} />
-              <ProfileRow label="Registration No." value={registration} />
-              <ProfileRow label="Session" value={session} />
-              <ProfileRow label="Department" value={department} />
-              <ProfileRow label="Address" value={address} />
-              <ProfileRow label="Blood Group" value={blood} />
-              <ProfileRow label="Nationality Type" value={nationality_type} />
-              <ProfileRow
-                label="Nationality Number"
-                value={nationality_number}
-              />
-              <ProfileRow label="Role" value={role} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-gray-700">
+              <ul className="space-y-3">
+                <li>
+                  <strong>Full Name</strong>
+                  <div>{student.name}</div>
+                </li>
+
+                <li>
+                  <strong>Role</strong>
+                  <div>{student.role}</div>
+                </li>
+                <li>
+                  <strong>Session</strong>
+                  <div>{student.session}</div>
+                </li>
+
+                <li>
+                  <strong>Phone</strong>
+                  <div>{student.phone}</div>
+                </li>
+
+                <li>
+                  <strong>Gender</strong>
+                  <div>{student.gender}</div>
+                </li>
+                <li>
+                  <strong>Nationality Type</strong>
+                  <div>{student.nationality_type}</div>
+                </li>
+                <li>
+                  <strong>Address</strong>
+                  <div>{student.address}</div>
+                </li>
+
+                <li>
+                  <strong>Permanent Address</strong>
+                  <div>{student.permanentAddress}</div>
+                </li>
+              </ul>
+              <ul className="space-y-3">
+                <li>
+                  <strong>Username</strong>
+                  <div>{student.username}</div>
+                </li>
+                <li>
+                  <strong>Registration</strong>
+                  <div>{student.registration}</div>
+                </li>
+                <li>
+                  <strong>Department</strong>
+                  <div>{student.department}</div>
+                </li>
+                <li>
+                  <strong>Email</strong>
+                  <div>{student.email}</div>
+                </li>
+                <li>
+                  <strong>Birthday</strong>
+                  <div>{student.birthday}</div>
+                </li>
+
+                <li>
+                  <strong>Nationality Number</strong>
+                  <div>{student.nationality_number}</div>
+                </li>
+                <li>
+                  <strong>Blood Group</strong>
+                  <div>{student.blood}</div>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Right: Borrowed Books + Transactions */}
-          <div className="flex-grow space-y-10">
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-blue-800 border-b border-blue-800/40 pb-2">
-                Borrowed Books
-              </h2>
-              {borrowedBooks.length === 0 ? (
-                <p className="text-slate-600 italic">
-                  No borrowed books found.
-                </p>
-              ) : (
-                <div className="overflow-x-auto rounded-lg border border-blue-800/30 shadow-sm">
-                  <table className="w-full text-left text-slate-800">
-                    <thead className="bg-blue-800/10">
-                      <tr>
-                        <th className="px-4 py-3">Title</th>
-                        <th className="px-4 py-3">Borrow Date</th>
-                        <th className="px-4 py-3">Due Date</th>
-                        <th className="px-4 py-3">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {borrowedBooks.map(
-                        ({ id, title, borrowDate, dueDate, status }) => (
-                          <tr
-                            key={id}
-                            className={`border-t border-blue-800/20 ${
-                              status === "Overdue" ||
-                              (new Date(dueDate) < new Date() &&
-                                status !== "Returned")
-                                ? "bg-yellow-100"
-                                : ""
-                            }`}
-                          >
-                            <td className="px-4 py-3 font-medium">{title}</td>
-                            <td className="px-4 py-3">
-                              {new Date(borrowDate).toLocaleDateString()}
-                            </td>
-                            <td className="px-4 py-3">
-                              {dueDate
-                                ? new Date(dueDate).toLocaleDateString()
-                                : "-"}
-                            </td>
-                            <td className="px-4 py-3 capitalize">{status}</td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </section>
+          {/* Academic Info */}
+          <div className="bg-white rounded-md  p-8 shadow-sm">
+            <h3 className="font-semibold text-lg mb-4">Transaction</h3>
+            <div className="flex gap-4 mb-6">
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-yellow-400 text-yellow-700 bg-yellow-100 hover:bg-yellow-200 transition">
+                <Clock className="w-4 h-4" />
+                Pending
+              </button>
 
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-blue-800 border-b border-blue-800/40 pb-2">
-                Transaction History
-              </h2>
-              {transactions.length === 0 ? (
-                <p className="text-slate-600 italic">No transactions found.</p>
-              ) : (
-                <div className="overflow-x-auto rounded-lg border border-blue-800/30 shadow-sm">
-                  <table className="w-full text-left text-slate-800">
-                    <thead className="bg-blue-800/10">
-                      <tr>
-                        <th className="px-4 py-3">Date</th>
-                        <th className="px-4 py-3">Type</th>
-                        <th className="px-4 py-3">Amount (BDT)</th>
-                        <th className="px-4 py-3">Notes</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {transactions.map(({ id, date, type, amount, notes }) => (
-                        <tr key={id} className="border-t border-blue-800/20">
-                          <td className="px-4 py-3">
-                            {new Date(date).toLocaleDateString()}
-                          </td>
-                          <td className="px-4 py-3 capitalize">{type}</td>
-                          <td className="px-4 py-3">{amount.toFixed(2)}</td>
-                          <td className="px-4 py-3">{notes || "-"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </section>
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-blue-400 text-blue-700 bg-blue-100 hover:bg-blue-200 transition">
+                <BookOpen className="w-4 h-4" />
+                Borrow
+              </button>
+
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-green-400 text-green-700 bg-green-100 hover:bg-green-200 transition">
+                <CheckCircle className="w-4 h-4" />
+                Returned
+              </button>
+            </div>
+            <div className="h-[400px] overflow-y-auto ">
+              <ul className="space-y-4 p-4 bg-white shadow rounded-lg max-w-xl  mx-auto mt-6">
+                {transactions.map((tx) => (
+                  <li
+                    key={tx.id}
+                    className="flex gap-4 items-start border-b pb-3 "
+                  >
+                    {/* Icon */}
+                    <div className="mt-1">{getStatusIcon(tx.status)}</div>
+                    {/* Info */}
+                    <div className="w-3/4">
+                      <h4 className="font-medium text-gray-800">
+                        {tx.book_title}
+                      </h4>
+                      <div className="flex justify-between gap-6 ">
+                        <p className="text-sm text-gray-600">
+                          Status:{" "}
+                          <span className="capitalize">{tx.status}</span>
+                        </p>
+                        <p className="text-sm -mt-2 text-gray-500">
+                          {new Date(tx.request_date).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Workplaces */}
+        <div className="mb-6">
+          <h3 className="font-semibold text-lg mb-2">Workplaces</h3>
+          <ul className="text-gray-700 text-sm space-y-1">
+            {student.work.map((item, idx) => (
+              <li key={idx} className="bg-gray-100 p-2 rounded">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Tags */}
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Tags</h3>
+          <div className="flex flex-wrap gap-2 text-sm">
+            {student.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                className="bg-blue-200 text-blue-700 px-3 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const ProfileRow = ({ label, value }) => (
-  <div>
-    <span className="text-sm font-semibold text-blue-800/80">{label}</span>
-    <p className="text-lg font-medium">{value || "N/A"}</p>
-  </div>
-);
-
-const SummaryCard = ({ label, value, color }) => {
-  const bgColors = {
-    blue: "bg-blue-800/20 text-blue-800",
-    yellow: "bg-yellow-400/30 text-yellow-700",
-    slate: "bg-slate-800/20 text-slate-800",
-  };
-  return (
-    <div
-      className={`flex flex-col items-center justify-center rounded-xl p-6 shadow-md min-w-[160px] ${bgColors[color]}`}
-    >
-      <p className="text-xl font-semibold">{value}</p>
-      <p className="text-sm mt-1 font-medium">{label}</p>
     </div>
   );
 };
