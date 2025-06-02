@@ -360,7 +360,7 @@ const Profile = () => {
                         </div>
 
                         {/* Right Side */}
-                        <div className="flex flex-col gap-1 text-sm text-gray-600 text-right max-w-[35%]">
+                        <div className="flex flex-col gap-1 text-sm text-gray-600 text-right ">
                           <p className="text-sm text-gray-600">
                             Status:{" "}
                             <span className="capitalize">{tx.status}</span>
@@ -382,13 +382,24 @@ const Profile = () => {
                               })}
                             </p>
                           )}
-                          {tx.status === "borrowed" && daysLeft !== null && (
-                            <p className="text-green-600 font-semibold flex items-center gap-1">
-                              <Calendar className="w-5 h-5" />
-                              {daysLeft} day{daysLeft !== 1 ? "s" : ""} left to
-                              return
-                            </p>
-                          )}
+                          {tx.status === "borrowed" &&
+                            tx.warning !== null &&
+                            (tx.warning > 0 ? (
+                              <p className="text-green-600 font-semibold flex items-center gap-1">
+                                <Calendar className="w-5 h-5" />
+                                {tx.warning} day{tx.warning !== 1 ? "s" : ""}{" "}
+                                left to return
+                              </p>
+                            ) : (
+                              <p className=" text-red-600 font-semibold gap-1">
+                                <span className="flex justify-between gap-1">
+                                  <Calendar className="w-5 h-5" />
+                                  Blackout period!
+                                </span>
+                                Overdue by {Math.abs(tx.warning)} day
+                                {Math.abs(tx.warning) !== 1 ? "s" : ""}
+                              </p>
+                            ))}
                         </div>
                       </div>
                     </li>

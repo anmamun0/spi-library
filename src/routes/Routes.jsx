@@ -3,8 +3,8 @@ import Root from "../layout/Root";
 import Home from "../pages/Home";
 import Login from "../pages/shared/Login";
 import Register from "../pages/shared/Register";
-import Book from "../pages/Book";
-import BookDetails from "../pages/BookDetails";
+import Book from "../pages/Book/Book";
+import BookDetails from "../pages/Book/BookDetails";
 import Test from "../pages/Test";
 import AuthRedirect from "../components/AuthRedirect";
 import Profile from "../pages/Profile";
@@ -15,12 +15,13 @@ import HomeAdmin from "../pages/Admin/HomeAdmin";
 import LoginAdmin from "../pages/Admin/LoginAdmin";
 import PrivateRoute from "./PrivateRoute";
  
+import Error from "../pages/shared/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <h1>Error</h1>,
+    errorElement: <Error/>,
     children: [
       {
         path: "/",
@@ -47,28 +48,33 @@ const router = createBrowserRouter([
         element: <AuthRedirect />,
       },
       {
+        path: "/error",
+        element: <Error/>,
+      },
+      {
         path: "/profile",
         element: (
           <PrivateRoute>
             <Profile />,
           </PrivateRoute>
         ),
-      },
-      {
-        path: "/test",
-        element: <Test />,
-      },
+      } 
     ],
+  },
+  {
+    path: "/",
+    children: [ 
+      {
+        path: "/admin",
+        element: <LoginAdmin/>,
+      },
+    ]
   },
   {
     path: "/admin",
     element: <RootAdmin />,
     errorElement: "Error",
-    children: [
-      {
-        path: "/admin",
-        element: <LoginAdmin />,
-      },
+    children: [ 
       {
         path: "/admin/home",
         element: <HomeAdmin />,

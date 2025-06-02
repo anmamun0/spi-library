@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useBooks } from "../context/BookContext";
+import { useBooks } from "../../context/BookContext";
 import {
   RotateCcw,
   LayoutGrid,
@@ -35,16 +35,15 @@ export default function Book() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        localStorage.setItem('loader', true); 
+        localStorage.setItem("loader", true);
         const res = await fetch("https://spi-library.onrender.com/book/books/");
         const data = await res.json();
         setBooks(data);
         console.log("Successfully Books data loaded");
       } catch (err) {
         console.error("Failed to fetch books:", err);
-      }
-      finally {
-        localStorage.setItem('loader', false); 
+      } finally {
+        localStorage.setItem("loader", false);
       }
     };
 
@@ -59,8 +58,10 @@ export default function Book() {
 
       // Search filter
       if (filters.search) {
-        result = result.filter((book) =>
-          book.title.toLowerCase().includes(filters.search.toLowerCase()) || book.isbn.toLowerCase().includes(filters.search.toLowerCase()) 
+        result = result.filter(
+          (book) =>
+            book.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+            book.isbn.toLowerCase().includes(filters.search.toLowerCase())
         );
       }
 
@@ -114,7 +115,7 @@ export default function Book() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   }
 
-  const handleBookClick = (id,isbn,title) => {
+  const handleBookClick = (id, isbn, title) => {
     navigate(`/bookdetails/${id}/${isbn}/${title}/`);
   };
 
@@ -142,7 +143,7 @@ export default function Book() {
         <div className="col-span-9 px-4 ">
           {/* Book Count Box */}
           <div className="mb-6">
-            <div className="flex justify-between bg-white border border-slate-200 rounded-xl shadow-sm px-4 py-3">
+            <div className="flex justify-between bg-white border border-gray-300  rounded-xl shadow-sm px-4 py-3">
               <h2 className="text-lg font-semibold text-slate-700">
                 Showing {filteredBooks.length}{" "}
                 {filteredBooks.length === 1 ? "book" : "books"}
@@ -190,7 +191,9 @@ export default function Book() {
               {filteredBooks.map((book) => (
                 <div
                   key={book.id}
-                  onClick={() => handleBookClick(book.id,book.isbn,book.title)}
+                  onClick={() =>
+                    handleBookClick(book.id, book.isbn, book.title)
+                  }
                   className="flex cursor-pointer bg-gray-50 border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition duration-300 p-4 px-6"
                 >
                   <div className="w-20 h-full flex-shrink-0 mr-4">
@@ -283,11 +286,11 @@ export default function Book() {
               value={filters.search}
               onChange={handleFilterChange}
               placeholder="Search books by isbn or title ..."
-              className="w-full border px-4 py-2 rounded shadow-sm focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300  px-4 py-2 rounded shadow-sm focus:ring-2 focus:ring-green-500 "
             />
           </div>
 
-          <div className="bg-slate-50 border rounded  p-4 ">
+          <div className="bg-slate-50 border rounded  p-6 border-gray-300 ">
             {/* 🗂 Category */}
             <div className="mb-3">
               <label className="block mb-1 font-semibold">Category</label>
