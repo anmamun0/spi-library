@@ -62,8 +62,9 @@ const Login = () => {
 
   return (
     <div className="container mx-auto min-h-[85vh] flex items-center justify-center">
-      <div className="bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
+      <div className=" relative bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
         {/* Left Image Section */}
+
         <div className="flex justify-center col-span-3   py-16 rounded-lg">
           <div className="">
             <div className="relative w-60 h-60 flex items-center justify-center">
@@ -73,6 +74,7 @@ const Login = () => {
                   !formSubmit && "hidden"
                 )}
               />
+
               {/* https://cdn-icons-png.flaticon.com/512/747/747376.png */}
               <div className="relative">
                 <img
@@ -87,6 +89,12 @@ const Login = () => {
                   <button className="absolute bottom-0 right-8 bg-green-600 hover:bg-green-700 text-white  px-1 rounded-full transition shadow-md">
                     <i className="fa-solid fa-check"></i>
                   </button>
+                )}
+
+                {!profileImage && (
+                  <p onClick={(event) => { setEmail('anmamun0@gmail.com'); setPassword('12345mamun'); event.target.classList.add('hidden');}} className="text-center px-3 py-1.5 text-sm font-medium text-slate-800 hover:text-red-600 border border-slate-500 hover:border-red-500 rounded-md transition duration-200 bg-white hover:bg-red-50">
+                    Demo user
+                  </p>
                 )}
               </div>
             </div>
@@ -105,7 +113,7 @@ const Login = () => {
         </div>
 
         {/* Right Form Section */}
-        <div className="col-span-2">
+        <div className=" col-span-2">
           <div className="mb-10 text-center space-y-2 ">
             <h2
               className="text-4xl font-semibold text-slate-800"

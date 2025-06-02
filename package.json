@@ -14,6 +14,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
+    "daisyui": "^5.0.43",
     "formik": "^2.4.6",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",

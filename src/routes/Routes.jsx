@@ -1,18 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Login from "../pages/shared/Login";
+import Register from "../pages/shared/Register";
 import Book from "../pages/Book";
 import BookDetails from "../pages/BookDetails";
 import Test from "../pages/Test";
 import AuthRedirect from "../components/AuthRedirect";
 import Profile from "../pages/Profile";
-import RootAdmin from "../layout/RootAdmin"; 
+import RootAdmin from "../layout/RootAdmin";
 import Pannel from "../components/Admin/Pannel";
 
 import HomeAdmin from "../pages/Admin/HomeAdmin";
 import LoginAdmin from "../pages/Admin/LoginAdmin";
+import PrivateRoute from "./PrivateRoute";
+ 
 
 const router = createBrowserRouter([
   {
@@ -21,57 +23,58 @@ const router = createBrowserRouter([
     errorElement: <h1>Error</h1>,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/login',
+        path: "/login",
         element: <Login />,
       },
       {
-        path: '/register',
+        path: "/register",
         element: <Register />,
       },
       {
-        path: '/book',
+        path: "/books",
         element: <Book />,
       },
       {
-        path: '/bookdetails',
+        path: "/bookdetails/:id/:isbn/:title",
         element: <BookDetails />,
       },
       {
-        path: '/auth-redirect',
+        path: "/auth-redirect",
         element: <AuthRedirect />,
       },
       {
-        path: '/profile',
-        element: <Profile />,
-      }
-      ,
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />,
+          </PrivateRoute>
+        ),
+      },
       {
-        path: '/test',
+        path: "/test",
         element: <Test />,
-      }
-    ]
+      },
+    ],
   },
   {
-    path: '/admin',
+    path: "/admin",
     element: <RootAdmin />,
-    errorElement: 'Error',
-    children: [ 
+    errorElement: "Error",
+    children: [
       {
-        path: '/admin',
-        element: <LoginAdmin/>
+        path: "/admin",
+        element: <LoginAdmin />,
       },
       {
         path: "/admin/home",
-        element: <HomeAdmin/>
-      }, 
-    ]
-  }
-
-  
+        element: <HomeAdmin />,
+      },
+    ],
+  },
 ]);
 
 export default router;

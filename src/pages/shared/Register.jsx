@@ -15,9 +15,10 @@ const Register = () => {
     department: "",
     address: "",
     blood: "A+",
+    birthday: "",
+    gender: "",
     nationality_type: "NID",
-    nationality_number: "",
-    role: "student",
+    nationality_number: ""
   };
   const [formData, setFormData] = useState(initialFormState);
   const [duplicateError, setDuplicateError] = useState({});
@@ -38,6 +39,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+      console.log(formData);
+
     try {
       setregisterAnimation(true);
 
@@ -356,6 +359,42 @@ const Register = () => {
                 11-digit National Identification (NID) Number.
               </p>
             )}
+          </div>
+          {/* Birthday */}
+          <div className="flex flex-col">
+            <label htmlFor="birthday" className="mb-1 font-medium">
+              Birthday <span className="text-red-600">*</span>
+            </label>
+            <input
+              id="birthday"
+              type="date"
+              name="birthday"
+              value={formData.birthday || ""}
+              onChange={handleChange}
+              required
+              className="border border-gray-400 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+            />
+          </div>
+
+          {/* Gender */}
+          <div className="flex flex-col">
+            <label htmlFor="gender" className="mb-1 font-medium">
+              Gender <span className="text-red-600">*</span>
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender || ""}
+              onChange={handleChange}
+              required
+              className="border border-gray-400 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+            >
+              <option value="" disabled>
+                Select Gender
+              </option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option> 
+            </select>
           </div>
 
           {/* Nationality Type */}
