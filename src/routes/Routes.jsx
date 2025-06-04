@@ -16,6 +16,8 @@ import LoginAdmin from "../pages/Admin/LoginAdmin";
 import PrivateRoute from "./PrivateRoute";
  
 import Error from "../pages/shared/Error";
+import StudentTable from "../pages/Admin/StudentTable";
+import BookTable from "../pages/Admin/BookTable";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/home",
         element: <HomeAdmin />,
+      },
+      {
+        path: "/admin/students",
+        element: <StudentTable />,
+      },
+      {
+        path: "/admin/books",
+        element: <BookTable />,
       },
     ],
   },

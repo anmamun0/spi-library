@@ -6,9 +6,9 @@ import Pannel from "../components/Admin/Pannel";
 function RootAdmin() {
   return (
       <>
-           <Pannel>
-                <Outlet />
-            </Pannel>
+          <Pannel>
+              <Outlet />
+          </Pannel>
       </>
   );
 }
