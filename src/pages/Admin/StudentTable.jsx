@@ -11,11 +11,13 @@ import {
 } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
 import { useNavigate } from "react-router-dom";
+import DeshboardHead from "./DeshboardHead";
 
 const StudentTable = () => {
   const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
   const navigate = useNavigate();
-
+  const [showUnactive, setShowUnactive] = useState(false);
+  
   const handleRowClick = (id) => {
     navigate(`/admin/students/info/${id}`);
   };
@@ -75,16 +77,17 @@ const StudentTable = () => {
  
   }, [loading]);
 
-  const filteredStudents = searchHistory.reduce((result, filterItem) => {
-    const { query, fields } = filterItem;
+const filteredStudents = searchHistory.reduce((result, filterItem) => {
+  const { query, fields } = filterItem;
 
-    return result.filter((student) =>
-      fields.some((field) => {
-        const value = student[field];
-        return value && value.toString().toLowerCase().includes(query);
-      })
-    );
-  }, students); // start with full list
+  return result.filter((student) =>
+    fields.some((field) => {
+      const value = student[field];
+      return value && value.toString().toLowerCase().includes(query);
+    })
+  );
+}, students.filter(student => student.role == 'student' && (showUnactive ? !student.is_active : student.is_active))); // exclude admins initially
+
 
   const toggleColumn = (col) => {
     setVisibleColumns((prev) => ({ ...prev, [col]: !prev[col] }));
@@ -171,10 +174,13 @@ const StudentTable = () => {
 
   if (loading)
     return (
-      <div>
-        <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
-          <LoaderCircle className="w-8 h-8 animate-spin" />
-          <span>Loading students data...</span>
+      <div className="bg-gray-100 min-h-screen py-10 px-4">
+        <DeshboardHead icon={GraduationCap}  heading="All Students" subheading="Manage and view all registered students and find user"/>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
+            <LoaderCircle className="w-8 h-8 animate-spin" />
+            <span>Loading student details...</span>
+          </div>
         </div>
       </div>
     );
@@ -183,21 +189,12 @@ const StudentTable = () => {
 
   return (
     <div className="p-4 space-y-6">
-      {/* Search and Field Filters */}
-<div className="">
-  <div className="flex items-center justify-between bg-white border border-gray-200 shadow-md rounded-xl px-6 py-4">
-    <div className="flex items-center gap-4">
-      <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-        <GraduationCap size={28} />
-      </div>
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">All Students</h1>
-        <p className="text-sm text-gray-500">Manage and view all registered students and find user </p>
-      </div>
-    </div>
-  </div>
-</div>
-      
+      <DeshboardHead
+        icon={GraduationCap}
+        heading="All Students"
+        subheading="Manage and view all registered students and find user"
+      />
+
       <div className=" rounded   space-y-4">
         <div className="flex items-center space-x-4">
           {/* Search Field */}
@@ -314,14 +311,29 @@ const StudentTable = () => {
 
       {/* Column Toggle Filters */}
       <div className="w-full mt-4 p-5  rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-50 shadow-sm">
-        <div className="flex items-center gap-2 mb-4 text-gray-800">
-          <LayoutList className="w-5 h-5 text-blue-600" />
-          <h3 className="text-md font-semibold">Show Columns</h3>
-          <span> Available ({filteredStudents.length})</span>
+        <div className="flex justify-between mb-4 text-gray-800">
+          <div className="flex items-center gap-2">
+            <LayoutList className="w-5 h-5 text-blue-600" />
+            <h3 className="text-md font-semibold">Show Columns</h3>
+            <span> Available ({filteredStudents.length})</span>
+          </div>
+
+          {/* Right: Toggle Unactive */}
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="viewUnactive"
+              className="accent-blue-600 w-4 h-4"
+              checked={showUnactive}
+              onChange={() => setShowUnactive(!showUnactive)}
+            />
+            <label htmlFor="viewUnactive" className="text-sm font-medium">
+              View Unactive User
+            </label>
+          </div>
         </div>
 
-        <div
-          className="flex gap-3 overflow-x-auto py-2  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+        <div className="flex gap-3 overflow-x-auto py-2  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
           style={{ scrollbarWidth: "thin", msOverflowStyle: "none" }} // Firefox + IE
         >
           <style>
@@ -395,64 +407,89 @@ const StudentTable = () => {
               {visibleColumns.address && <th className="px-4 py-2">Address</th>}
             </tr>
           </thead>
-          <tbody>
+          <tbody> 
             {filteredStudents.map((student) => (
-              <tr key={student.id} className="border-b hover:bg-gray-50" >
-                {visibleColumns.image && (
-                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>
-                    <img
-                      src={student.image || "https://via.placeholder.com/40"}
-                      alt={student.full_name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />{" "} 
-                  </td>
-                )}
-                {visibleColumns.user && (
-                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.user}</td>
-                )}
-                {visibleColumns.full_name && (
-                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.full_name}</td>
-                )}
-                {visibleColumns.email && (
-                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.email}</td>
-                )}
-                {visibleColumns.phone && (
-                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.phone}</td>
-                )}
-                {visibleColumns.department && (
-                  <td className="px-4 py-2">{student.department}</td>
-                )}
-                {visibleColumns.roll && (
-                  <td className="px-4 py-2">{student.roll}</td>
-                )}
-                {visibleColumns.registration && (
-                  <td className="px-4 py-2">{student.registration}</td>
-                )}
-                {visibleColumns.session && (
-                  <td className="px-4 py-2">{student.session}</td>
-                )}
-                {visibleColumns.blood && (
-                  <td className="px-4 py-2">{student.blood}</td>
-                )}
-                {visibleColumns.birthday && (
-                  <td className="px-4 py-2">{student.birthday}</td>
-                )}
-                {visibleColumns.nationality_number && (
-                  <td className="px-4 py-2">
-                    {student.nationality_type.toUpperCase()}
-                    {student.nationality_number}
-                  </td>
-                )}
-                {visibleColumns.gender && (
-                  <td className="px-4 py-2">{student.gender}</td>
-                )}
-                {visibleColumns.address && (
-                  <td className="px-4 py-2">{student.address}</td>
-                )}
-              </tr>
-            ))}
+                <tr key={student.id} className="border-b hover:bg-gray-50">
+                  {visibleColumns.image && (
+                    <td
+                      className="px-4 py-2"
+                      onClick={() => handleRowClick(student.id)}
+                    >
+                      <img
+                        src={student.image || "https://via.placeholder.com/40"}
+                        alt={student.full_name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />{" "}
+                    </td>
+                  )}
+                  {visibleColumns.user && (
+                    <td
+                      className="px-4 py-2"
+                      onClick={() => handleRowClick(student.id)}
+                    >
+                      {student.user}
+                    </td>
+                  )}
+                  {visibleColumns.full_name && (
+                    <td
+                      className="px-4 py-2"
+                      onClick={() => handleRowClick(student.id)}
+                    >
+                      {student.full_name}
+                    </td>
+                  )}
+                  {visibleColumns.email && (
+                    <td
+                      className="px-4 py-2"
+                      onClick={() => handleRowClick(student.id)}
+                    >
+                      {student.email}
+                    </td>
+                  )}
+                  {visibleColumns.phone && (
+                    <td
+                      className="px-4 py-2"
+                      onClick={() => handleRowClick(student.id)}
+                    >
+                      {student.phone}
+                    </td>
+                  )}
+                  {visibleColumns.department && (
+                    <td className="px-4 py-2">{student.department}</td>
+                  )}
+                  {visibleColumns.roll && (
+                    <td className="px-4 py-2">{student.roll}</td>
+                  )}
+                  {visibleColumns.registration && (
+                    <td className="px-4 py-2">{student.registration}</td>
+                  )}
+                  {visibleColumns.session && (
+                    <td className="px-4 py-2">{student.session}</td>
+                  )}
+                  {visibleColumns.blood && (
+                    <td className="px-4 py-2">{student.blood}</td>
+                  )}
+                  {visibleColumns.birthday && (
+                    <td className="px-4 py-2">{student.birthday}</td>
+                  )}
+                  {visibleColumns.nationality_number && (
+                    <td className="px-4 py-2">
+                      {student.nationality_type.toUpperCase()}
+                      {student.nationality_number}
+                    </td>
+                  )}
+                  {visibleColumns.gender && (
+                    <td className="px-4 py-2">{student.gender}</td>
+                  )}
+                  {visibleColumns.address && (
+                    <td className="px-4 py-2">{student.address}</td>
+                  )}
+                </tr>
+              ))}
           </tbody>
+
         </table>
+         
       </div>
     </div>
   );

@@ -13,23 +13,15 @@ import {
   LayoutDashboard 
 } from "lucide-react";
 import {  GraduationCap, User2 } from 'lucide-react';
+import DeshboardHead from "./DeshboardHead";
 
 const HomeAdmin = () => {
   return (
     <div className="p-4 space-y-6 max-w-full">
-     <div className="pb-5">
-  <div className="flex items-center justify-between bg-white border border-gray-200 shadow-md rounded-2xl px-6 py-4">
-    <div className="flex items-center gap-4">
-      <div className="p-3 rounded-full bg-indigo-100 text-indigo-600">
-        <LayoutDashboard size={28} />
-      </div>
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Library Admin Dashboard</h1>
-        <p className="text-sm text-gray-500">Overview of all library operations</p>
-      </div>
-    </div>
-  </div>
-</div>
+
+      <DeshboardHead icon={LayoutDashboard} heading="Library Admin Dashboard" subheading="Overview of all library operations" />
+
+ 
 
       {/* 🧮 Statistic Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

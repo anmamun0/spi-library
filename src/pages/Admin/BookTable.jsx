@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LayoutList, LoaderCircle,BookOpen ,BookOpenCheck } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
 import { useNavigate } from "react-router-dom";
+import DeshboardHead from "./DeshboardHead";
 
 const BookTable = () => {
     const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
@@ -61,10 +62,13 @@ const BookTable = () => {
 
   if (loading)
     return (
-      <div>
-        <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
-          <LoaderCircle className="w-8 h-8 animate-spin" />
-          <span>Loading all books data...</span>
+      <div className="bg-gray-100 min-h-screen py-10 px-4">
+      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
+            <LoaderCircle className="w-8 h-8 animate-spin" />
+            <span>Loading student details...</span>
+          </div>
         </div>
       </div>
     );
@@ -72,21 +76,11 @@ const BookTable = () => {
 
   return (
     <div className="p-4 space-y-6 max-w-full">
-     <div className="">
-  <div className="flex items-center justify-between bg-white border border-gray-200 shadow-md rounded-xl px-6 py-4">
-    <div className="flex items-center gap-4">
-      <div className="p-3 rounded-full bg-green-100 text-green-600">
-        <BookOpenCheck size={28} />
-      </div>
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">All Books</h1>
-        <p className="text-sm text-gray-500">Manage and view all library books</p>
-      </div>
-    </div>
-  </div>
-</div>
+      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
+
+
       {/* Column Toggle Filters */}
-      <div className="w-full  p-6  rounded-xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-sm">
+      <div className="w-full  p-6  rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
         <div className="flex flex-col sm:flex-row  gap-6 mb-4 text-gray-800 ">
           <div className="flex items-center gap-2 ">
             <LayoutList className="w-5 h-5 text-blue-600" />
@@ -152,9 +146,13 @@ const BookTable = () => {
           <tbody>
             {filteredBooks.length > 0 ? (
               filteredBooks.map((book) => (
-                <tr key={book.id} className="border-b hover:bg-gray-50" onClick={() => handleRowClick(book.id)}>
+                <tr
+                  key={book.id}
+                  className="border-b hover:bg-gray-50"
+                  onClick={() => handleRowClick(book.id)}
+                >
                   {visibleColumns.image && (
-                    <td className="px-4 py-2" >
+                    <td className="px-4 py-2">
                       <img
                         src={book.image}
                         alt={book.title}
