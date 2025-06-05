@@ -15,10 +15,7 @@ const Error = ({ message = "Something went wrong!", statusCode = 500 }) => {
            Oops! Error {statusCode}
         </h1>
         <p className="text-gray-600 mb-6">{message}</p>
-        <button
-          onClick={() => navigate("/")}
-          className="inline-block px-6 py-2 bg-green-600 text-white rounded-2xl font-medium hover:bg-green-700 transition duration-200 shadow-md"
-        >
+        <button onClick={() => navigate("/")}  className="inline-block px-6 py-2 bg-green-600 text-white rounded-2xl font-medium hover:bg-green-700 transition duration-200 shadow-md">
           ⬅ Go to Home
         </button>
       </div>

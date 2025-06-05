@@ -1,15 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom"; 
+import { NavLink } from "react-router-dom";
+import {
+  Grid,
+  Book,
+  Users,
+  ClipboardList,
+  Calendar,
+  ShieldCheck,
+  Search,
+  FileText,
+  Settings,
+  LogOut,
+  UserCircle,
+  Sun,
+  Moon,
+} from "lucide-react";
 
-import { Grid, Book, Users, ClipboardList, Calendar, ShieldCheck, Search, FileText, Settings, Lock, LogOut,UserCircle } from "lucide-react";
+// const SidebarItem = ({ icon, label, to }) => (
+//   <NavLink
+//     to={to}
+//     className={({ isActive }) =>
+//       `flex items-center p-2 rounded-lg cursor-pointer transition-all duration-200 group ${
+//         isActive
+//           ? "bg-slate-200 dark:bg-slate-700 text-blue-700 dark:text-blue-400 font-semibold border-l-4 border-blue-700 pl-2"
+//           : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 pl-2"
+//       }`
+//     }
+//   >
+//     {React.cloneElement(icon, {
+//       className:
+//         "w-5 h-5 text-inherit transition-transform duration-150 group-hover:scale-110",
+//     })}
+//     <span className="ml-3">{label}</span>
+//   </NavLink>
+// );
 
 const SidebarItem = ({ icon, label, to }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center p-2 rounded-md cursor-pointer ${
-        isActive ? 'bg-gray-700 font-semibold' : 'hover:bg-gray-700'
+      `flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200 ${
+        isActive
+          ? 'bg-blue-100 text-blue-600 font-semibold'
+          : 'text-gray-800 hover:bg-gray-100'
       }`
     }
   >
@@ -18,18 +52,51 @@ const SidebarItem = ({ icon, label, to }) => (
   </NavLink>
 );
 
+
 const Pannel = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        return true;
+      }
+      const saved = localStorage.getItem("darkMode");
+      return saved === "true";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  }, [darkMode]);
+
   return (
-    <div className="bg-gray-100 h-screen overflow-hidden flex">
-      {/* Mobile toggle */}
+    <div className="bg-gray-100 dark:bg-gray-900 h-screen overflow-hidden flex transition-colors duration-300">
+      {/* Mobile Sidebar Backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Mobile Toggle Button */}
       <button
         onClick={() => setSidebarOpen(!isSidebarOpen)}
         aria-label="Toggle sidebar navigation"
         aria-expanded={isSidebarOpen}
         aria-controls="sidebar"
-        className="md:hidden z-40 py-1 px-2 bg-gray-700 text-white fixed top-2 left-4 rounded"
+        className="md:hidden z-50 py-1.5 px-2 bg-blue-700 text-white fixed top-3 left-4 rounded shadow-lg"
       >
         <FaBars />
       </button>
@@ -39,29 +106,74 @@ const Pannel = ({ children }) => {
         id="sidebar"
         role="navigation"
         aria-label="Sidebar navigation"
-        className={`fixed md:relative inset-y-0 left-0 transform rounded-xl
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0 transition-transform duration-300 flex flex-col bg-gray-800 text-white w-64 h-full z-50`}
+        className={`fixed md:relative inset-y-0 left-0 transform rounded-xl ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 transition-transform duration-300 flex flex-col
+        bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 w-64 h-full shadow-lg z-50 border-r-2 border-gray-200 dark:border-gray-700`}
       >
-        <div className="p-4 text-center border-b border-gray-700">
-          <h2 className="text-xl font-semibold">One</h2>
+        <div className="p-4 border-b border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 rounded-t-xl text-center">
+          <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-default select-none">
+            <img
+              id="dashboard_user_image"
+              src="https://randomuser.me/api/portraits/men/1.jpg"
+              alt="User Avatar"
+              className="h-9 w-9 rounded-full border-2 border-teal-500"
+            />
+            <div className="text-start">
+              <span
+                id="dashboard_username"
+                className="text-gray-700 dark:text-gray-200 font-medium"
+              >
+                @admin
+              </span>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                {new Date().toLocaleDateString(undefined, {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            </div>
+          </div>
         </div>
 
-        <nav className="flex-1 px-4 py-6 space-y-2 overflow-auto">
-          <SidebarItem to="/admin/home" icon={<Grid className="w-5 h-5" />} label="Dashboard" />
-          <SidebarItem to="/admin/books" icon={<Book className="w-5 h-5" />} label="Books" />
-          <SidebarItem to="/admin/students" icon={<Users className="w-5 h-5" />} label="Students" />
-          <SidebarItem to="/borrow-records" icon={<ClipboardList className="w-5 h-5" />} label="Borrow Records" />
-          <SidebarItem to="/reservations" icon={<Calendar className="w-5 h-5" />} label="Reservations" />
-          <SidebarItem to="/admin-management" icon={<ShieldCheck className="w-5 h-5" />} label="Admin Management" />
-          <SidebarItem to="/search" icon={<Search className="w-5 h-5" />} label="Search Catalog" />
-          <SidebarItem to="/reports" icon={<FileText className="w-5 h-5" />} label="Reports" />
-          <SidebarItem to="/settings" icon={<Settings className="w-5 h-5" />} label="Settings" />
-          <SidebarItem to="/login" icon={<Lock className="w-5 h-5" />} label="Login" />
+        <nav className="flex flex-col justify-between overflow-auto flex-1">
+          <div className="px-4 py-6 space-y-2 flex-1">
+            <SidebarItem to="/admin/home" icon={<Grid />} label="Dashboard" />
+            <SidebarItem to="/admin/books" icon={<Book />} label="Books" />
+            <SidebarItem
+              to="/admin/students"
+              icon={<Users />}
+              label="Students"
+            />
+            <SidebarItem
+              to="/admin/transaction-records"
+              icon={<ClipboardList />}
+              label="Borrow Records"
+            />
+            <SidebarItem
+              to="/reservations"
+              icon={<Calendar />}
+              label="Reservations"
+            />
+            <SidebarItem
+              to="/admin-management"
+              icon={<ShieldCheck />}
+              label="Admin Management"
+            />
+            <SidebarItem
+              to="/search"
+              icon={<Search />}
+              label="Search Catalog"
+            />
+            <SidebarItem to="/reports" icon={<FileText />} label="Reports" />
+            <SidebarItem to="/settings" icon={<Settings />} label="Settings" />
+          </div>
 
           <button
-            onClick={() => {/* logout logic here */}}
-            className="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 p-3 text-white font-semibold rounded-md mt-auto"
+            onClick={() => alert("Logged out!")}
+            className="flex items-center justify-center w-full mt-6 border border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white transition-all p-3 font-semibold rounded-lg"
           >
             <LogOut className="w-5 h-5 mr-2" />
             Logout
@@ -70,52 +182,11 @@ const Pannel = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main role="main" className="flex-1 overflow-y-auto p-2">
-
-    <div
-      data-aos="fade-right"
-      className="w-full bg-white shadow-md rounded-lg flex items-center justify-between px-8 py-3 text-sm font-sans"
-    >
-      {/* Loading Animation */}
-      <div id="dashboard_loading" className="hidden">
-        <div className="flex space-x-2 text-teal-500 animate-pulse">
-          <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-teal-600 rounded-full"></div>
-          <div className="w-3 h-3 bg-teal-700 rounded-full"></div>
-        </div>
-      </div>
-
-      {/* Left spacer or logo */}
-      <div className="flex items-center space-x-2">
-        {/* Example: Place for a logo or text */}
-        <span className="font-bold text-gray-700">Dashboard</span>
-      </div>
-
-      {/* Right Section */}
-      <div className="flex items-center space-x-6">
-        {/* Lucide User Icon */}
-        <UserCircle
-          size={28}
-          className="text-gray-500 hover:text-teal-600 cursor-pointer transition-colors duration-300"
-          title="User Profile"
-          onClick={() => alert("User icon clicked!")}
-        />
-
-        {/* Username and Avatar */}
-        <div className="flex items-center space-x-3 bg-gray-100 rounded-full px-3 py-1 hover:bg-gray-200 transition-colors cursor-default select-none">
-          <span id="dashboard_username" className="text-gray-700 font-medium">
-            @username
-          </span>
-          <img
-            id="dashboard_user_image"
-            src="https://randomuser.me/api/portraits/men/1.jpg"
-            alt="User Avatar"
-            className="h-9 w-9 rounded-full border-2 border-teal-500"
-          />
-        </div>
- 
-      </div>
-    </div>
+      <main
+        role="main"
+        className="flex-1 overflow-y-auto transition-colors duration-300"
+      >
+        {/* Render children */}
         {children}
       </main>
     </div>

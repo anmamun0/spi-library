@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Book,
   BookOpen,
@@ -10,37 +10,116 @@ import {
   BarChart2,
   ClipboardList,
   Clock,
-} from 'lucide-react';
+  LayoutDashboard 
+} from "lucide-react";
+import {  GraduationCap, User2 } from 'lucide-react';
 
 const HomeAdmin = () => {
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-8 text-center">📚 Library Admin Dashboard</h1>
+    <div className="p-4 space-y-6 max-w-full">
+     <div className="pb-5">
+  <div className="flex items-center justify-between bg-white border border-gray-200 shadow-md rounded-2xl px-6 py-4">
+    <div className="flex items-center gap-4">
+      <div className="p-3 rounded-full bg-indigo-100 text-indigo-600">
+        <LayoutDashboard size={28} />
+      </div>
+      <div>
+        <h1 className="text-2xl font-bold text-gray-800">Library Admin Dashboard</h1>
+        <p className="text-sm text-gray-500">Overview of all library operations</p>
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* 🧮 Statistic Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <StatCard icon={<Book size={28} />} label="Unique Books" value="123" bg="bg-blue-100" />
-        <StatCard icon={<BookOpen size={28} />} label="Total Copies" value="840" bg="bg-indigo-100" />
-        <StatCard icon={<ArrowUp size={28} />} label="Issued Books" value="450" bg="bg-red-100" />
-        <StatCard icon={<ArrowDown size={28} />} label="Returned Books" value="390" bg="bg-green-100" />
-        <StatCard icon={<Users size={28} />} label="Total Students" value="120" bg="bg-yellow-100" />
-        <StatCard icon={<Layers size={28} />} label="Categories" value="20" bg="bg-pink-100" />
-        <StatCard icon={<DollarSign size={28} />} label="Monthly Earnings" value="$5,963" bg="bg-emerald-100" />
+        <StatCard
+          icon={<Book size={28} />}
+          label="Unique Books"
+          value="123"
+          bg="bg-blue-100"
+        />
+        <StatCard
+          icon={<BookOpen size={28} />}
+          label="Total Copies"
+          value="840"
+          bg="bg-indigo-100"
+        />
+        <StatCard
+          icon={<ArrowUp size={28} />}
+          label="Issued Books"
+          value="450"
+          bg="bg-red-100"
+        />
+        <StatCard
+          icon={<ArrowDown size={28} />}
+          label="Returned Books"
+          value="390"
+          bg="bg-green-100"
+        />
+        <StatCard
+          icon={<Users size={28} />}
+          label="Total Students"
+          value="120"
+          bg="bg-yellow-100"
+        />
+        <StatCard
+          icon={<Layers size={28} />}
+          label="Categories"
+          value="20"
+          bg="bg-pink-100"
+        />
+        <StatCard
+          icon={<DollarSign size={28} />}
+          label="Monthly Earnings"
+          value="$5,963"
+          bg="bg-emerald-100"
+        />
       </div>
 
       {/* 📝 Summary Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-        <SummaryCard label="Published Projects" value="532" percent="+1.69%" icon={<BarChart2 size={24} />} trend="up" />
-        <SummaryCard label="Completed Tasks" value="4569" percent="-0.5%" icon={<ClipboardList size={24} />} trend="down" />
-        <SummaryCard label="Successful Tasks" value="89%" percent="+0.99%" icon={<BarChart2 size={24} />} trend="up" />
-        <SummaryCard label="Ongoing Projects" value="365" percent="+0.35%" icon={<Clock size={24} />} trend="up" />
+        <SummaryCard
+          label="Published Projects"
+          value="532"
+          percent="+1.69%"
+          icon={<BarChart2 size={24} />}
+          trend="up"
+        />
+        <SummaryCard
+          label="Completed Tasks"
+          value="4569"
+          percent="-0.5%"
+          icon={<ClipboardList size={24} />}
+          trend="down"
+        />
+        <SummaryCard
+          label="Successful Tasks"
+          value="89%"
+          percent="+0.99%"
+          icon={<BarChart2 size={24} />}
+          trend="up"
+        />
+        <SummaryCard
+          label="Ongoing Projects"
+          value="365"
+          percent="+0.35%"
+          icon={<Clock size={24} />}
+          trend="up"
+        />
       </div>
 
       {/* 📘 Recent Issued Books */}
       <SectionCard title="Recently Issued Books">
         <ul className="text-sm space-y-2">
-          <li><strong>Data Structures</strong> issued to <em>Rahim</em> on 2025-06-01</li>
-          <li><strong>Python Crash Course</strong> issued to <em>Karim</em> on 2025-06-02</li>
+          <li>
+            <strong>Data Structures</strong> issued to <em>Rahim</em> on
+            2025-06-01
+          </li>
+          <li>
+            <strong>Python Crash Course</strong> issued to <em>Karim</em> on
+            2025-06-02
+          </li>
           {/* More... */}
         </ul>
       </SectionCard>
@@ -48,8 +127,12 @@ const HomeAdmin = () => {
       {/* 👤 Top Readers */}
       <SectionCard title="Top Readers">
         <ul className="text-sm space-y-2">
-          <li>👤 <strong>Ayesha</strong> — 18 books</li>
-          <li>👤 <strong>Tanvir</strong> — 15 books</li>
+          <li>
+            👤 <strong>Ayesha</strong> — 18 books
+          </li>
+          <li>
+            👤 <strong>Tanvir</strong> — 15 books
+          </li>
           {/* More... */}
         </ul>
       </SectionCard>
@@ -57,8 +140,12 @@ const HomeAdmin = () => {
       {/* ⚠️ Overdue Returns */}
       <SectionCard title="Overdue Books">
         <ul className="text-sm space-y-2 text-red-600">
-          <li><strong>DBMS Concepts</strong> - overdue by <em>Shuvo</em> (5 days)</li>
-          <li><strong>Discrete Math</strong> - overdue by <em>Sadia</em> (2 days)</li>
+          <li>
+            <strong>DBMS Concepts</strong> - overdue by <em>Shuvo</em> (5 days)
+          </li>
+          <li>
+            <strong>Discrete Math</strong> - overdue by <em>Sadia</em> (2 days)
+          </li>
         </ul>
       </SectionCard>
 
@@ -83,7 +170,7 @@ const StatCard = ({ icon, label, value, bg }) => (
 );
 
 const SummaryCard = ({ label, value, percent, icon, trend }) => {
-  const trendColor = trend === 'up' ? 'text-green-600' : 'text-red-500';
+  const trendColor = trend === "up" ? "text-green-600" : "text-red-500";
   return (
     <div className="p-5 bg-white rounded-xl shadow-md flex justify-between items-center">
       <div className="flex items-center gap-4">

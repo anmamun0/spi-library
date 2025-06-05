@@ -18,6 +18,9 @@ import PrivateRoute from "./PrivateRoute";
 import Error from "../pages/shared/Error";
 import StudentTable from "../pages/Admin/StudentTable";
 import BookTable from "../pages/Admin/BookTable";
+import TransactionRecord from "../pages/Admin/TransactionRecord";
+import StudentDetails from "../pages/Admin/StudentDetails";
+import AdminError from "../pages/shared/AdminError";
 
 const router = createBrowserRouter([
   {
@@ -75,7 +78,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <RootAdmin />,
-    errorElement: "Error",
+    errorElement: <AdminError/>,
     children: [ 
       {
         path: "/admin/home",
@@ -89,6 +92,15 @@ const router = createBrowserRouter([
         path: "/admin/books",
         element: <BookTable />,
       },
+      {
+        path: "/admin/transaction-records",
+        element: <TransactionRecord />,
+      },
+       {
+        path: "/admin/students/info/:profile_id",
+        element: <StudentDetails />,
+      },
+    
     ],
   },
 ]);

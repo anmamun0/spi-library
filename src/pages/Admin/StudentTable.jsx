@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Printer, Search, XCircle,  ChevronDown, ChevronUp ,LayoutList } from "lucide-react";
+import {
+  Printer,
+  Search,
+  XCircle,
+  ChevronDown,
+  ChevronUp,
+  LayoutList,
+  LoaderCircle,
+  GraduationCap 
+} from "lucide-react";
+import { useLibraryData } from "../../context/Admin/useLibraryData";
+import { useNavigate } from "react-router-dom";
 
 const StudentTable = () => {
+  const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
+  const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/admin/students/info/${id}`);
+  };
   // search filter div section
   const [showFilter, setShowFilter] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
+  const [searchHistory, setSearchHistory] = useState([]); // stores all previous queries
 
-  
-  const [search, setSearch] = useState("");
   const [visibleColumns, setVisibleColumns] = useState({
     image: true, // add image here
-    user:false,
+    user: false,
     full_name: true,
     email: true,
     phone: true,
@@ -20,9 +37,8 @@ const StudentTable = () => {
     blood: false,
     birthday: false,
     nationality_number: false,
-    gender:false,
+    gender: false,
     address: false,
-    
   });
 
   const searchOptions = [
@@ -36,88 +52,56 @@ const StudentTable = () => {
     "blood",
     "birthday",
     "address",
-    "gender", 
+    "gender",
+    "nationality_type",
     "nationality_number",
   ];
 
   const [searchFields, setSearchFields] = useState(["all"]);
-  const [students, setStudents] = useState([]); // State for fetched students
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [students, setStudents] = useState([]); // State for fetched students 
 
   const toggleSearchField = (field) => {
-    if (field === "all") {
-      setSearchFields(["all"]);
+    if (searchFields[0] === field) {
+      setSearchFields([]); // Deselect if same
     } else {
-      if (searchFields.includes("all")) {
-        setSearchFields([field]);
-      } else {
-        setSearchFields((prev) =>
-          prev.includes(field)
-            ? prev.filter((f) => f !== field)
-            : [...prev, field]
-        );
-      }
+      setSearchFields([field]); // Set only the selected one
     }
   };
 
   // Fetch students from API on component mount
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "https://spi-library.onrender.com/user/profile/"
-        );
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
+     
+        setStudents(allStudents);
+ 
+  }, [loading]);
 
-        // Assuming your API returns an array of student objects:
-        setStudents(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const filteredStudents = searchHistory.reduce((result, filterItem) => {
+    const { query, fields } = filterItem;
 
-    fetchStudents();
-  }, []);
-
-  const filteredStudents = students.filter((student) => {
-    if (!search) return true;
-
-    const fieldsToSearch = searchFields.includes("all")
-      ? searchOptions
-      : searchFields;
-
-    return fieldsToSearch.some((field) => {
-      const value = student[field];
-      return (
-        value && value.toString().toLowerCase().includes(search.toLowerCase())
-      );
-    });
-  });
+    return result.filter((student) =>
+      fields.some((field) => {
+        const value = student[field];
+        return value && value.toString().toLowerCase().includes(query);
+      })
+    );
+  }, students); // start with full list
 
   const toggleColumn = (col) => {
     setVisibleColumns((prev) => ({ ...prev, [col]: !prev[col] }));
   };
 
-  
   const handlePrint = () => {
     const printWindow = window.open("", "", "width=900,height=600");
     if (!printWindow)
       return alert("Pop-up blocked! Please allow pop-ups for this site.");
 
     const columns = Object.entries(visibleColumns)
-      .filter(([_, visible]) => visible)
+      .filter(([_, visible]) => visible && _ != "image")
       .map(([col]) => col);
 
-    const headers = `
-    <tr>
-      <th>Image</th>
-      ${columns.map((col) => `<th>${col.replace(/_/g, " ")}</th>`).join("")}
-    </tr>`;
+    const headers = `<tr> <th>Image</th> ${columns
+      .map((col) => `<th>${col.replace(/_/g, " ")}</th>`)
+      .join("")} </tr>`;
 
     const rows = filteredStudents
       .map((student) => {
@@ -126,10 +110,15 @@ const StudentTable = () => {
         }" alt="${
           student.full_name
         }" style="width:40px;height:40px;border-radius:50%;object-fit:cover"/></td>`;
+
         const dataCells = columns
           .map((col) => `<td>${student[col] || ""}</td>`)
           .join("");
-        return `<tr>${imgCell}${dataCells}</tr>`;
+
+        if (visibleColumns["image"]) {
+          return `<tr>${imgCell}${dataCells}</tr>`;
+        }
+        return `<tr>${dataCells}</tr>`;
       })
       .join("");
 
@@ -180,37 +169,72 @@ const StudentTable = () => {
     }, 500);
   };
 
-  if (loading) return <p>Loading students...</p>;
-  if (error) return <p>Error loading students: {error}</p>;
+  if (loading)
+    return (
+      <div>
+        <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
+          <LoaderCircle className="w-8 h-8 animate-spin" />
+          <span>Loading students data...</span>
+        </div>
+      </div>
+    );
+
+  if (error) return <p className="py-6 ">Error loading students: {error}</p>;
 
   return (
     <div className="p-4 space-y-6">
       {/* Search and Field Filters */}
-
-      <div className="bg-white shadow rounded p-4 space-y-4">
+<div className="">
+  <div className="flex items-center justify-between bg-white border border-gray-200 shadow-md rounded-xl px-6 py-4">
+    <div className="flex items-center gap-4">
+      <div className="p-3 rounded-full bg-blue-100 text-blue-600">
+        <GraduationCap size={28} />
+      </div>
+      <div>
+        <h1 className="text-2xl font-bold text-gray-800">All Students</h1>
+        <p className="text-sm text-gray-500">Manage and view all registered students and find user </p>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      <div className=" rounded   space-y-4">
         <div className="flex items-center space-x-4">
           {/* Search Field */}
           <div className="flex items-center w-full  border rounded-lg overflow-hidden shadow-sm">
-
-                {/* Dropdown Button */}
-      <button
-        className="flex items-center justify-center px-5 py-2 gap-2 border rounded bg-white shadow"
-        title="Filter Options"
-        onClick={() => setShowFilter((prev) => !prev)}
-      >
-        Filter
-        {showFilter ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-      </button>
+            {/* Dropdown Button */}
+            <button
+              className="flex items-center justify-center px-5 py-2 gap-2 border rounded shadow"
+              title="Filter Options"
+              onClick={() => setShowFilter((prev) => !prev)}
+            >
+              Filter
+              {showFilter ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            </button>
 
             <input
               type="text"
               placeholder="Search students..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={inputSearch}
+              onChange={(e) => setInputSearch(e.target.value)}
               className="px-4 py-2 w-full outline-none"
             />
+
             <button
-              onClick={""}
+              onClick={() => {
+                if (!inputSearch.trim()) return;
+
+                setSearchHistory((prev) => [
+                  ...prev,
+                  {
+                    query: inputSearch.toLowerCase(),
+                    fields: searchFields.includes("all")
+                      ? searchOptions
+                      : searchFields,
+                  },
+                ]);
+                setInputSearch(""); // clear after search
+              }}
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 transition-colors duration-200"
               title="Search"
             >
@@ -220,7 +244,11 @@ const StudentTable = () => {
 
           {/* Reset Button */}
           <button
-            onClick={""}
+            onClick={() => {
+              setSearchHistory([]);
+              setInputSearch("");
+              setSearchFields(["all"]);
+            }}
             className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition duration-200"
             title="Reset Filter"
           >
@@ -239,52 +267,65 @@ const StudentTable = () => {
           </button>
         </div>
 
-        
-         {/* Dropdown Filter Box */}
-      {showFilter && (
-        <div className="w-full p-4 mt-3 grid md:grid-cols-2 lg:grid-cols-7 gap-4 border rounded bg-gray-50 transition-all duration-500">
-          
-          {["all", ...searchOptions].map((field) => (
-            <label
-              key={field}
-              className="flex items-center gap-3 bg-white border rounded-lg px-4 py-2 shadow-sm hover:shadow-md transition cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                checked={
-                  field === "all"
-                    ? searchFields.includes("all")
-                    : searchFields.includes(field)
-                }
-                onChange={() => toggleSearchField(field)}
-                className="cursor-pointer"
-              />
-              <span className="capitalize select-none">
-                {field.replace(/_/g, " ").split(' ')[0]}
-              </span>
-            </label>
-          ))}
+        {/* Search action view like tags */}
+        <div>
+          {searchHistory.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2 text-sm text-gray-600">
+              {searchHistory.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gray-50 px-3 py-1 rounded shadow flex items-center gap-1  uppercase"
+                >
+                  <Search className="w-4 h-4 text-gray-500" />
+                  <span className="font-medium">{item.query}</span> in{" "}
+                  {item.fields.join(", ")}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      )}
 
-
+        {/* Dropdown Filter Box */}
+        {showFilter && (
+          <div className="w-full p-3   flex flex-wrap gap-4 border rounded bg-gray-50 transition-all duration-500 text-sm">
+            {["all", ...searchOptions].map((field) => (
+              <label
+                key={field}
+                className="flex items-center gap-3   border rounded-lg px-2 py-1 shadow-sm hover:shadow-md transition cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  checked={
+                    field === "all"
+                      ? searchFields.includes("all")
+                      : searchFields.includes(field)
+                  }
+                  onChange={() => toggleSearchField(field)}
+                  className="cursor-pointer"
+                />
+                <span className="capitalize select-none">
+                  {field.replace(/_/g, " ")}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </div>
 
-      
+      {/* Column Toggle Filters */}
+      <div className="w-full mt-4 p-5  rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-50 shadow-sm">
+        <div className="flex items-center gap-2 mb-4 text-gray-800">
+          <LayoutList className="w-5 h-5 text-blue-600" />
+          <h3 className="text-md font-semibold">Show Columns</h3>
+          <span> Available ({filteredStudents.length})</span>
+        </div>
 
-   {/* Column Toggle Filters */}
-<div className="w-full mt-4 px-6 pt-3 py-2 rounded-xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-sm">
-  <div className="flex items-center gap-2 mb-4 text-gray-800">
-    <LayoutList className="w-5 h-5 text-blue-600" />
-    <h3 className="text-lg font-semibold">Show Columns</h3>
-  </div>
-
-<div
-  className="flex gap-3 overflow-x-auto py-2 px-1 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
-  style={{ scrollbarWidth: 'thin', msOverflowStyle: 'none' }} // Firefox + IE
->
-<style>
-  {`
+        <div
+          className="flex gap-3 overflow-x-auto py-2  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+          style={{ scrollbarWidth: "thin", msOverflowStyle: "none" }} // Firefox + IE
+        >
+          <style>
+            {`
     /* Thin scrollbar with black thumb for Chrome, Safari and Opera */
     div::-webkit-scrollbar {
       height: 2px;
@@ -293,7 +334,7 @@ const StudentTable = () => {
       background: transparent;
     }
     div::-webkit-scrollbar-thumb {
-      background-color: #000; /* Black */
+      background-color: #e5e7eb; /* Black */
       border-radius: 8px;
     }
 
@@ -303,33 +344,30 @@ const StudentTable = () => {
       scrollbar-color: #e5e7eb transparent;
     }
   `}
-</style>
+          </style>
 
-  {Object.keys(visibleColumns).map((col) => {
-    const isActive = visibleColumns[col];
-    return (
-      <div
-        key={col}
-        onClick={() => toggleColumn(col)}
-        className={`flex-shrink-0 flex items-center justify-center gap-2 text-sm rounded-lg px-6 py-2 shadow-sm hover:shadow-md transition cursor-pointer select-none font-medium
-          ${isActive ? 'bg-blue-100 border border-blue-400 text-blue-700' : 'bg-white border border-gray-300 text-gray-700'}
-        `}
-      >
-        {col.replace(/_/g, " ").split(' ')[0]}
+          {Object.keys(visibleColumns).map((col) => {
+            const isActive = visibleColumns[col];
+            return (
+              <div
+                key={col}
+                onClick={() => toggleColumn(col)}
+                className={`flex-shrink-0 flex items-center justify-center gap-2 text-sm rounded-lg px-6 py-2 shadow-sm hover:shadow-md transition cursor-pointer select-none font-medium
+          ${
+            isActive
+              ? "bg-blue-100 border border-blue-400 text-blue-700"
+              : "bg-white border border-gray-300 text-gray-700"
+          }`}
+              >
+                {col.replace(/_/g, " ")}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    );
-  })}
-</div>
-
-
-        
-        
-</div>
-
-      
 
       {/* Student Table */}
-      <div className="overflow-x-auto bg-white shadow rounded-lg">
+      <div className="overflow-x-auto  rounded-lg px-2">
         <table className="min-w-full text-sm text-left border ">
           <thead className="bg-gray-300 border-b border-gray-300 ">
             <tr>
@@ -353,37 +391,33 @@ const StudentTable = () => {
               {visibleColumns.nationality_number && (
                 <th className="px-4 py-2">Nationality</th>
               )}
-              {visibleColumns.gender && (
-                <th className="px-4 py-2">Gender</th>
-              )}
-              {visibleColumns.address && (
-                <th className="px-4 py-2">Address</th>
-              )}
+              {visibleColumns.gender && <th className="px-4 py-2">Gender</th>}
+              {visibleColumns.address && <th className="px-4 py-2">Address</th>}
             </tr>
           </thead>
           <tbody>
             {filteredStudents.map((student) => (
-              <tr key={student.id} className="border-b hover:bg-gray-50">
+              <tr key={student.id} className="border-b hover:bg-gray-50" >
                 {visibleColumns.image && (
-                  <td className="px-4 py-2">
+                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>
                     <img
                       src={student.image || "https://via.placeholder.com/40"}
                       alt={student.full_name}
                       className="w-10 h-10 rounded-full object-cover"
-                    />
+                    />{" "} 
                   </td>
                 )}
                 {visibleColumns.user && (
-                  <td className="px-4 py-2">{student.user}</td>
+                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.user}</td>
                 )}
                 {visibleColumns.full_name && (
-                  <td className="px-4 py-2">{student.full_name}</td>
+                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.full_name}</td>
                 )}
                 {visibleColumns.email && (
-                  <td className="px-4 py-2">{student.email}</td>
+                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.email}</td>
                 )}
                 {visibleColumns.phone && (
-                  <td className="px-4 py-2">{student.phone}</td>
+                  <td className="px-4 py-2"  onClick={() => handleRowClick(student.id)}>{student.phone}</td>
                 )}
                 {visibleColumns.department && (
                   <td className="px-4 py-2">{student.department}</td>
@@ -404,9 +438,12 @@ const StudentTable = () => {
                   <td className="px-4 py-2">{student.birthday}</td>
                 )}
                 {visibleColumns.nationality_number && (
-                  <td className="px-4 py-2">{student.nationality_type.toUpperCase()}{student.nationality_number}</td>
+                  <td className="px-4 py-2">
+                    {student.nationality_type.toUpperCase()}
+                    {student.nationality_number}
+                  </td>
                 )}
-                 {visibleColumns.gender && (
+                {visibleColumns.gender && (
                   <td className="px-4 py-2">{student.gender}</td>
                 )}
                 {visibleColumns.address && (
@@ -417,8 +454,6 @@ const StudentTable = () => {
           </tbody>
         </table>
       </div>
-
-
     </div>
   );
 };
