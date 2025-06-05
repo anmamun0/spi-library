@@ -21,6 +21,7 @@ import BookTable from "../pages/Admin/BookTable";
 import TransactionRecord from "../pages/Admin/TransactionRecord";
 import StudentDetails from "../pages/Admin/StudentDetails";
 import AdminError from "../pages/shared/AdminError";
+import BookDetailsAdmin from "../pages/Admin/BookDetailsAdmin";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
        {
         path: "/admin/students/info/:profile_id",
         element: <StudentDetails />,
+      },
+        {
+        path: "/admin/books/info/:book_id",
+        element: <BookDetailsAdmin />,
       },
     
     ],

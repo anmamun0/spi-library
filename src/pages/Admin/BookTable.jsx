@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { LayoutList, LoaderCircle,BookOpen ,BookOpenCheck } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
+import { useNavigate } from "react-router-dom";
 
 const BookTable = () => {
     const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
-  
+   const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/admin/books/info/${id}`);
+  };
   const [books, setBooks] = useState([]); 
 
   const columns = {
@@ -147,9 +152,9 @@ const BookTable = () => {
           <tbody>
             {filteredBooks.length > 0 ? (
               filteredBooks.map((book) => (
-                <tr key={book.id} className="border-b hover:bg-gray-50">
+                <tr key={book.id} className="border-b hover:bg-gray-50" onClick={() => handleRowClick(book.id)}>
                   {visibleColumns.image && (
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-2" >
                       <img
                         src={book.image}
                         alt={book.title}
