@@ -43,8 +43,8 @@ const SidebarItem = ({ icon, label, to }) => (
     className={({ isActive }) =>
       `flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200 ${
         isActive
-          ? 'bg-blue-100 text-blue-600 font-semibold'
-          : 'text-gray-800 hover:bg-gray-100'
+          ? "bg-blue-100 text-blue-600 font-semibold"
+          : "text-gray-800 hover:bg-gray-100"
       }`
     }
   >
@@ -52,7 +52,6 @@ const SidebarItem = ({ icon, label, to }) => (
     <span className="ml-3">{label}</span>
   </NavLink>
 );
-
 
 const Pannel = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -81,8 +80,7 @@ const Pannel = ({ children }) => {
     }
   }, [darkMode]);
 
-
-const handleLogout = async () => {
+  const handleLogout = async () => {
     localStorage.setItem("loader", true);
     const token = localStorage.getItem("token_id");
     if (!token) {
@@ -110,7 +108,6 @@ const handleLogout = async () => {
     }
     localStorage.removeItem("loader");
   };
-
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 h-screen overflow-hidden flex transition-colors duration-300">
@@ -143,8 +140,8 @@ const handleLogout = async () => {
         } md:translate-x-0 transition-transform duration-300 flex flex-col
         bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 w-64 h-full shadow-lg z-50 border-r-2 border-gray-200 dark:border-gray-700`}
       >
-        <div className="p-4 border-b border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 rounded-t-xl text-center">
-          <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-default select-none">
+        <div className="p-4 border-b border-slate-300  hover:bg-gray-50 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 rounded-t-xl text-center">
+          <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 dark:hover:bg-gray-600 transition-colors cursor-default select-none">
             <img
               id="dashboard_user_image"
               src="https://randomuser.me/api/portraits/men/1.jpg"
@@ -152,12 +149,26 @@ const handleLogout = async () => {
               className="h-9 w-9 rounded-full border-2 border-teal-500"
             />
             <div className="text-start">
-              <span
-                id="dashboard_username"
-                className="text-gray-700 dark:text-gray-200 font-medium"
-              >
-                @admin
-              </span>
+              <div className="flex gap-2 mt-2">
+                <span
+                  id="dashboard_username"
+                  className="text-gray-700 dark:text-gray-200 font-medium"
+                >
+                  @admin
+                </span>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className=" rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                  aria-label="Toggle theme"
+                >
+                  {darkMode ? (
+                    <Sun className="w-5 h-5 text-yellow-400" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-blue-500" />
+                  )}
+                </button>
+              </div>
+
               <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                 {new Date().toLocaleDateString(undefined, {
                   weekday: "long",
@@ -193,9 +204,17 @@ const handleLogout = async () => {
               to="/admin/management"
               icon={<ShieldCheck />}
               label="Admin Management"
-            /> 
-            <SidebarItem to="/admin/reports" icon={<FileText />} label="Reports" />
-            <SidebarItem to="/admin/settings" icon={<Settings />} label="Settings" />
+            />
+            <SidebarItem
+              to="/admin/reports"
+              icon={<FileText />}
+              label="Reports"
+            />
+            <SidebarItem
+              to="/admin/settings"
+              icon={<Settings />}
+              label="Settings"
+            />
           </div>
 
           <button
