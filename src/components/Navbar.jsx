@@ -172,7 +172,7 @@ export default function Navbar() {
   <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
     <Link
       to="/auth-redirect"
-      className="bg-green-500 text-white block text-center px-4 py-2 rounded mb-3"
+      className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3"
     >
       My Account
     </Link>
