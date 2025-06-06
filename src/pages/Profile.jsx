@@ -94,7 +94,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-gray-100 py-6 flex justify-center">
+    <div className="bg-gray-100 p-4 flex justify-center">
       <div className="w-full max-w-7xl  rounded-lg  ">
         {/* Header */}
         <div className="flex flex-col bg-white md:flex-row md:justify-between items-center border-b border-gray-300 pb-6 mb-6 p-8 rounded-md">
@@ -104,8 +104,8 @@ const Profile = () => {
               alt="Avatar"
               className="w-36 h-36 rounded-full object-cover"
             />
-            <div>
-              <h2 className="text-2xl font-bold">{student.full_name}</h2>
+            <div >
+              <h2 className="md:text-2xl font-bold ">{student.full_name}</h2>
               <p className="text-gray-600">{student.email}</p>
               <p className="text-gray-600">{student.phone}</p>
               <p className="text-gray-600">
@@ -159,7 +159,7 @@ const Profile = () => {
             </ul>
 
             {/* Buttons Stack */}
-            <div className="flex flex-col gap-3">
+            <div className="flex md:flex-col gap-3">
               <button className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 text-gray-800 text-sm transition">
                 <Link to="/books">Books</Link>
               </button>

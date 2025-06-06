@@ -8,16 +8,16 @@ import campus3 from "../assets/images/spi-1.jpg";
 export default function Home() {
   return (
     <div className="bg-white text-gray-800">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto p-4">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column */}
           <div className="lg:w-2/3">
-            <h2 className="text-blue-800 font-bold mb-2">What's On</h2>
+            {/* <h2 className="text-blue-800 font-bold mb-2">What's On</h2> */}
 
             <img
               src={campus}
               alt="New Centennial Exhibition"
-              className="w-full h-96 object-cover rounded shadow"
+              className="w-full h-96 object-cover rounded shadow pt-2"
             />
             <h3 className="text-2xl font-semibold mt-4">
               New Centennial Exhibition! 100: A Century of Collections,
@@ -129,8 +129,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-      );
+       
       {/* Hero Section */}
       <section className="bg-gray-100 text-gray-800 py-12 px-4 md:px-16">
         {/* Top Bar */}
@@ -183,29 +182,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-gradient-to-r from-red-100 to-amber-200 py-20 px-4 text-center">
-        <h1 className="text-5xl font-bold mb-4 text-red-800">
-          Welcome to Your Library
-        </h1>
-        <p className="text-lg max-w-2xl mx-auto mb-8">
-          Explore a world of knowledge and entertainment. Access books, digital
-          resources, events, and more.
-        </p>
-        <div className="space-x-4">
-          <Link
-            to="/catalog"
-            className="bg-slate-800 text-white px-6 py-3 font-medium rounded hover:bg-amber-700 transition"
-          >
-            Browse Catalog
-          </Link>
-          <Link
-            to="/events"
-            className="bg-white text-slate-700 px-6 py-3 font-medium rounded border border-slate-700 hover:bg-green-100 transition"
-          >
-            View Events
-          </Link>
-        </div>
-      </section>
+       
+      
+
       {/* Featured Services */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
@@ -309,6 +288,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      </div>
+      
   );
 }

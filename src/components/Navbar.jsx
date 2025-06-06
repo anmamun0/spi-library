@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/images/bteb -logo.png";
 import LoaderProgress from "../pages/shared/LoaderProgress";
@@ -7,7 +7,7 @@ import LoaderProgress from "../pages/shared/LoaderProgress";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
-
+  const navigation = useNavigate();
   const categoryList = [
     "All Categories",
     "Science",
@@ -56,11 +56,11 @@ export default function Navbar() {
               type="text"
               placeholder="Enter URL or keywords"
               className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
-            />
-            <button className="px-4 py-2 bg-slate-800 text-white rounded-r-md">
-              {" "}
+            /> 
+             <button onClick={()=>{navigation('/books')}} className="px-4 py-2 bg-slate-800 text-white rounded-r-md">
+               
               Go{" "}
-            </button>
+            </button>   
           </div>
 
           <div className="flex">

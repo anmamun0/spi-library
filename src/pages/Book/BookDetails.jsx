@@ -134,7 +134,7 @@ const BookDetails = () => {
   if (!book) return <div className="text-center py-20 text-lg">Loading...</div>;
 
   return (
-    <div className=" p-6 flex justify-center">
+    <div className=" p-4 flex justify-center">
       <div className="w-full max-w-7xl mx-auto rounded-lg  ">
         <button
           onClick={() => navigate(-1)}
