@@ -139,12 +139,12 @@ export default function Book() {
 
   return (
     <div className="max-w-7xl mx-auto py-12">
-      <div className="grid grid-cols-12 md:flex-row gap-6">
+      <div className="md:grid grid-cols-12 md:flex-row gap-6">
         <div className="col-span-9 px-4 ">
           {/* Book Count Box */}
           <div className="mb-6">
             <div className="flex justify-between bg-white border border-gray-300  rounded-xl shadow-sm px-4 py-3">
-              <h2 className="text-lg font-semibold text-slate-700">
+              <h2 className="md:text-lg font-semibold text-slate-700">
                 Showing {filteredBooks.length}{" "}
                 {filteredBooks.length === 1 ? "book" : "books"}
               </h2>
@@ -276,7 +276,7 @@ export default function Book() {
           )}
         </div>
 
-        <aside className="w-full md:w-80 shadow-sm sticky top-4 self-start">
+        <aside className="w-full md:w-80 shadow-sm sticky top-4 p-4 md:p-0 self-start">
           {/* 🔍 Search */}
 
           <div className="flex items-center gap-3 justify-between mb-4">

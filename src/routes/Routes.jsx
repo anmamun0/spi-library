@@ -38,6 +38,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import PrivateRouteAdmin from "./PrivateRouteAdmin";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -93,27 +94,53 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin/home",
-        element: <HomeAdmin />,
+        element: (
+          <PrivateRouteAdmin>
+            <HomeAdmin />
+          </PrivateRouteAdmin>
+        ),
       },
       {
         path: "/admin/students",
-        element: <StudentTable />,
+        element:
+        (
+          <PrivateRouteAdmin>
+            <StudentTable />
+          </PrivateRouteAdmin>
+        ),
       },
       {
         path: "/admin/books",
-        element: <BookTable />,
+        element: (
+          <PrivateRouteAdmin>
+            < BookTable />
+          </PrivateRouteAdmin>
+        ),
       },
       {
         path: "/admin/transaction-records",
-        element: <TransactionRecord />,
+        element: (
+          <PrivateRouteAdmin>
+            < TransactionRecord />
+          </PrivateRouteAdmin>
+        ),
+        
       },
       {
         path: "/admin/students/info/:profile_id",
-        element: <StudentDetails />,
+        element: (
+          <PrivateRouteAdmin>
+            <StudentDetails />
+          </PrivateRouteAdmin>
+        ),
       },
       {
         path: "/admin/books/info/:book_id",
-        element: <BookDetailsAdmin />,
+        element:(
+          <PrivateRouteAdmin>
+            <BookDetailsAdmin />
+          </PrivateRouteAdmin>
+        ),
       },
       {
         path: "/admin/reservations",

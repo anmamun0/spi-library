@@ -166,74 +166,64 @@ export default function Navbar() {
 
       </div>
         <LoaderProgress />
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
-          <button className="bg-green-500 text-white px-4 py-1 rounded w-full mb-2">
-            My Account{" "}
-          </button>
-          <input
-            type="text"
-            placeholder="Search our catalog..."
-            className="w-full px-3 py-1 mb-2 border border-slate-300 rounded"
-          />
+      {/* Mobile Menu */} 
 
-          <div className="flex justify-between space-x-2 mb-2">
-            <button className="bg-slate-800 text-white w-1/2 py-1 rounded">
-              {" "}
-              Catalog{" "}
-            </button>
-            <button className="bg-slate-400 text-white w-1/2 py-1 rounded">
-              {" "}
-              Website{" "}
-            </button>
-          </div>
+{isOpen && (
+  <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
+    <Link
+      to="/auth-redirect"
+      className="bg-green-500 text-white block text-center px-4 py-2 rounded mb-3"
+    >
+      My Account
+    </Link>
 
-          <ul className="space-y-2 text-slate-700">
-            <li>
-              {" "}
-              <Link to="/">Browse</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Events</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Youth</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Teen</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Services</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">More Info</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Locations & Hours</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/">Contact Us</Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link to="/" className="text-teal-600">
-                {" "}
-                Library Card{" "}
-              </Link>{" "}
-            </li>
-          </ul>
+    <div className="flex mb-3">
+      <input
+        type="text"
+        placeholder="Search our catalog..."
+        className="w-full px-3 py-2 border border-slate-300 rounded-l-md"
+      />
+      <button className="bg-slate-800 text-white px-4 rounded-r-md">
+        Go
+      </button>
+    </div>
 
-        </div>
+    <div className="flex justify-between space-x-2 mb-4">
+      <button className="bg-slate-800 text-white w-1/2 py-2 rounded">
+        Catalog
+      </button>
+      <button className="bg-slate-400 text-white w-1/2 py-2 rounded">
+        Website
+      </button>
+    </div>
 
-      )}
+   <ul className="space-y-2 text-slate-700">
+  <li>
+    <Link to="/" className="block hover:text-amber-500">Catalog</Link>
+  </li>
+  <li>
+    <Link to="/books" className="block hover:text-amber-500">eBooks & Audiobooks</Link>
+  </li>
+  <li>
+    <Link to="/teen" className="block hover:text-amber-500">Teen Zone</Link>
+  </li>
+  <li>
+    <Link to="/research" className="block hover:text-amber-500">Research & Databases</Link>
+  </li>
+  <li>
+    <Link to="/enent" className="block hover:text-amber-500">Events & Programs</Link>
+  </li>
+  <li>
+    <Link to="/help" className="block hover:text-amber-500">Help & Support</Link>
+  </li>
+  <li>
+    <Link to="/card" className="block text-teal-600 font-medium hover:underline">Library Card</Link>
+  </li>
+</ul>
+
+  </div>
+)}
+
     </nav>
   );
 }

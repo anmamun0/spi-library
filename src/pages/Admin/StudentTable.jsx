@@ -195,8 +195,8 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
         subheading="Manage and view all registered students and find user"
       />
 
-      <div className=" rounded   space-y-4">
-        <div className="flex items-center space-x-4">
+      <div className=" rounded   space-y-4 ">
+        <div className="md:flex items-center ">
           {/* Search Field */}
           <div className="flex items-center w-full  border rounded-lg overflow-hidden shadow-sm">
             {/* Dropdown Button */}
@@ -239,6 +239,9 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
             </button>
           </div>
 
+
+          <div className="flex gap-4 justify-between py-2 md:py-0">
+            
           {/* Reset Button */}
           <button
             onClick={() => {
@@ -256,12 +259,13 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
           {/* Print Button */}
           <button
             onClick={handlePrint}
-            className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-200"
+            className="flex items-center space-x-2 bg-green-600  hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-200"
             title="Print Filtered Students"
-          >
+            >
             <Printer size={18} />
             <span>Print</span>
           </button>
+            </div>
         </div>
 
         {/* Search action view like tags */}
@@ -311,7 +315,7 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
 
       {/* Column Toggle Filters */}
       <div className="w-full mt-4 p-5  rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-50 shadow-sm">
-        <div className="flex justify-between mb-4 text-gray-800">
+        <div className="md:flex justify-between mb-4 text-gray-800">
           <div className="flex items-center gap-2">
             <LayoutList className="w-5 h-5 text-blue-600" />
             <h3 className="text-md font-semibold">Show Columns</h3>
@@ -319,7 +323,7 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
           </div>
 
           {/* Right: Toggle Unactive */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pt-3 md:pt-0">
             <input
               type="checkbox"
               id="viewUnactive"

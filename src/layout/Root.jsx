@@ -20,11 +20,14 @@ function Root() {
     <>
       <BookProvider>
         <ProfileProvider>
-          <Navbar />
-          
-          <Outlet />
+          <div className="flex flex-col justify-between h-screen">
+              <Navbar />
+              
+              <Outlet />
 
-          <Footer />
+              <Footer />
+          </div>
+          
         </ProfileProvider>
       </BookProvider>
     </>

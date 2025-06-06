@@ -128,8 +128,8 @@ const BorrowRecords = () => {
       />
 
       {/* Tabs */}
-      <div className="flex justify-between ">
-        <div className="flex flex-wrap items-center  gap-3 ">
+      <div className="lg:flex justify-between ">
+        <div className="flex  items-center  gap-3 ">
           {["pending", "borrowed", "returned"].map((tab) => (
             <button
               key={tab}
@@ -145,7 +145,7 @@ const BorrowRecords = () => {
           ))}
         </div>
         <div className="mt-4 p-4 bg-gray-100 rounded-lg border border-gray-200 shadow-sm  ">
-          <p className="text-xs text-gray-500 mb-4 flex gap-2">
+          <p className="text-xs text-gray-500 mb-4 md:flex gap-2">
             <span className="font-medium flex gap-2">
               <Search size={18} />
               Tip:

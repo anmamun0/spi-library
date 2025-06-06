@@ -62,10 +62,10 @@ const Login = () => {
 
   return (
     <div className="container mx-auto min-h-[85vh] flex items-center justify-center">
-      <div className=" relative bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
+      <div className=" relative bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5  items-center">
         {/* Left Image Section */}
 
-        <div className="flex justify-center col-span-3   py-16 rounded-lg">
+        <div className="flex justify-center col-span-3 py-16 rounded-lg">
           <div className="">
             <div className="relative w-60 h-60 flex items-center justify-center">
               <div
