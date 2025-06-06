@@ -4,7 +4,7 @@ import { Search, ClipboardList, CheckCircle ,LoaderCircle } from "lucide-react";
 import axios from "axios";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
 import { Link } from "react-router-dom";
-import DeshboardHead from "./DeshboardHead";
+import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const BorrowRecords = () => {
   const { allStudents, allBooks, allTransactions, loading, error } =
@@ -14,6 +14,8 @@ const BorrowRecords = () => {
 
   const handleTransaction = async (tr_id, transaction) => {
     try {
+  const token = localStorage.getItem("token_id");
+
       await axios.patch(
         `https://spi-library.onrender.com/transaction/transactions/${tr_id}/`,
         {
@@ -21,7 +23,7 @@ const BorrowRecords = () => {
         },
         {
           headers: {
-            Authorization: `Token 19656a5318f5e28b32268b963e38933972606a3b`,
+            Authorization: `Token ${token}`, // admin token auth
           },
         }
       );

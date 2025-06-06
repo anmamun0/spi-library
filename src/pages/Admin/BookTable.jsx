@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { LayoutList, LoaderCircle,BookOpen ,BookOpenCheck } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
-import { useNavigate } from "react-router-dom";
-import DeshboardHead from "./DeshboardHead";
+import { useNavigate } from "react-router-dom"; 
+import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const BookTable = () => {
     const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();

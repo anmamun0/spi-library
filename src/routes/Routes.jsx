@@ -22,12 +22,27 @@ import TransactionRecord from "../pages/Admin/TransactionRecord";
 import StudentDetails from "../pages/Admin/StudentDetails";
 import AdminError from "../pages/shared/AdminError";
 import BookDetailsAdmin from "../pages/Admin/BookDetailsAdmin";
+import DeshboardHead from "../components/Admin/DeshboardHead"
 
+import {
+  Grid, 
+  Users,
+  ClipboardList,
+  Calendar,
+  ShieldCheck,
+  Search,
+  FileText,
+  Settings,
+  LogOut,
+  UserCircle,
+  Sun,
+  Moon,
+} from "lucide-react";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <Error/>,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -55,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/error",
-        element: <Error/>,
+        element: <Error />,
       },
       {
         path: "/profile",
@@ -64,23 +79,23 @@ const router = createBrowserRouter([
             <Profile />,
           </PrivateRoute>
         ),
-      } 
+      },
     ],
   },
   {
     path: "/",
-    children: [ 
+    children: [
       {
         path: "/admin",
-        element: <LoginAdmin/>,
+        element: <LoginAdmin />,
       },
-    ]
+    ],
   },
   {
     path: "/admin",
     element: <RootAdmin />,
-    errorElement: <AdminError/>,
-    children: [ 
+    errorElement: <AdminError />,
+    children: [
       {
         path: "/admin/home",
         element: <HomeAdmin />,
@@ -97,15 +112,30 @@ const router = createBrowserRouter([
         path: "/admin/transaction-records",
         element: <TransactionRecord />,
       },
-       {
+      {
         path: "/admin/students/info/:profile_id",
         element: <StudentDetails />,
       },
-        {
+      {
         path: "/admin/books/info/:book_id",
         element: <BookDetailsAdmin />,
       },
-    
+      {
+        path: "/admin/reservations",
+        element: <DeshboardHead icon={Calendar} heading="Reservations" subheading="No Available here any data ..."/> 
+      },
+      {
+        path: "/admin/management",
+        element: <DeshboardHead icon={ShieldCheck} heading="Management" subheading="No Available here any data ..."/> 
+      },
+      {
+        path: "/admin/reports",
+        element: <DeshboardHead icon={FileText} heading="Reports" subheading="No Available here any data ..."/> 
+      },
+      {
+        path: "/admin/settings",
+        element: <DeshboardHead icon={Settings} heading="Settings" subheading="No Available here any data ..."/> 
+      },
     ],
   },
 ]);

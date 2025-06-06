@@ -18,7 +18,7 @@ export const LibraryDataProvider = ({ children }) => {
       try {
         setLoading(true);
         const headers = {
-          Authorization: `Token 19656a5318f5e28b32268b963e38933972606a3b`,
+          Authorization: `Token ${token}`,
         };
 
         const [studentsRes, booksRes, transactionsRes] = await Promise.all([

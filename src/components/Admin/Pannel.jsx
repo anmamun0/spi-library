@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Grid,
   Book,
@@ -16,6 +16,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import axios from "axios";
 
 // const SidebarItem = ({ icon, label, to }) => (
 //   <NavLink
@@ -55,7 +56,7 @@ const SidebarItem = ({ icon, label, to }) => (
 
 const Pannel = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       if (
@@ -79,6 +80,37 @@ const Pannel = ({ children }) => {
       localStorage.setItem("darkMode", "false");
     }
   }, [darkMode]);
+
+
+const handleLogout = async () => {
+    localStorage.setItem("loader", true);
+    const token = localStorage.getItem("token_id");
+    if (!token) {
+      alert("No token found, you are probably already logged out.");
+      return;
+    }
+    console.log("token_id", token);
+
+    try {
+      await axios.post(
+        "https://spi-library.onrender.com/user/logout/",
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`, // or `Bearer ${token}` depending on your API
+          },
+        }
+      );
+      localStorage.removeItem("token_id");
+      navigate("/admin"); // <-- use navigate here
+      alert("Logged out successfully!");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Logout failed. Please try again.");
+    }
+    localStorage.removeItem("loader");
+  };
+
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 h-screen overflow-hidden flex transition-colors duration-300">
@@ -150,29 +182,24 @@ const Pannel = ({ children }) => {
             <SidebarItem
               to="/admin/transaction-records"
               icon={<ClipboardList />}
-              label="Borrow Records"
+              label="Transaction Records"
             />
             <SidebarItem
-              to="/reservations"
+              to="/admin/reservations"
               icon={<Calendar />}
               label="Reservations"
             />
             <SidebarItem
-              to="/admin-management"
+              to="/admin/management"
               icon={<ShieldCheck />}
               label="Admin Management"
-            />
-            <SidebarItem
-              to="/search"
-              icon={<Search />}
-              label="Search Catalog"
-            />
-            <SidebarItem to="/reports" icon={<FileText />} label="Reports" />
-            <SidebarItem to="/settings" icon={<Settings />} label="Settings" />
+            /> 
+            <SidebarItem to="/admin/reports" icon={<FileText />} label="Reports" />
+            <SidebarItem to="/admin/settings" icon={<Settings />} label="Settings" />
           </div>
 
           <button
-            onClick={() => alert("Logged out!")}
+            onClick={handleLogout}
             className="flex items-center justify-center w-full mt-6 border border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white transition-all p-3 font-semibold rounded-lg"
           >
             <LogOut className="w-5 h-5 mr-2" />

@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
 import { useNavigate } from "react-router-dom";
-import DeshboardHead from "./DeshboardHead";
+import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const StudentTable = () => {
   const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();

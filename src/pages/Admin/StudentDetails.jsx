@@ -14,8 +14,10 @@ import {
   ShieldCheck,
   CheckCircle,
   XCircle,
+  LoaderCircle
 } from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
+import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const StudentDetails = () => {
   const { allStudents, allBooks, allTransactions, loading, error } =
@@ -24,34 +26,33 @@ const StudentDetails = () => {
   const { profile_id } = useParams();
   const [student, setStudent] = useState(null);
 
-  const [studentTransactions, setStudentTransactions] = useState([]);
+  const [studentTransactions, setStudentTransactions] = useState(null);
 
   useEffect(() => {
-    if (!loading && allStudents && allTransactions && profile_id) {
-      const found = allStudents.find(
-        (item) => String(item.id) === String(profile_id)
-      );
-      setStudent(found || null);
+    if (allStudents && allStudents.length > 0) {  
+      const found = allStudents.find( (item) => parseInt(item.id) === parseInt(profile_id));
+      setStudent(found);
 
       const filteredTransactions = allTransactions.filter(
-        (tx) => String(tx.profile) === String(profile_id)
+        (tx) => parseInt(tx.profile) === parseInt(profile_id)
       );
       setStudentTransactions(filteredTransactions);
     }
-  }, [allStudents, allTransactions, profile_id, loading]);
+  }, [loading,allStudents, allTransactions, profile_id ]);
 
   const [message, setMessage] = useState(null); // { type: 'success' | 'error', text: string } or null
 
   const handleVerify = async (studentId) => {
     try {
-      const token = "19656a5318f5e28b32268b963e38933972606a3b"; // Your auth token
+  const token = localStorage.getItem("token_id");
+ 
 
       const response = await axios.post(
         `https://spi-library.onrender.com/user/profile/${studentId}/activate/`,
         {}, // no body required
         {
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${token}`, // admin token auth
           },
         }
       );
@@ -76,7 +77,7 @@ const StudentDetails = () => {
   };
 
   // While loading or data not ready, show loader
-  if (loading || !allStudents || allStudents.length === 0) {
+  if (loading || !allStudents.length ) {
     return (
       <div className="bg-gray-100 min-h-screen py-10 px-4">
         <DeshboardHead
@@ -104,7 +105,9 @@ const StudentDetails = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10 px-4">
+      <div className="bg-gray-100 min-h-screen py-4 px-4 space-y-4">
+              <DeshboardHead icon={GraduationCap}  heading="All Students" subheading="Manage and view all registered students and find user"/>
+      
       {/* Transaction Notification message */}
       {message && message.type === "success" && (
         <div className="mb-4">
@@ -145,7 +148,7 @@ const StudentDetails = () => {
           </div>
         </div>
       )}
-      <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+      <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8 ">
         <div className="flex flex-col md:flex-row gap-8">
           <img
             src={student.image}

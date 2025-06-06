@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
-import { Loader2, Pencil, Save, X } from "lucide-react";
+import { Loader2, Pencil, Save, X ,LoaderCircle,BookOpenCheck} from "lucide-react";
+import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const BookDetailsAdmin = () => {
   const { book_id } = useParams();
@@ -29,22 +30,19 @@ const BookDetailsAdmin = () => {
     }
   }, [loading, allBooks, book_id]);
 
-  // Loading and error handling
-  if (loading || !allBooks.length) {
+  if (loading)
     return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <Loader2 className="animate-spin text-blue-600" size={32} />
+      <div className="bg-gray-100 min-h-screen py-10 px-4">
+      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
+            <LoaderCircle className="w-8 h-8 animate-spin" />
+            <span>Loading student details...</span>
+          </div>
+        </div>
       </div>
     );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center text-red-600 font-semibold">
-        Something went wrong: {error.message}
-      </div>
-    );
-  }
+  if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
 
   if (!book) {
     return (
@@ -91,7 +89,9 @@ const BookDetailsAdmin = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-4 space-y-6 max-w-full">
+      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
+
       <div className="bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/3">
           <img
