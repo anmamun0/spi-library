@@ -80,17 +80,12 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-    ],
-  },
-  {
-    path: "/",
-    children: [
       {
         path: "/admin",
         element: <LoginAdmin />,
-      },
+      }
     ],
-  },
+  } ,
   {
     path: "/admin",
     element: <RootAdmin />,
