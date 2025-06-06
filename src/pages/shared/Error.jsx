@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertTriangle } from "lucide-react"; // Optional: Icon
+import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer";
 
 {/* <Route path="*" element={<Error message="Page not found" statusCode={404} />} /> */}
 
@@ -8,6 +10,9 @@ const Error = ({ message = "Something went wrong!", statusCode = 500 }) => {
   const navigate = useNavigate();
 
   return (
+    
+    <>
+    <Navbar/> 
     <div className="flex flex-col items-center justify-center min-h-screen  bg-gray-100 px-4 text-center">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full p-20">
         <AlertTriangle size={48} className="text-red-500 mx-auto mb-4" />
@@ -19,7 +24,10 @@ const Error = ({ message = "Something went wrong!", statusCode = 500 }) => {
           ⬅ Go to Home
         </button>
       </div>
-    </div>
+      </div>
+      <Footer />
+      
+      </>
   );
 };
 
