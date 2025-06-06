@@ -149,7 +149,7 @@ const BookDetails = () => {
             <img
               src={book.image}
               alt={book.title}
-              className="h-52 w-auto md:h-auto md:w-full max-w-xs mx-auto rounded-lg shadow-lg object-cover"
+              className="h-66 w-auto md:h-auto md:w-full max-w-xs mx-auto rounded-lg shadow-lg object-cover"
             />
           </div>
 
