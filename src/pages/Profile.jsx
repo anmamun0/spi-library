@@ -95,20 +95,20 @@ const Profile = () => {
 
   return (
     <div className="bg-gray-100 p-4 flex justify-center">
-      <div className="w-full max-w-7xl  rounded-lg  ">
+      <div className="w-full max-w-7xl mx-auto rounded-lg ">
         {/* Header */}
         <div className="flex flex-col bg-white md:flex-row md:justify-between items-center border-b border-gray-300 pb-6 mb-6 p-8 rounded-md">
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-6 pb-1 text-sm">
             <img
               src={student.image}
               alt="Avatar"
-              className="w-36 h-36 rounded-full object-cover"
+              className="w-32 md:w-36 h-32 md:h-36 rounded-full object-cover"
             />
             <div >
-              <h2 className="md:text-2xl font-bold ">{student.full_name}</h2>
-              <p className="text-gray-600">{student.email}</p>
-              <p className="text-gray-600">{student.phone}</p>
-              <p className="text-gray-600">
+              <h2 className="text-md md:text-2xl font-bold break-work">{student.full_name}</h2>
+              <p className="md:text-md text-gray-600">{student.email}</p>
+              <p className="md:text-md text-gray-600">{student.phone}</p>
+              <p className="md:text-md text-gray-600">
                 {student.department} {student.session}
               </p>
               <div className="flex items-center gap-1 text-blue-600">
@@ -125,9 +125,9 @@ const Profile = () => {
               </div>{" "}
             </div>
           </div>
-          <div className="flex flex-wrap items-start gap-6 p-6 bg-white rounded-lg shadow-sm max-w-lg">
+          <div className="flex flex-wrap items-start gap-3 md:gap-6 md:p-6 bg-white rounded-lg shadow-sm max-w-lg">
             {/* Student Info */}
-            <ul className="flex flex-col gap-3 text-gray-700 text-sm flex-grow">
+            <ul className="flex flex-col gap-2 md:gap-3 text-gray-700 text-sm flex-grow">
               <li className="flex items-center gap-3">
                 <BookOpen className="w-5 h-5 text-gray-500" />
                 <span>
@@ -175,13 +175,13 @@ const Profile = () => {
         </div>
 
         {/* Personal Details */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6 my-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 my-4 ">
           <div className="bg-white rounded-md  p-10 shadow-sm">
             <div className="flex justify-between pb-3">
               <h3 className="font-semibold text-lg mb-4">Personal Details</h3>
               <i class="fa-solid fa-pen text-gray-600"></i>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-gray-700">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10  text-sm text-gray-700">
               <ul className="space-y-3">
                 <li>
                   <strong>Full Name</strong>
@@ -269,10 +269,10 @@ const Profile = () => {
 
             {/* Filter pending/borrowed/returned */}
 
-            <div className="flex gap-4 mb-6">
+            <div className="flex gap-2 md:gap-4 mb-6 text-xs md:text-sm ">
               <button
                 onClick={() => setFilter("pending")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition ${
+                className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-full  font-medium border transition ${
                   filter === "pending"
                     ? "border-yellow-400 text-yellow-700 bg-yellow-200"
                     : "border-yellow-300 text-yellow-600 bg-yellow-100 hover:bg-yellow-200"
@@ -284,7 +284,7 @@ const Profile = () => {
 
               <button
                 onClick={() => setFilter("borrowed")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full  font-medium border transition ${
                   filter === "borrowed"
                     ? "border-blue-400 text-blue-700 bg-blue-200"
                     : "border-blue-300 text-blue-600 bg-blue-100 hover:bg-blue-200"
@@ -296,7 +296,7 @@ const Profile = () => {
 
               <button
                 onClick={() => setFilter("returned")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full  font-medium border transition ${
                   filter === "returned"
                     ? "border-green-400 text-green-700 bg-green-200"
                     : "border-green-300 text-green-600 bg-green-100 hover:bg-green-200"
@@ -308,7 +308,7 @@ const Profile = () => {
             </div>
 
             <div className="h-[400px] overflow-y-auto ">
-              <ul className="space-y-4 p-4 bg-white shadow rounded-lg max-w-xl mx-auto mt-6">
+              <ul className="space-y-4 md:p-4 bg-white shadow rounded-lg max-w-xl mx-auto mt-6">
                 {filteredTransactions.map((tx) => {
                   const borrowDate = tx.borrow_date
                     ? new Date(tx.borrow_date)
@@ -411,12 +411,12 @@ const Profile = () => {
         </div>
 
         {/* Workplaces */}
-        <div className="mb-6">
+        <div className="mb-6 hidden">
           <h3 className="font-semibold text-lg mb-2">Workplaces</h3>
         </div>
 
         {/* Tags */}
-        <div>
+        <div className="hidden">
           <h3 className="font-semibold text-lg mb-2">Tags</h3>
           <div className="flex flex-wrap gap-2 text-sm"></div>
         </div>
