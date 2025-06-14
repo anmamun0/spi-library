@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function Book() {
-  const { books, setBooks } = useBooks();
+  const { books } = useBooks();
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [viewMode, setViewMode] = useState("list"); // 'list' or 'grid'
   const navigate = useNavigate();
@@ -31,26 +31,7 @@ export default function Book() {
       publisher: "",
     });
   };
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        localStorage.setItem("loader", true);
-        const res = await fetch("https://spi-library.onrender.com/book/books/");
-        const data = await res.json();
-        setBooks(data);
-        console.log("Successfully Books data loaded");
-      } catch (err) {
-        console.error("Failed to fetch books:", err);
-      } finally {
-        localStorage.setItem("loader", false);
-      }
-    };
-
-    if (!books) {
-      fetchBooks();
-    }
-  }, [books, setBooks]);
+ 
 
   useEffect(() => {
     if (books) {

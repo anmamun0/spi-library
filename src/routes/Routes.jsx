@@ -39,6 +39,7 @@ import {
   Moon,
 } from "lucide-react";
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
+import HelpSupport from "../context/HelpSupport";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "/error",
         element: <Error />,
+      },
+      {
+        path: "/helpsupport",
+        element: <HelpSupport />,
       },
       {
         path: "/profile",

@@ -3,32 +3,18 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/images/bteb -logo.png";
 import LoaderProgress from "../pages/shared/LoaderProgress";
+import { useBooks } from "../context/BookContext";
 
 export default function Navbar() {
+    const { books,students,categories,loading, error } = useBooks();
+  
+  
   const [isOpen, setIsOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const navigation = useNavigate();
-  const categoryList = [
-    "All Categories",
-    "Science",
-    "Technology",
-    "Engineering",
-    "Mathematics",
-    "History",
-    "Literature",
-    "Biographies",
-    "Technology",
-    "Engineering",
-    "Mathematics",
-    "History",
-    "Literature",
-    "Biographies",
-    "Engineering",
-    "Mathematics",
-    "History",
-    "Literature",
-    "Biographies",
-  ];
+
+
+const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
@@ -87,7 +73,7 @@ export default function Navbar() {
             <li
               className="relative"
               onMouseEnter={() => setShowCategories(true)}
-              onMouseLeave={() => setShowCategories(false)}
+              
             >
               <NavLink to="/" className="hover:text-amber-400">
                 {" "}
@@ -96,11 +82,11 @@ export default function Navbar() {
 
               {showCategories && (
                 <div className="absolute left-0 mt-3 bg-white text-slate-800 shadow-lg rounded w-[700px] z-10 p-4">
-                  <ul className="grid grid-cols-3 gap-4  p-2 space-y-1">
+                  <ul className="grid grid-cols-3 gap-4  p-2 space-y-1" onMouseLeave={() => setShowCategories(false)}>
                     {categoryList.map((cat, index) => (
                       <li
                         key={index}
-                        className="hover:bg-slate-100 cursor-pointer"
+                        className="hover:bg-slate-100 cursor-pointer px-3 py-1 rounded-md"
                       >
                         <Link
                           to={`/category/${cat
@@ -115,6 +101,8 @@ export default function Navbar() {
                   </ul>
                 </div>
               )}
+
+              
             </li>
 
             {/* Other links */}
@@ -125,41 +113,35 @@ export default function Navbar() {
                 eBooks & Audiobooks{" "}
               </NavLink>{" "}
             </li>
+         
             <li>
               {" "}
-              <NavLink to="/teen" className="hover:text-amber-400">
-                {" "}
-                Teen Zone{" "}
-              </NavLink>{" "}
-            </li>
-            <li>
-              {" "}
-              <NavLink to="/research" className="hover:text-amber-400">
+              <NavLink to="/research" className="hover:text-amber-400 ">
                 {" "}
                 Research & Databases{" "}
               </NavLink>{" "}
             </li>
             <li>
               {" "}
-              <NavLink to="/enent" className="hover:text-amber-400">
+              <NavLink to="/enent" className="hover:text-amber-400 ">
                 {" "}
                 Events & Programs{" "}
               </NavLink>{" "}
             </li>
             <li>
               {" "}
-              <NavLink to="/help" className="hover:text-amber-400">
+              <NavLink to="/helpsupport" className="hover:text-amber-400">
                 {" "}
                 Help & Support{" "}
               </NavLink>{" "}
             </li>
-            <li>
+            {/* <li>
               {" "}
               <NavLink to="/card" className="hover:text-amber-400 ">
                 {" "}
                 Library Card{" "}
               </NavLink>{" "}
-            </li>
+            </li> */}
           </ul>
           
         </div>
@@ -170,12 +152,7 @@ export default function Navbar() {
 
 {isOpen && (
   <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
-    <Link
-      to="/auth-redirect"
-      className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3"
-    >
-      My Account
-    </Link>
+   
 
     <div className="flex mb-3">
       <input
@@ -187,13 +164,20 @@ export default function Navbar() {
         Go
       </button>
     </div>
-
+ <Link
+      to="/profile"
+      className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3"
+    >
+      My Account
+          </Link>
+          
     <div className="flex justify-between space-x-2 mb-4">
       <button className="bg-slate-800 text-white w-1/2 py-2 rounded">
         Catalog
       </button>
       <button className="bg-slate-400 text-white w-1/2 py-2 rounded">
-        Website
+      <Link to="books">Books</Link>
+        
       </button>
     </div>
 

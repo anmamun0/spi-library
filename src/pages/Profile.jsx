@@ -38,9 +38,22 @@ const Profile = () => {
     return <div className="text-center py-10">Loading...</div>;
   }
 
-  if (error) {
-    return <div className="text-center text-red-500 py-10">Error loading profile data.</div>;
-  }
+if (error) {
+  return (
+    <div className="flex flex-col items-center justify-center py-10 bg-red-50 text-red-600 rounded-md shadow-sm">
+      <h2 className="text-lg font-semibold mb-2">Failed to Load Profile</h2>
+      <p className="mb-4 text-center">
+        We encountered an error while loading your profile data.
+      </p>
+      <Link
+        to="/login"
+        className="inline-block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+      >
+        Login Again
+      </Link>
+    </div>
+  );
+}
 
   const booksRead = transactions.filter((tx) => tx.status === "returned").length;
   // Calculate number of full stars based on booksRead

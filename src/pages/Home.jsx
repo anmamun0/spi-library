@@ -1,295 +1,366 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import campus from "../assets//images/spi-5.jpg";
 import campus1 from "../assets/images/spi-3.jpg";
 import campus2 from "../assets/images/spi-6.jpg";
 import campus3 from "../assets/images/spi-1.jpg";
 
+import {
+  BookOpen,
+  Code,
+  Brain,
+  Database,
+  Server,
+  Lock,
+  Globe,
+  Calculator,
+  Cloud,
+  Atom,
+  Cpu,
+  LayoutDashboard,
+  Paintbrush,
+  Music,
+  Book,
+  MessageCircle,
+  FileText,
+  Hammer,
+  FlaskConical,
+  GraduationCap,
+  Users,
+  ShieldCheck,
+  BarChart3,
+  Languages,
+  FolderGit2,
+  Search,
+  Download,
+  Music2,
+  History,
+  Library,
+  BookOpenCheck,
+  CalendarDays,
+  MapPin,
+  BookMarked,
+  Clock,
+  User, Hash, Calendar,Star 
+} from "lucide-react";
+import { Tooltip } from "react-tooltip";
+
+import "react-tooltip/dist/react-tooltip.css";
+import { useBooks } from "../context/BookContext";
+import axios from "axios";
+
 export default function Home() {
+  const [activeTab, setActiveTab] = useState("toppers");
+
+  const { books,students, loading, error } = useBooks();
+ 
+
+ 
+  const [notices] = useState([
+    { title: "Final Exam Routine Published", date: "2025-06-10" },
+    { title: "Library Will Remain Closed on June 15", date: "2025-06-09" },
+    { title: "Project Submission Deadline Extended", date: "2025-06-08" },
+  ]);
+
+  const [topBooks] = useState([
+    {
+      title: "The Pragmatic Programmer",
+      author: "Andrew Hunt",
+      cover: "https://example.com/book1.jpg",
+    },
+    {
+      title: "Clean Code",
+      author: "Robert C. Martin",
+      cover: "https://example.com/book2.jpg",
+    },
+    {
+      title: "Introduction to Algorithms",
+      author: "Cormen et al.",
+      cover: "https://example.com/book3.jpg",
+    },
+  ]);
+
+  const categories = [
+    { id: 1, name: "Programming", icon: Code },
+    { id: 2, name: "Artificial Intelligence", icon: Brain },
+    { id: 3, name: "Database", icon: Database },
+    { id: 4, name: "Cybersecurity", icon: Lock },
+    { id: 5, name: "Cloud Computing", icon: Cloud },
+    { id: 6, name: "Web Development", icon: LayoutDashboard },
+    { id: 7, name: "Networking", icon: Globe },
+    { id: 8, name: "Mathematics", icon: Calculator },
+    { id: 9, name: "Physics", icon: Atom },
+    { id: 10, name: "Computer Architecture", icon: Cpu },
+    { id: 11, name: "Library Science", icon: BookOpen },
+    { id: 12, name: "Design & UI/UX", icon: Paintbrush },
+    { id: 13, name: "Music Theory", icon: Music },
+    { id: 14, name: "Literature", icon: Book },
+    { id: 15, name: "Communication", icon: MessageCircle },
+    { id: 16, name: "Writing & Publishing", icon: FileText },
+    { id: 17, name: "Engineering", icon: Hammer },
+    { id: 18, name: "Chemistry", icon: FlaskConical },
+    { id: 19, name: "Education", icon: GraduationCap },
+    { id: 20, name: "Social Science", icon: Users },
+    { id: 21, name: "Law & Ethics", icon: ShieldCheck },
+    { id: 22, name: "Data Analysis", icon: BarChart3 },
+    { id: 23, name: "Linguistics", icon: Languages },
+    { id: 24, name: "DevOps & Git", icon: FolderGit2 },
+    { id: 25, name: "Server & Infrastructure", icon: Server },
+  ];
+
   return (
     <div className="bg-white text-gray-800">
       <div className="container mx-auto p-4">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Column */}
+          {/* Featured Library Section – Left Column */}
           <div className="lg:w-2/3">
-            {/* <h2 className="text-blue-800 font-bold mb-2">What's On</h2> */}
-
             <img
               src={campus}
-              alt="New Centennial Exhibition"
+              alt="Library Reading Space"
               className="w-full h-96 object-cover rounded shadow pt-2"
             />
-            <h3 className="text-2xl font-semibold mt-4">
-              New Centennial Exhibition! 100: A Century of Collections,
-              Community, and Creativity
+
+            <h3 className="text-2xl font-semibold mt-4 text-gray-800 flex items-center gap-2">
+              <BookMarked className="text-blue-800" size={24} />
+              Student Research & Digital Resource Center
             </h3>
-            <p className="text-sm text-gray-600 mt-1">
-              {" "}
-              OPEN NOW. THROUGH JUNE 30, 2026{" "}
+
+            <p className="text-sm text-gray-600 mt-1 flex items-center gap-2">
+              <Clock className="text-gray-500" size={18} />
+              Open Daily • Institute Operating Hours
             </p>
-            <p className="text-sm text-gray-800">
-              {" "}
-              Schomburg Center for Research in Black Culture{" "}
+
+            <p className="text-sm text-gray-800 flex items-center gap-2">
+              <MapPin className="text-gray-600" size={18} />
+              Sylhet Polytechnic Institute, Sylhet, Bangladesh
             </p>
-            <button className="mt-6 border border-blue-800 text-gray-800 px-6 py-2 rounded-full hover:bg-amber-100 transition">
-              SEE MORE . . .{" "}
+
+            <p className="text-sm text-gray-700 mt-3">
+              Access a growing collection of research papers, academic books,
+              journals, and e-learning tools at our dedicated student center.
+              Designed to support your academic journey with a quiet reading
+              environment and digital facilities.
+            </p>
+
+            <button className="mt-6 border border-blue-800 text-blue-800 px-6 py-2 rounded-full hover:bg-blue-50 transition">
+              <Link to="/helpsupport">Learn More → </Link>
             </button>
           </div>
 
-          {/* Right Column */}
           <div className="lg:w-1/3 space-y-6">
-            {/* Tab Menu */}
-            <div className="grid grid-cols-3 justify-between border-b border-red-500 pb-2 text-sm font-semibold uppercase">
-              <span className="hover:text-red-600 cursor-pointer">
-                {" "}
-                Author Talks & Conversations{" "}
+            {/* Tabs */}
+            <div className="grid grid-cols-3 pb-2 text-sm font-semibold uppercase text-center">
+              <span
+                onClick={() => setActiveTab("toppers")}
+                className={`cursor-pointer ${
+                  activeTab === "toppers"
+                    ? "text-red-600 border-b-2 border-red-600 "
+                    : "hover:text-red-600"
+                }`}
+              >
+                Toppers
               </span>
-              <span className="text-red-600 border-b-2 border-red-600">
-                {" "}
-                Exhibitions{" "}
+              <span
+                onClick={() => setActiveTab("notices")}
+                className={`cursor-pointer ${
+                  activeTab === "notices"
+                    ? "text-red-600 border-b-2 border-red-600"
+                    : "hover:text-red-600"
+                }`}
+              >
+                Notices
               </span>
-              <span className="hover:text-red-600 cursor-pointer">
-                {" "}
-                Kids & Teens{" "}
+              <span
+                onClick={() => setActiveTab("books")}
+                className={`cursor-pointer ${
+                  activeTab === "books"
+                    ? "text-red-600 border-b-2 border-red-600"
+                    : "hover:text-red-600"
+                }`}
+              >
+                Top Books
               </span>
             </div>
 
-            {/* Events List */}
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                <img
-                  src={campus1}
-                  alt="A Century"
-                  className="w-20 h-20 object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-base">
-                    {" "}
-                    A Century of The New Yorker{" "}
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    {" "}
-                    OPEN NOW. THROUGH FEBRUARY 21, 2026{" "}
-                  </p>
-                  <p className="text-sm">Stephen A. Schwarzman Building</p>
-                </div>
+            {/* Conditional Sections */}
+            {activeTab === "toppers" && (
+              
+              <div className="max-w-lg mx-auto"> 
+<h3 className="flex items-center gap-2 text-md font-semibold text-gray-800 mb-4">
+   <span>Top 10 Readers  Students </span>
+</h3> 
+
+
+  {/* Container with max height on md screens and vertical scroll with thin scrollbar */}
+  <div className="max-h-[20.5rem] md:max-h-66 overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-transparent"   style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#EBEBEA #fff", // Firefox thumb and track
+            }}>
+    {students.map((student, index) => (
+      <div
+        key={student.id}
+        className="flex flex-col p-4 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 transition cursor-pointer shadow-sm"
+        title={`${student.full_name} - ${student.department}`}
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center space-x-3">
+            <div className="text-sm font-semibold text-indigo-600">{`#${index + 1}`}</div>
+            <User size={22} className="text-indigo-500" />
+            <h4 className="font-semibold text-gray-900">{student.full_name}</h4>
+          </div>
+
+          <div className="flex space-x-1">
+            {[...Array(Math.round(student.rating))].map((_, i) => (
+              <Star key={i} size={16} className="text-yellow-400" />
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 text-xs text-gray-600">
+          <span className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full font-medium">
+            Roll: {student.roll}
+          </span>
+          <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full font-medium">
+            Session: {student.session}
+          </span>
+          <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-medium capitalize">
+            {student.department}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+            )}
+
+            {activeTab === "notices" && (
+              <div className="space-y-4">
+                <h3 className="font-bold text-lg"> Recent Notices</h3>
+                {notices.map((notice, index) => (
+                  <div key={index} className="text-sm">
+                    <p className="font-semibold">{notice.title}</p>
+                    <p className="text-gray-500 text-xs">{notice.date}</p>
+                  </div>
+                ))}
               </div>
+            )}
 
-              <div className="flex gap-4">
-                <img
-                  src={campus2}
-                  alt="Jazz"
-                  className="w-20 h-20 object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-base">
-                    Rhythm Is My Business: Women Who Shaped Jazz
-                  </h4>
-
-                  <p className="text-sm text-gray-600">
-                    OPEN NOW. THROUGH JUNE 13, 2025
-                  </p>
-
-                  <p className="text-sm">Library for the Performing Arts</p>
-                </div>
+            {activeTab === "books" && (
+              <div className="space-y-4">
+                <h3 className="font-bold text-lg">📚 Top Books</h3>
+                {topBooks.map((book, index) => (
+                  <div key={index} className="flex items-center gap-4">
+                    <img
+                      src={book.cover}
+                      alt={book.title}
+                      className="w-12 h-16 object-cover rounded shadow"
+                    />
+                    <div>
+                      <p className="font-semibold text-sm">{book.title}</p>
+                      <p className="text-xs text-gray-500">by {book.author}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
+            )}
+          </div>
+        </div>
 
-              <div className="flex gap-4">
-                <img
-                  src={campus}
-                  alt="Motherwell"
-                  className="w-20 h-20 object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-base">
-                    Robert Motherwell: At Home and in the Studio
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    OPEN NOW. THROUGH AUGUST 2, 2025
-                  </p>
-                  <p className="text-sm">Stephen A. Schwarzman Building</p>
+        <div className="my-10 px-4 mx-auto">
+          <div className="p-2 mx-auto flex justify-center">
+            <h2 className="relative text-3xl text-center font-semibold text-gray-800 mb-8 select-none max-w-max">
+              Browse Book Categories
+              <span className="absolute left-0 -bottom-2 w-20 h-1 bg-blue-700 rounded-full"></span>
+            </h2>
+          </div>
+
+          <div
+            className="py-8 mx-auto max-w-5xl flex overflow-x-auto gap-6 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 scroll-smooth
+    "
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#DDDEDC #f3f4f6", // Firefox thumb and track
+            }}
+          >
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <div
+                  key={cat.id}
+                  className="relative group flex-shrink-0 bg-white border border-gray-200 shadow-sm rounded-3xl w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  tabIndex={0}
+                  data-tooltip-id={`tooltip-${cat.id}`}
+                  data-tooltip-content={cat.name}
+                >
+                  <Tooltip
+                    id={`tooltip-${cat.id}`}
+                    place="top"
+                    className=" text-sm font-semibold rounded-md px-2 py-1 bg-black text-white z-20"
+                  />
+                  <Icon
+                    className="text-indigo-600 transition-colors duration-300 group-hover:text-indigo-800"
+                    size={36} // increased size here
+                  />
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <img
-                  src={campus3}
-                  alt="Motherwell"
-                  className="w-20 h-20 object-cover"
+              );
+            })}
+          </div>
+        </div>
+
+        <section className="bg-gray-100 text-gray-800 py-14 px-4 md:px-16 rounded rounded-2xl my-10">
+          {/* Search Area */}
+          <div className="bg-white shadow-xl rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Left Text */}
+              <p className="text-lg md:text-xl font-medium leading-relaxed max-w-2xl">
+                Welcome to our Digital Library — explore millions of free books,
+                articles, documents, archives, audio, and more.
+              </p>
+
+              {/* Search Bar */}
+              <div className="flex w-full max-w-md">
+                <input
+                  type="text"
+                  placeholder="Search by title, author, or keyword"
+                  className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
-                <div>
-                  <h4 className="font-semibold text-base">
-                    Robert Motherwell: At Home and in the Studio
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    OPEN NOW. THROUGH AUGUST 2, 2025
-                  </p>
-                  <p className="text-sm">Stephen A. Schwarzman Building</p>
-                </div>
+                <button className="px-4 py-2 bg-black text-white rounded-r-md hover:bg-gray-900">
+                  Search
+                </button>
               </div>
             </div>
           </div>
-        </div>
-       
-      {/* Hero Section */}
-      <section className="bg-gray-100 text-gray-800 py-12 px-4 md:px-16">
-        {/* Top Bar */}
 
-        {/* Search Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row items-center md:justify-between">
-            <div className="flex items-center space-x-4">
-              <p className="text-lg md:text-xl font-medium max-w-xl">
-                Internet Archive is a non-profit library of millions of free
-                texts, movies, software, music, websites, and more.
+          {/* Library Help Cards */}
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition-all">
+              <Search className="mx-auto text-indigo-600 mb-3" size={32} />
+              <p className="text-sm font-medium text-gray-700">
+                Searching Books & Journals
               </p>
             </div>
-
-            <div className="mt-6 md:mt-0">
-              <input
-                type="text"
-                placeholder="Enter URL or keywords"
-                className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
-              />
-              <button className="px-4 py-2 bg-black text-white rounded-r-md">
-                Go
-              </button>
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition-all">
+              <BookOpen className="mx-auto text-indigo-600 mb-3" size={32} />
+              <p className="text-sm font-medium text-gray-700">
+                Reading eBooks Online
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition-all">
+              <Download className="mx-auto text-indigo-600 mb-3" size={32} />
+              <p className="text-sm font-medium text-gray-700">
+                Downloading PDF or EPUB
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition-all">
+              <Library className="mx-auto text-indigo-600 mb-3" size={32} />
+              <p className="text-sm font-medium text-gray-700">
+                Explore Digital Archives
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* Help Section */}
-        <div className="mt-10 grid md:grid-cols-4 gap-4 text-center">
-          <div className="bg-white p-4 rounded shadow">
-            🔍
-            <br />
-            How to search the archive
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            ⬇️
-            <br />
-            How to download files
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            🎵
-            <br />
-            Listening to music
-          </div>
-          <div className="bg-white p-4 rounded shadow">
-            🕰️
-            <br />
-            Find old web pages
-          </div>
-        </div>
-      </section>
-       
-      
-
-      {/* Featured Services */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Featured Services
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Digital Library",
-                description:
-                  "Access eBooks, audiobooks, and more from anywhere.",
-                link: "/digital-library",
-              },
-              {
-                title: "Meeting Rooms",
-                description: "Reserve spaces for your meetings and events.",
-                link: "/meeting-rooms",
-              },
-              {
-                title: "Research Resources",
-                description:
-                  "Explore databases and research tools for all ages.",
-                link: "/research",
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded shadow hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                <p className="mb-4">{service.description}</p>
-                <Link
-                  to={service.link}
-                  className="text-green-700 hover:underline"
-                >
-                  Learn More →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Digital Resources */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Digital Resources
-          </h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { name: "Freegal", link: "/freegal" },
-              { name: "Kanopy", link: "/kanopy" },
-              { name: "Universal Class", link: "/universal-class" },
-              { name: "Goodreads Reviews", link: "/goodreads" },
-            ].map((resource, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 p-4 rounded text-center hover:bg-gray-200 transition"
-              >
-                <h3 className="text-lg font-medium mb-2">{resource.name}</h3>
-                <Link
-                  to={resource.link}
-                  className="text-green-700 hover:underline"
-                >
-                  Learn More →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Library Locations */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Library Locations
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                name: "Civic Center Library",
-                address: "3839 N. Drinkwater Blvd, Scottsdale, AZ 85251",
-                hours: "Mon-Thu: 10am–7pm, Fri-Sat: 10am–5pm, Sun: 1pm–5pm",
-              },
-              {
-                name: "Mustang Library",
-                address: "10101 N. 90th St, Scottsdale, AZ 85258",
-                hours: "Mon-Thu: 10am–7pm, Fri-Sat: 10am–5pm, Sun: 1pm–5pm",
-              },
-            ].map((location, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded shadow hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-semibold mb-2">{location.name}</h3>
-                <p className="mb-1">{location.address}</p>
-                <p className="text-sm text-gray-600">{location.hours}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
       </div>
-      </div>
-      
+    </div>
   );
 }

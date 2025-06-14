@@ -9,10 +9,10 @@ export const ProfileProvider = ({ children }) => {
   const [transactionsContext, setTransactionsContext] = useState(null);
   const [loading, setLoading] = useState(true); // optional
   const [error, setError] = useState(null); // optional
-
-  useEffect(() => {
-     const profile_id = localStorage.getItem("profile_id");
+const profile_id = localStorage.getItem("profile_id");
       const token = localStorage.getItem("token_id");
+  useEffect(() => {
+     
     const fetchProfileAndTransactions = async () => { 
       const headers = {
         Authorization: `Token ${token}`,
@@ -44,15 +44,13 @@ export const ProfileProvider = ({ children }) => {
       } finally {
         setLoading(false);
         localStorage.setItem('loader', false); 
-
       }
     };
 
     if (token) {
-      
       fetchProfileAndTransactions();
     }
-  }, []);
+  }, [token,profile_id]);
 
   return (
     <ProfileContext.Provider value={{ studentContext, transactionsContext, loading, error }} >
