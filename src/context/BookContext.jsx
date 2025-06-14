@@ -11,8 +11,7 @@ export const BookProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const token = localStorage.getItem("token_id");
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,11 +37,9 @@ export const BookProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
-    if (token) {
-      fetchData();
-    }
-  }, [token]);
+ 
+      fetchData(); 
+  }, []);
 
   return (
     <BookContext.Provider
