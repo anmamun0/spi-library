@@ -16,6 +16,8 @@ export const BookProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        localStorage.setItem('loader', true); 
+
         setLoading(true);
 
         // Fetch books, students, and categories simultaneously
@@ -35,6 +37,8 @@ export const BookProvider = ({ children }) => {
         setError(err);
       } finally {
         setLoading(false);
+        localStorage.setItem('loader', false); 
+
       }
     };
  
