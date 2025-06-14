@@ -12,10 +12,25 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const navigation = useNavigate();
+  const [search, setSearch] = useState("");
 
 
 const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
+  const handleGoClick = () => {
+    if (search.trim()) {
+      const formattedSearch = encodeURIComponent(search.trim().toLowerCase().replace(/\s+/g, "-"));
+      navigation(`/books?category=${formattedSearch}`);
+    } else {
+      navigation("/books");
+    }
+  };
+
+    const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleGoClick();
+    }
+  };
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex max-w-7xl justify-between items-center">
@@ -37,18 +52,22 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
         {/* Account + Search */}
         <div className="hidden lg:flex items-center space-x-4">
-          <div className="mt-6 md:mt-0">
-            <input
-              type="text"
-              placeholder="Enter URL or keywords"
-              className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
-            /> 
-             <button onClick={()=>{navigation('/books')}} className="px-4 py-2 bg-slate-800 text-white rounded-r-md">
-               
-              Go{" "}
-            </button>   
-          </div>
-
+       <div className="mt-6 md:mt-0 flex">
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder="Enter URL or keywords"
+        className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
+      />
+      <button
+        onClick={handleGoClick}
+        className="px-4 py-2 bg-slate-800 text-white rounded-r-md"
+      >
+        Go
+      </button>
+    </div>
           <div className="flex">
             <button className="bg-blue-800 text-white px-4 py-2 rounded">
               <Link to="/auth-redirect">My Account</Link>
