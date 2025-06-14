@@ -5,13 +5,16 @@ import {
   LayoutGrid,
   AlignVerticalJustifyCenter,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation  } from "react-router-dom";
 
 export default function Book() {
-  const { books } = useBooks();
+  const { books, students, categories, loading, error } = useBooks();
+  
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [viewMode, setViewMode] = useState("list"); // 'list' or 'grid'
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const [filters, setFilters] = useState({
     search: "",
@@ -21,6 +24,17 @@ export default function Book() {
     available: "",
     publisher: "",
   });
+
+   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryFromUrl = params.get("category") || "";
+
+    if (categoryFromUrl) {
+      setFilters((prev) => ({ ...prev, category: categoryFromUrl }));
+    }
+   }, [location.search]);
+  
+  
   const resetFilters = () => {
     setFilters({
       search: "",

@@ -69,13 +69,23 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
       <div className="bg-slate-800  ">
         <div className="container max-w-7xl mx-auto px-4  text-white text-sm font-medium hidden lg:flex relative">
           <ul className="flex space-x-6 py-3">
+             {/* Other links */}
+            <li>
+              {" "}
+              <NavLink to="/" className=" hover:text-amber-400">
+                {" "}
+                Home{" "}
+              </NavLink>{" "}
+            </li>
+
             {/* Catalog with Dropdown */}
             <li
               className="relative"
               onMouseEnter={() => setShowCategories(true)}
               
             >
-              <NavLink to="/" className="hover:text-amber-400">
+              
+              <NavLink to="//" className="hover:text-amber-400">
                 {" "}
                 Catalog{" "}
               </NavLink>
@@ -89,13 +99,11 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
                         className="hover:bg-slate-100 cursor-pointer px-3 py-1 rounded-md"
                       >
                         <Link
-                          to={`/category/${cat
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
-                        >
-                          {" "}
-                          {cat}{" "}
-                        </Link>
+        to={`/books?category=${cat.toLowerCase().replace(/\s+/g, "-")}`}
+        className="block w-full"
+      >
+        {cat}
+      </Link>
                       </li>
                     ))}
                   </ul>
