@@ -175,7 +175,7 @@ export default function Book() {
                   title="Reset Filters"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span>Reset Filters</span>
+                  <span className=" hidden lg:block" >Reset Filters</span>
                 </button>
               </div>
             </div>

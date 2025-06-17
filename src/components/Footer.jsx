@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer className="bg-slate-800 text-white pt-12 pb-8 px-6">
@@ -15,10 +17,10 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
-            <li> <a href="/" className="hover:text-amber-400"> Home </a> </li>
-            <li> <a href="/login" className="hover:text-amber-400"> Login </a> </li>
-            <li> <a href="/register" className="hover:text-amber-400"> Register </a> </li>
-            <li> <a href="/contact" className="hover:text-amber-400"> Contact </a> </li>
+            <li><Link to="/" className="hover:text-amber-400"> Home</Link> </li>
+            <li> <Link to="/login" className="hover:text-amber-400"> Login</Link> </li>
+            <li><Link to="/register" className="hover:text-amber-400"> Register</Link> </li>
+            <li><Link to="/helpsupport" className="hover:text-amber-400"> Contact</Link> </li> 
           </ul>
         </div>
 
@@ -26,10 +28,10 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4">Resources</h3>
           <ul className="space-y-2">
-            <li> <a href="/faq" className="hover:text-amber-400"> FAQ </a> </li>
-            <li> <a href="/books" className="hover:text-amber-400"> Browse Books </a> </li>
-            <li> <a href="/dashboard" className="hover:text-amber-400"> Student Dashboard </a> </li>
-            <li> <a href="/admin" className="hover:text-amber-400"> Admin Panel </a> </li>
+            <li> <Link to="/" className="hover:text-amber-400"> FAQ</Link> </li>
+            <li><Link to="/books" className="hover:text-amber-400"> Browse Books</Link> </li>
+            <li> <Link to="/auth-redirect" className="hover:text-amber-400"> Student Dashboard </Link></li>
+            <li><Link to="/admin" className="hover:text-amber-400"> Admin Panel</Link> </li>
           </ul>
         </div>
 

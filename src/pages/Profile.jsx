@@ -9,15 +9,13 @@ import {
   Calendar,
   RefreshCcw,
   Star,
-}
-  from "lucide-react";
+} from "lucide-react";
 import { useNavigate, Link, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import LoaderProgress from "./shared/LoaderProgress";
 import { useProfile } from "../context/ProfileContext";
 
 const Profile = () => {
-
   // I dont want to change data here, that way commanted
   // const { studentContext, setStudentContext, transactionsContext, setTransactionsContext,loading,error} = useProfile();
   const { studentContext, transactionsContext, loading, error } = useProfile();
@@ -27,7 +25,7 @@ const Profile = () => {
   const [transactions, setTransactions] = useState(transactionsContext || []);
   const navigate = useNavigate();
 
-  useEffect(() => {  
+  useEffect(() => {
     if (studentContext && transactionsContext) {
       setStudent(studentContext);
       setTransactions(transactionsContext);
@@ -38,24 +36,26 @@ const Profile = () => {
     return <div className="text-center py-10">Loading...</div>;
   }
 
-if (error) {
-  return (
-    <div className="flex flex-col items-center justify-center py-10 bg-red-50 text-red-600 rounded-md shadow-sm">
-      <h2 className="text-lg font-semibold mb-2">Failed to Load Profile</h2>
-      <p className="mb-4 text-center">
-        We encountered an error while loading your profile data.
-      </p>
-      <Link
-        to="/login"
-        className="inline-block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-      >
-        Login Again
-      </Link>
-    </div>
-  );
-}
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 bg-red-50 text-red-600 rounded-md shadow-sm">
+        <h2 className="text-lg font-semibold mb-2">Failed to Load Profile</h2>
+        <p className="mb-4 text-center">
+          We encountered an error while loading your profile data.
+        </p>
+        <Link
+          to="/login"
+          className="inline-block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        >
+          Login Again
+        </Link>
+      </div>
+    );
+  }
 
-  const booksRead = transactions.filter((tx) => tx.status === "returned").length;
+  const booksRead = transactions.filter(
+    (tx) => tx.status === "returned"
+  ).length;
   // Calculate number of full stars based on booksRead
   const starCount = Math.round((50 / 100) * 5);
 
@@ -117,8 +117,10 @@ if (error) {
               alt="Avatar"
               className="w-32 md:w-36 h-32 md:h-36 rounded-full object-cover"
             />
-            <div >
-              <h2 className="text-md md:text-2xl font-bold break-work">{student.full_name}</h2>
+            <div>
+              <h2 className="text-md md:text-2xl font-bold break-work">
+                {student.full_name}
+              </h2>
               <p className="md:text-md text-gray-600">{student.email}</p>
               <p className="md:text-md text-gray-600">{student.phone}</p>
               <p className="md:text-md text-gray-600">
@@ -129,13 +131,13 @@ if (error) {
                   <Star
                     key={i}
                     className={`w-4 h-4 ${
-                      i < starCount
+                      i < student.rating
                         ? "fill-blue-500 text-blue-500"
                         : "text-blue-200"
                     }`}
                   />
                 ))}
-              </div>{" "}
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap items-start gap-3 md:gap-6 md:p-6 bg-white rounded-lg shadow-sm max-w-lg">

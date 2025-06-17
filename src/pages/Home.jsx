@@ -286,6 +286,10 @@ export default function Home() {
             {categories.map((cat) => {
               const Icon = cat.icon;
               return (
+                <Link
+  to={`/books?category=${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
+  className="block"
+>
                 <div
                   key={cat.id}
                   className="relative group flex-shrink-0 bg-white border border-gray-200 shadow-sm rounded-3xl w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
@@ -302,7 +306,8 @@ export default function Home() {
                     className="text-indigo-600 transition-colors duration-300 group-hover:text-indigo-800"
                     size={36} // increased size here
                   />
-                </div>
+                  </div>
+                  </Link>
               );
             })}
           </div>

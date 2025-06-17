@@ -52,26 +52,28 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
         {/* Account + Search */}
         <div className="hidden lg:flex items-center space-x-4">
-       <div className="mt-6 md:mt-0 flex">
-      <input
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Enter URL or keywords"
-        className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
-      />
-      <button
-        onClick={handleGoClick}
-        className="px-4 py-2 bg-slate-800 text-white rounded-r-md"
-      >
-        Go
-      </button>
-    </div>
-          <div className="flex">
-            <button className="bg-blue-800 text-white px-4 py-2 rounded">
-              <Link to="/auth-redirect">My Account</Link>
+          <div className="mt-6 md:mt-0 flex">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Enter URL or keywords"
+              className="px-4 py-2 border border-gray-300 rounded-l-md w-64 md:w-80"
+            />
+            <button
+              onClick={handleGoClick}
+              className="px-4 py-2 bg-slate-800 text-white rounded-r-md"
+            >
+              Go
             </button>
+          </div>
+          <div className="flex">
+            <Link to="/auth-redirect">
+              <button className="bg-blue-800 text-white px-4 py-2 rounded">
+                My Account
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -88,7 +90,7 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
       <div className="bg-slate-800  ">
         <div className="container max-w-7xl mx-auto px-4  text-white text-sm font-medium hidden lg:flex relative">
           <ul className="flex space-x-6 py-3">
-             {/* Other links */}
+            {/* Other links */}
             <li>
               {" "}
               <NavLink to="/" className=" hover:text-amber-400">
@@ -101,9 +103,7 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
             <li
               className="relative"
               onMouseEnter={() => setShowCategories(true)}
-              
             >
-              
               <NavLink to="//" className="hover:text-amber-400">
                 {" "}
                 Catalog{" "}
@@ -111,25 +111,28 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
               {showCategories && (
                 <div className="absolute left-0 mt-3 bg-white text-slate-800 shadow-lg rounded w-[700px] z-10 p-4">
-                  <ul className="grid grid-cols-3 gap-4  p-2 space-y-1" onMouseLeave={() => setShowCategories(false)}>
+                  <ul
+                    className="grid grid-cols-3 gap-4  p-2 space-y-1"
+                    onMouseLeave={() => setShowCategories(false)}
+                  >
                     {categoryList.map((cat, index) => (
                       <li
                         key={index}
                         className="hover:bg-slate-100 cursor-pointer px-3 py-1 rounded-md"
                       >
                         <Link
-        to={`/books?category=${cat.toLowerCase().replace(/\s+/g, "-")}`}
-        className="block w-full"
-      >
-        {cat}
-      </Link>
+                          to={`/books?category=${cat
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                          className="block w-full"
+                        >
+                          {cat}
+                        </Link>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
-
-              
             </li>
 
             {/* Other links */}
@@ -140,7 +143,7 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
                 eBooks & Audiobooks{" "}
               </NavLink>{" "}
             </li>
-         
+
             <li>
               {" "}
               <NavLink to="/research" className="hover:text-amber-400 ">
@@ -170,71 +173,75 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
               </NavLink>{" "}
             </li> */}
           </ul>
-          
         </div>
-
       </div>
-        <LoaderProgress />
-      {/* Mobile Menu */} 
+      <LoaderProgress />
+      {/* Mobile Menu */}
 
-{isOpen && (
-  <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
-   
+      {isOpen && (
+        <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
+          <div className="flex mb-3">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Enter URL or keywords"
+              className="w-full px-3 py-2 border border-slate-300 rounded-l-md"
+            />
+            <button
+              onClick={handleGoClick}
+              className="bg-slate-800 text-white px-4 rounded-r-md"
+            >
+              Go
+            </button>
 
-    <div className="flex mb-3">
-      <input
-        type="text"
-        placeholder="Search our catalog..."
-        className="w-full px-3 py-2 border border-slate-300 rounded-l-md"
-      />
-      <button className="bg-slate-800 text-white px-4 rounded-r-md">
-        Go
-      </button>
-    </div>
- <Link
-      to="/profile"
-      className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3"
-    >
-      My Account
+            <button
+              onClick={handleGoClick}
+              className="px-4 py-2 bg-slate-800 text-white rounded-r-md"
+            >
+              Go
+            </button>
+          </div>
+
+          <Link to="/auth-redirect">
+              <button className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3">
+              My Account
+            </button>
           </Link>
           
-    <div className="flex justify-between space-x-2 mb-4">
-      <button className="bg-slate-800 text-white w-1/2 py-2 rounded">
-        Catalog
-      </button>
-      <button className="bg-slate-400 text-white w-1/2 py-2 rounded">
-      <Link to="books">Books</Link>
-        
-      </button>
-    </div>
 
-   <ul className="space-y-2 text-slate-700">
-  <li>
-    <Link to="/" className="block hover:text-amber-500">Catalog</Link>
-  </li>
-  <li>
-    <Link to="/books" className="block hover:text-amber-500">eBooks & Audiobooks</Link>
-  </li>
-  <li>
-    <Link to="/teen" className="block hover:text-amber-500">Teen Zone</Link>
-  </li>
-  <li>
-    <Link to="/research" className="block hover:text-amber-500">Research & Databases</Link>
-  </li>
-  <li>
-    <Link to="/enent" className="block hover:text-amber-500">Events & Programs</Link>
-  </li>
-  <li>
-    <Link to="/help" className="block hover:text-amber-500">Help & Support</Link>
-  </li>
-  <li>
-    <Link to="/card" className="block text-teal-600 font-medium hover:underline">Library Card</Link>
-  </li>
-</ul>
+    
 
-  </div>
-)}
+          <div className="flex justify-between space-x-2 mb-4">
+            <button className="bg-slate-800 text-white w-1/2 py-2 rounded">
+              Catalog
+            </button>
+            <button className="bg-slate-400 text-white w-1/2 py-2 rounded">
+              <Link to="books">Books</Link>
+            </button>
+          </div>
 
+          <ul className="space-y-2 text-slate-700">
+            <li>
+              <Link to="/" className="block hover:text-amber-500">
+                Catalog
+              </Link>
+            </li>
+            <li>
+              <Link to="/books" className="block hover:text-amber-500">
+                eBooks & Audiobooks
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/helpsupport" className="block hover:text-amber-500">
+                Help & Support
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }

@@ -92,7 +92,7 @@ const Login = () => {
                 )}
 
                 {!profileImage && (
-                  <p onClick={(event) => { setEmail('anmamun0@gmail.com'); setPassword('12345mamun'); event.target.classList.add('hidden');}} className="text-center px-3 py-1.5 text-sm font-medium text-slate-800 hover:text-red-600 border border-slate-500 hover:border-red-500 rounded-md transition duration-200 bg-white hover:bg-red-50">
+                  <p onClick={(event) => { setEmail('anmamun0@gmail.com'); setPassword('12345mamun'); event.target.classList.add('hidden');}} className="text-center px-3 py-1.5 text-sm font-medium text-slate-800 hover:text-red-600 border border-slate-500 hover:border-red-500 rounded-md transition duration-200 bg-white hover:bg-red-50 cursor-pointer">
                     Demo user
                   </p>
                 )}
@@ -147,8 +147,13 @@ const Login = () => {
               </div>
 
               <div className="relative">
-                <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-gray-500">
-                  <i className="fa-solid fa-lock"></i>
+                
+                 <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-gray-500">
+                  {profileImage ? (
+                    <i class="fa-solid fa-check text-green-500"></i>
+                  ) : (
+                    <i className="fa-solid fa-lock"></i>
+                  )}
                 </span>
                 <input
                   type="password"

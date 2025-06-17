@@ -12,7 +12,8 @@ const BookDetails = () => {
   const [book, setBook] = useState(null);
   const [allBooks, setAllBooks] = useState([]);
 
-  const { books, setBooks } = useBooks();
+  const { books, setBooks, } = useBooks();
+  
   const [showModal, setShowModal] = useState(false);
   const [selectedDays, setSelectedDays] = useState(7); // default
   const [borrowError, setBorrowError] = useState(""); // Error state
@@ -203,6 +204,7 @@ const BookDetails = () => {
             </button>
           </div>
         </div>
+
         {/* Suggested Books */}
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">Category of the book</h2>
