@@ -134,8 +134,9 @@ export default function Book() {
 
   return (
     <div className="max-w-7xl mx-auto py-12">
-      <div className="md:grid grid-cols-12 md:flex-row gap-6">
-        <div className="col-span-9 px-4 ">
+      <div className="md:grid grid-cols-12 md:flex-row gap-6 w-full">
+        
+        <div className="col-span-9 ">
           {/* Book Count Box */}
           <div className="mb-6">
             <div className="flex justify-between bg-white border border-gray-300  rounded-xl shadow-sm px-4 py-3">
@@ -224,6 +225,9 @@ export default function Book() {
                   </div>
                 </div>
               ))}
+              <div>
+                {filteredBooks.length == 0 &&<p className="text-gray-600 text-2xl p-2 ">No book available</p>}
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -267,11 +271,14 @@ export default function Book() {
                   </div>
                 </div>
               ))}
+                 <div>
+                {filteredBooks.length == 0 &&<p className="text-gray-600 text-2xl p-2 ">No book available</p>}
+              </div>
             </div>
           )}
         </div>
 
-        <aside className="w-full md:w-80 shadow-sm sticky top-4 p-4 md:p-0 self-start">
+        <aside className="w-full md:w-80 shadow-sm lg:sticky top-4 p-4 md:p-0 self-start ">
           {/* 🔍 Search */}
 
           <div className="flex items-center gap-3 justify-between mb-4">

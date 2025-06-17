@@ -230,7 +230,7 @@ const handleSubmit = async (e) => {
       <div className="p-10">
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900"
+          className="md:grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900 space-y-4 md:space-y-1"
         >
           {/* Normal message */}
           <div
@@ -255,7 +255,7 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* Username */}
-          <div className="flex flex-col relative">
+          <div className="flex  flex-col relative">
             <label htmlFor="username" className="mb-1 font-medium">
               Username <span className="text-red-500">*</span>
             </label>

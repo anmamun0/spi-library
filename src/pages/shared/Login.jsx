@@ -61,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mx-auto min-h-[85vh] flex items-center justify-center">
+    <div className="container mx-auto min-h-[85vh] flex items-center justify-center mb-6">
       <div className=" relative bg-slate-50 rounded-lg p-8 w-full max-w-6xl grid grid-cols-1 md:grid-cols-5  items-center">
         {/* Left Image Section */}
 

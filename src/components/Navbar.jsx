@@ -32,7 +32,7 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
     }
   };
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm ">
       <div className="container mx-auto px-4 py-3 flex max-w-7xl justify-between items-center">
         {/* Logo and Name */}
         <div className="flex space-x-2">
