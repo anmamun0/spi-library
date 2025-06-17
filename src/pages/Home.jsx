@@ -41,7 +41,10 @@ import {
   MapPin,
   BookMarked,
   Clock,
-  User, Hash, Calendar,Star 
+  User,
+  Hash,
+  Calendar,
+  Star,
 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 
@@ -52,10 +55,8 @@ import axios from "axios";
 export default function Home() {
   const [activeTab, setActiveTab] = useState("toppers");
 
-  const { books,students, loading, error } = useBooks();
- 
+  const { books, students, loading, error } = useBooks();
 
- 
   const [notices] = useState([
     { title: "Final Exam Routine Published", date: "2025-06-10" },
     { title: "Library Will Remain Closed on June 15", date: "2025-06-09" },
@@ -109,7 +110,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-white text-gray-800">
+    <div className="bg-gray-50 text-gray-800">
       <div className="container mx-auto p-4">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Featured Library Section – Left Column */}
@@ -154,8 +155,8 @@ export default function Home() {
                 onClick={() => setActiveTab("toppers")}
                 className={`cursor-pointer ${
                   activeTab === "toppers"
-                    ? "text-red-600 border-b-2 border-red-600 "
-                    : "hover:text-red-600"
+                    ? "text-blue-800 border-b-2 border-blue-800 "
+                    : "hover:text-blue-800"
                 }`}
               >
                 Toppers
@@ -164,8 +165,8 @@ export default function Home() {
                 onClick={() => setActiveTab("notices")}
                 className={`cursor-pointer ${
                   activeTab === "notices"
-                    ? "text-red-600 border-b-2 border-red-600"
-                    : "hover:text-red-600"
+                    ? "text-blue-800 border-b-2 border-blue-800"
+                    : "hover:text-blue-800"
                 }`}
               >
                 Notices
@@ -174,8 +175,8 @@ export default function Home() {
                 onClick={() => setActiveTab("books")}
                 className={`cursor-pointer ${
                   activeTab === "books"
-                    ? "text-red-600 border-b-2 border-red-600"
-                    : "hover:text-red-600"
+                    ? "text-blue-800 border-b-2 border-blue-800"
+                    : "hover:text-blue-800"
                 }`}
               >
                 Top Books
@@ -184,54 +185,64 @@ export default function Home() {
 
             {/* Conditional Sections */}
             {activeTab === "toppers" && (
-              
-              <div className="max-w-lg mx-auto"> 
-<h3 className="flex items-center gap-2 text-md font-semibold text-gray-800 mb-4">
-   <span>Top 10 Readers  Students </span>
-</h3> 
+              <div className="max-w-lg mx-auto">
+                <h3 className="flex items-center gap-2 text-md font-semibold text-gray-800 mb-4">
+                  <span>Top 10 Readers Students </span>
+                </h3>
 
+                {/* Container with max height on md screens and vertical scroll with thin scrollbar */}
+                <div
+                  className=" md:max-h-[25.5rem] lg:max-h-[20.5rem] md:max-h-66 overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-transparent"
+                  style={{
+                    scrollbarWidth: "thin",
+                    scrollbarColor: "#EBEBEA #fff", // Firefox thumb and track
+                  }}
+                >
+                  {students.map((student, index) => (
+                    <div
+                      key={student.id}
+                      className="flex flex-col p-4 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 transition cursor-pointer shadow-sm"
+                      title={`${student.full_name} - ${student.department}`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-3">
+                          <div className="text-sm font-semibold text-indigo-600">{`#${
+                            index + 1
+                          }`}</div>
+                          <User size={22} className="text-indigo-500" />
+                          <h4 className="font-semibold text-gray-900">
+                            {student.full_name}
+                          </h4>
+                        </div>
 
-  {/* Container with max height on md screens and vertical scroll with thin scrollbar */}
-  <div className="max-h-[20.5rem] md:max-h-66 overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-transparent"   style={{
-              scrollbarWidth: "thin",
-              scrollbarColor: "#EBEBEA #fff", // Firefox thumb and track
-            }}>
-    {students.map((student, index) => (
-      <div
-        key={student.id}
-        className="flex flex-col p-4 bg-white rounded-lg border border-gray-200 hover:border-indigo-500 transition cursor-pointer shadow-sm"
-        title={`${student.full_name} - ${student.department}`}
-      >
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center space-x-3">
-            <div className="text-sm font-semibold text-indigo-600">{`#${index + 1}`}</div>
-            <User size={22} className="text-indigo-500" />
-            <h4 className="font-semibold text-gray-900">{student.full_name}</h4>
-          </div>
+                        <div className="flex space-x-1">
+                          {[...Array(Math.round(student.rating))].map(
+                            (_, i) => (
+                              <Star
+                                key={i}
+                                size={16}
+                                className="text-yellow-400"
+                              />
+                            )
+                          )}
+                        </div>
+                      </div>
 
-          <div className="flex space-x-1">
-            {[...Array(Math.round(student.rating))].map((_, i) => (
-              <Star key={i} size={16} className="text-yellow-400" />
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2 text-xs text-gray-600">
-          <span className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full font-medium">
-            Roll: {student.roll}
-          </span>
-          <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full font-medium">
-            Session: {student.session}
-          </span>
-          <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-medium capitalize">
-            {student.department}
-          </span>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
-
+                      <div className="flex flex-wrap gap-2 text-xs text-gray-600">
+                        <span className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full font-medium">
+                          Roll: {student.roll}
+                        </span>
+                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full font-medium">
+                          Session: {student.session}
+                        </span>
+                        <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-medium capitalize">
+                          {student.department}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
 
             {activeTab === "notices" && (
@@ -248,7 +259,7 @@ export default function Home() {
 
             {activeTab === "books" && (
               <div className="space-y-4">
-                <h3 className="font-bold text-lg">📚 Top Books</h3>
+                <h3 className="font-bold text-lg">Top Books</h3>
                 {topBooks.map((book, index) => (
                   <div key={index} className="flex items-center gap-4">
                     <img
@@ -269,7 +280,7 @@ export default function Home() {
 
         <div className="my-10 px-4 mx-auto">
           <div className="p-2 mx-auto flex justify-center">
-            <h2 className="relative text-3xl text-center font-semibold text-gray-800 mb-8 select-none max-w-max">
+            <h2 className="relative text-2xl lg:text-3xl text-center font-semibold text-gray-800 mb-8 select-none max-w-max">
               Browse Book Categories
               <span className="absolute left-0 -bottom-2 w-20 h-1 bg-blue-700 rounded-full"></span>
             </h2>
@@ -287,33 +298,35 @@ export default function Home() {
               const Icon = cat.icon;
               return (
                 <Link
-  to={`/books?category=${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
-  className="block"
->
-                <div
-                  key={cat.id}
-                  className="relative group flex-shrink-0 bg-white border border-gray-200 shadow-sm rounded-3xl w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-                  tabIndex={0}
-                  data-tooltip-id={`tooltip-${cat.id}`}
-                  data-tooltip-content={cat.name}
+                  to={`/books?category=${cat.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                  className="block"
                 >
-                  <Tooltip
-                    id={`tooltip-${cat.id}`}
-                    place="top"
-                    className=" text-sm font-semibold rounded-md px-2 py-1 bg-black text-white z-20"
-                  />
-                  <Icon
-                    className="text-indigo-600 transition-colors duration-300 group-hover:text-indigo-800"
-                    size={36} // increased size here
-                  />
+                  <div
+                    key={cat.id}
+                    className="relative group flex-shrink-0 bg-white border border-gray-200 shadow-sm rounded-3xl w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    tabIndex={0}
+                    data-tooltip-id={`tooltip-${cat.id}`}
+                    data-tooltip-content={cat.name}
+                  >
+                    <Tooltip
+                      id={`tooltip-${cat.id}`}
+                      place="top"
+                      className=" text-sm font-semibold rounded-md px-2 py-1 bg-black text-white z-20"
+                    />
+                    <Icon
+                      className="text-indigo-600 transition-colors duration-300 group-hover:text-indigo-800"
+                      size={36} // increased size here
+                    />
                   </div>
-                  </Link>
+                </Link>
               );
             })}
           </div>
         </div>
 
-        <section className="bg-gray-100 text-gray-800 py-14 px-4 md:px-16 rounded rounded-2xl my-10">
+        <section className="bg-white text-gray-800 py-14 px-4 md:px-16 rounded rounded-2xl my-10">
           {/* Search Area */}
           <div className="bg-white shadow-xl rounded-2xl p-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">

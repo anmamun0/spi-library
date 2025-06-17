@@ -179,7 +179,8 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
       {/* Mobile Menu */}
 
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-200 px-6 pb-4">
+        <div className="lg:hidden bg-transparent border-t border-slate-200 p-2 pb-4  ">
+          <div className="px-3 py-4 shadow-md rounded-md"> 
           <div className="flex mb-3">
             <input
               type="text"
@@ -196,16 +197,11 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
               Go
             </button>
 
-            <button
-              onClick={handleGoClick}
-              className="px-4 py-2 bg-slate-800 text-white rounded-r-md"
-            >
-              Go
-            </button>
+           
           </div>
 
           <Link to="/auth-redirect">
-              <button className="bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3">
+              <button className="w-full bg-blue-800 text-white block text-center px-4 py-2 rounded mb-3">
               My Account
             </button>
           </Link>
@@ -240,6 +236,7 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
               </Link>
             </li>
           </ul>
+          </div>
         </div>
       )}
     </nav>
