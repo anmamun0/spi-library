@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import HelpSupport from "../context/HelpSupport";
+import Result from "../pages/Result";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <LoginAdmin />,
+      },
+      {
+        path:'/result',
+        element: <Result/>
       }
     ],
   } ,

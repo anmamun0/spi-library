@@ -665,7 +665,7 @@ const handleSubmit = async (e) => {
 
           {/* Buttons */}
           {/* Buttons */}
-          <div className="md:col-span-2 flex gap-4 justify-center mt-8 pb-12">
+          <div className="md:col-span-2 flex gap-4 justify-center mt-8 py-12">
             <button
               type="submit"
               className="bg-blue-700 text-white px-8 py-3 rounded-xl hover:bg-blue-800 transition font-semibold shadow-md"

@@ -9,6 +9,12 @@ import {
   Calendar,
   RefreshCcw,
   Star,
+  FileSearch,
+  BookOpenCheck,
+  User2,
+  ClipboardSignature,
+  Landmark,
+  BadgeAlert,
 } from "lucide-react";
 import { useNavigate, Link, useLoaderData } from "react-router-dom";
 import axios from "axios";
@@ -24,6 +30,32 @@ const Profile = () => {
   const [student, setStudent] = useState(studentContext || {});
   const [transactions, setTransactions] = useState(transactionsContext || []);
   const navigate = useNavigate();
+  const [semesterResults, setSemesterResults] = useState([]);
+  useEffect(() => {
+    let regulation = student.regulation || null;
+    if (!regulation && student.session) {
+      const sessionLastYear = student.session.slice(2); // "2122" -> "22"
+      regulation = `20${sessionLastYear}`; // "2022"
+    }
+
+    if (student.roll) {
+      const exam = student.default_regulation || "Diploma In Engineering";
+      const roll = student.roll;
+
+      fetch(
+        `https://corsproxy.io/?https://btebresultszone.com/api/results/individual?roll=${roll}&exam=${encodeURIComponent(
+          exam
+        )}&regulation=${regulation}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setSemesterResults(data.semester_results || []);
+        })
+        .catch((err) => {
+          console.error("Error fetching data:", err);
+        });
+    }
+  }, [student]);
 
   useEffect(() => {
     if (studentContext && transactionsContext) {
@@ -191,18 +223,22 @@ const Profile = () => {
 
         {/* Personal Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 my-4 ">
-          <div className="bg-white rounded-md  p-10 shadow-sm">
+          <div className="space-y-4">
+          <div className="bg-white rounded-md p-10 shadow-sm">
+            {/* Header */}
             <div className="flex justify-between pb-3">
               <h3 className="font-semibold text-lg mb-4">Personal Details</h3>
-              <i class="fa-solid fa-pen text-gray-600"></i>
+              <i className="fa-solid fa-pen text-gray-600"></i>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10  text-sm text-gray-700">
+
+            {/* Personal Info Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 text-sm text-gray-700">
+              {/* Left Column */}
               <ul className="space-y-3">
                 <li>
                   <strong>Full Name</strong>
                   <div>{student.full_name}</div>
                 </li>
-
                 <li>
                   <strong>Role</strong>
                   <div>{student.role}</div>
@@ -211,12 +247,10 @@ const Profile = () => {
                   <strong>Session</strong>
                   <div>{student.session}</div>
                 </li>
-
                 <li>
                   <strong>Phone</strong>
                   <div>{student.phone}</div>
                 </li>
-
                 <li>
                   <strong>Gender</strong>
                   <div>{student.gender}</div>
@@ -229,12 +263,9 @@ const Profile = () => {
                   <strong>Address</strong>
                   <div>{student.address}</div>
                 </li>
-
-                <li>
-                  <strong>Permanent Address</strong>
-                  <div> </div>
-                </li>
               </ul>
+
+              {/* Right Column */}
               <ul className="space-y-3">
                 <li>
                   <strong>Username</strong>
@@ -256,7 +287,6 @@ const Profile = () => {
                   <strong>Birthday</strong>
                   <div>{student.birthday}</div>
                 </li>
-
                 <li>
                   <strong>Nationality Number</strong>
                   <div>{student.nationality_number}</div>
@@ -267,7 +297,61 @@ const Profile = () => {
                 </li>
               </ul>
             </div>
+            </div>
+              <div className="bg-white rounded-md p-10 shadow-sm">
+            {/* Results Section */}
+            <div className=" ">
+              {/* Header */}
+              <div className="flex justify-between pb-3">
+                <h3 className="text-gray-800 font-semibold text-lg mb-4">
+                  Your Results of All semester
+                </h3>
+                <i className="fa-solid fa-pen text-gray-600"></i>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                {semesterResults
+                  .sort((a, b) => a.semester - b.semester)
+                  .map((semester, idx) => {
+                    const exam = semester.exam_results[0];
+                    const hasReferred =
+                      exam.reffereds && exam.reffereds.length > 0;
+                    const examDate = new Date(exam.date).toLocaleDateString();
+
+                    return (
+                      <div
+                        key={idx}
+                        className="border rounded-md shadow-sm bg-gray-50 flex flex-col space-y-3 "
+                      >
+                        <div className="relative flex items-center gap-3 pl-5">
+                          {/* Left padding to make space for semester badge */}
+                          {hasReferred ? (
+                            <div className="relative bg-red-100 text-red-700 px-5 py-2 rounded-md font-semibold shadow-sm w-full">
+                              Referred
+                              <div className="absolute -top-1 -left-6 bg-blue-600 text-white font-semibold text-xs rounded-full px-3 py-1 select-none">
+                                {semester.semester}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="relative bg-green-100 text-green-700 px-5 py-2 rounded-md font-semibold shadow-sm w-full">
+                              GPA: {exam.gpa}
+                              <div className="absolute -top-1 -left-6 bg-blue-600 text-white font-semibold text-xs rounded-full px-3 py-1 select-none">
+                                {semester.semester}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="text-gray-600 text-sm italic text-right w-full px-2 ">
+                          Exam Date: {examDate}
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
+           </div>
 
           {/* Transaction Info */}
           <div className="bg-white rounded-md  p-8 shadow-sm">
@@ -322,8 +406,8 @@ const Profile = () => {
               </button>
             </div>
 
-            <div className="h-[400px] overflow-y-auto ">
-              <ul className="space-y-4 md:p-4 bg-white shadow rounded-lg max-w-xl mx-auto mt-6">
+  <div className="h-[700px] overflow-y-auto custom-scrollbar">
+              <ul className="space-y-4 md:p-4 bg-white   rounded-lg max-w-xl mx-auto mt-6">
                 {filteredTransactions.map((tx) => {
                   const borrowDate = tx.borrow_date
                     ? new Date(tx.borrow_date)
@@ -425,10 +509,7 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Workplaces */}
-        <div className="mb-6 hidden">
-          <h3 className="font-semibold text-lg mb-2">Workplaces</h3>
-        </div>
+       
 
         {/* Tags */}
         <div className="hidden">

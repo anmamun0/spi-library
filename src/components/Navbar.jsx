@@ -143,6 +143,13 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
                 eBooks & Audiobooks{" "}
               </NavLink>{" "}
             </li>
+  <li>
+              {" "}
+              <NavLink to="/result" className=" hover:text-amber-400">
+                {" "}
+                Result{" "}
+              </NavLink>{" "}
+            </li>
 
             <li>
               {" "}
