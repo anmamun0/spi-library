@@ -235,6 +235,11 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
               <Link to="/books" className="block hover:text-amber-500">
                 eBooks & Audiobooks
               </Link>
+              </li>
+              <li>
+              <Link to="/result" className="block hover:text-amber-500">
+                Result
+              </Link>
             </li>
 
             <li>
