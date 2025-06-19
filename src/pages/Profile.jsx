@@ -306,8 +306,7 @@ const Profile = () => {
                 <h3 className="text-gray-800 font-semibold text-lg mb-4">
                   Your Results of All semester
                 </h3>
-                <i className="fa-solid fa-pen text-gray-600"></i>
-              </div>
+               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {semesterResults

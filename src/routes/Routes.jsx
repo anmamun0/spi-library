@@ -71,10 +71,7 @@ const router = createBrowserRouter([
         path: "/auth-redirect",
         element: <AuthRedirect />,
       },
-      {
-        path: "/error",
-        element: <Error />,
-      },
+
       {
         path: "/helpsupport",
         element: <HelpSupport />,
