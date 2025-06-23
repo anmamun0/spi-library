@@ -153,9 +153,9 @@ const categoryList = (categories?.map(cat => cat.name) || []).slice(0, 18);
 
             <li>
               {" "}
-              <NavLink to="//" className="hover:text-amber-400 ">
+              <NavLink to="/notice" className="hover:text-amber-400 ">
                 {" "}
-                Research & Databases{" "}
+                Notices{" "}
               </NavLink>{" "}
             </li>
             <li>

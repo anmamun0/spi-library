@@ -287,7 +287,7 @@ export default function Home() {
           </div>
 
           <div
-            className="py-8 mx-auto max-w-5xl flex overflow-x-auto gap-6 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 scroll-smooth
+            className="py-8 mx-auto max-w-6xl flex overflow-x-auto gap-6 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 scroll-smooth
     "
             style={{
               scrollbarWidth: "thin",
@@ -326,7 +326,7 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="bg-white text-gray-800 py-14 px-4 md:px-16 rounded rounded-2xl my-10">
+        <section className="bg-white text-gray-800 py-14 px-4 md:px-10 rounded rounded-2xl my-10">
           {/* Search Area */}
           <div className="bg-white shadow-xl rounded-2xl p-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">

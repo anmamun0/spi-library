@@ -41,6 +41,7 @@ import {
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import HelpSupport from "../context/HelpSupport";
 import Result from "../pages/Result";
+import Notice from "../pages/Notice";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +92,11 @@ const router = createBrowserRouter([
       {
         path:'/result',
         element: <Result/>
+      }
+      ,
+      {
+        path:'/Notice',
+        element: <Notice/>
       }
     ],
   } ,
