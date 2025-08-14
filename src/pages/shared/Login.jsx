@@ -71,7 +71,8 @@ const Login = () => {
       // object হলে সব values একসাথে দেখানো
       errMsg = Object.values(error.response.data).flat().join("\n");
     }
-  } 
+  }
+
   alert(errMsg);
 }
 
