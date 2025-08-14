@@ -15,6 +15,8 @@ import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const StudentTable = () => {
   const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
+  console.log(allStudents);
+  
   const navigate = useNavigate();
   const [showUnactive, setShowUnactive] = useState(false);
   
@@ -86,7 +88,7 @@ const filteredStudents = searchHistory.reduce((result, filterItem) => {
       return value && value.toString().toLowerCase().includes(query);
     })
   );
-}, students.filter(student => student.role == 'student' && (showUnactive ? !student.is_active : student.is_active))); // exclude admins initially
+}, students.filter(student => student.role.toLowerCase()== 'student' && (showUnactive ? !student.is_active : student.is_active))); // exclude admins initially
 
 
   const toggleColumn = (col) => {
