@@ -157,19 +157,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/reservations",
-        element: <DeshboardHead icon={Calendar} heading="Reservations" subheading="No Available here any data ..."/> 
+        element:<div className="m-4"> <DeshboardHead icon={Calendar} heading="Reservations" subheading="No Available here any data ..."/> </div>
       },
       {
         path: "/admin/management",
-        element: <DeshboardHead icon={ShieldCheck} heading="Management" subheading="No Available here any data ..."/> 
+        element: <div className="m-4"> <DeshboardHead icon={ShieldCheck} heading="Management" subheading="No Available here any data ..."/> </div>
       },
       {
         path: "/admin/reports",
-        element: <DeshboardHead icon={FileText} heading="Reports" subheading="No Available here any data ..."/> 
+        element:<div className="m-4"> <DeshboardHead icon={FileText} heading="Reports" subheading="No Available here any data ..."/> </div>
       },
       {
         path: "/admin/settings",
-        element: <DeshboardHead icon={Settings} heading="Settings" subheading="No Available here any data ..."/> 
+        element:<div className="m-4"> <DeshboardHead icon={Settings} heading="Settings" subheading="No Available here any data ..."/> </div>
       },
     ],
   },

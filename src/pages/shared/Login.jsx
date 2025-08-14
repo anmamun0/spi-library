@@ -17,7 +17,7 @@ const Login = () => {
     try {
       // Step 1: Send Login Request
       const response = await axios.post(
-        "https://spi-library.onrender.com/user/login/",
+        "http://spi-library.onrender.com/user/login/",
         {
           email,
           password,
@@ -55,9 +55,26 @@ const Login = () => {
       // Step 4: Redirect to Dashboard (optional)
       // navigate("/dashboard");
     } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      alert("Invalid credentials. Please try again.");
+  console.error("Login failed:", error.response?.data || error.message);
+
+  let errMsg = "Invalid credentials. Please try again.";
+  
+  // যদি backend থেকে message আসে
+  if (error.response?.data) {
+    if (typeof error.response.data === "string") {
+      errMsg = error.response.data; // সরাসরি string হলে
+    } else if (error.response.data.detail) {
+      errMsg = error.response.data.detail; // DRF default
+    } else if (Array.isArray(error.response.data)) {
+      errMsg = error.response.data.join("\n");
+    } else {
+      // object হলে সব values একসাথে দেখানো
+      errMsg = Object.values(error.response.data).flat().join("\n");
     }
+  } 
+  alert(errMsg);
+}
+
   };
 
   return (
@@ -92,7 +109,7 @@ const Login = () => {
                 )}
 
                 {!profileImage && (
-                  <p onClick={(event) => { setEmail('anmamun0@gmail.com'); setPassword('12345mamun'); event.target.classList.add('hidden');}} className="text-center px-3 py-1.5 text-sm font-medium text-slate-800 hover:text-red-600 border border-slate-500 hover:border-red-500 rounded-md transition duration-200 bg-white hover:bg-red-50 cursor-pointer">
+                  <p onClick={(event) => { setEmail('anmamun0@gmail.com'); setPassword('12345mamun'); event.target.classList.add('hidden');}} className="hidden text-center px-3 py-1.5 text-sm font-medium text-slate-800 hover:text-red-600 border border-slate-500 hover:border-red-500 rounded-md transition duration-200 bg-white hover:bg-red-50 cursor-pointer">
                     Demo user
                   </p>
                 )}

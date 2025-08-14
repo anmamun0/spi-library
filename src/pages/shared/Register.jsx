@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import clsx from "clsx";
 import { useBooks } from "../../context/BookContext";
-import { Check, X, LoaderCircle } from "lucide-react";
+import { Check, X, LoaderCircle,Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
   const { books, students, categories, loading, error } = useBooks();
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialFormState = {
     username: "",
@@ -314,21 +315,29 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* Password */}
-          <div className="flex flex-col">
-            <label htmlFor="password" className="mb-1 font-medium">
-              Password <span className="text-red-600">*</span>
-            </label>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="Create a password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="border border-gray-400 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-            />
-          </div>
+           <div className="flex flex-col relative">
+      <label htmlFor="password" className="mb-1 font-medium">
+        Password <span className="text-red-600">*</span>
+      </label>
+      <input
+        id="password"
+        type={showPassword ? "text" : "password"}
+        name="password"
+        placeholder="Create a password"
+        value={formData.password}
+        onChange={handleChange}
+        required
+        className="border border-gray-400 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition pr-12"
+      />
+      {/* Toggle button */}
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 top-[60%] -translate-y-1/2 text-gray-500 hover:text-gray-700"
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </button>
+    </div>
 
           {/* Normal message */}
           <div

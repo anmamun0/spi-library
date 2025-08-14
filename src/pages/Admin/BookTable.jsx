@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { LayoutList, LoaderCircle,BookOpen ,BookOpenCheck } from "lucide-react";
+import {
+  LayoutList,
+  LoaderCircle,
+  BookOpen,
+  BookOpenCheck,
+  Plus,
+} from "lucide-react";
 import { useLibraryData } from "../../context/Admin/useLibraryData";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import DeshboardHead from "../../components/Admin/DeshboardHead";
 
 const BookTable = () => {
-    const { allStudents, allBooks, allTransactions, loading, error } = useLibraryData();
-   const navigate = useNavigate();
+  const { allStudents, allBooks, allTransactions, loading, error } =
+    useLibraryData();
+  const navigate = useNavigate();
 
   const handleRowClick = (id) => {
     navigate(`/admin/books/info/${id}`);
   };
-  const [books, setBooks] = useState([]); 
+  const [books, setBooks] = useState([]);
 
   const columns = {
     image: "Image",
@@ -38,9 +45,8 @@ const BookTable = () => {
   const [search, setSearch] = useState("");
   // Fetch students from API on component mount
   useEffect(() => {
-        setBooks(allBooks);
+    setBooks(allBooks);
   }, [loading]);
- 
 
   const toggleColumn = (col) => {
     setVisibleColumns((prev) => ({ ...prev, [col]: !prev[col] }));
@@ -63,7 +69,11 @@ const BookTable = () => {
   if (loading)
     return (
       <div className="bg-gray-100 min-h-screen py-10 px-4">
-      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
+        <DeshboardHead
+          icon={BookOpenCheck}
+          heading="All Books"
+          subheading="Manage and view all library books"
+        />
         <div className="flex items-center justify-center min-h-screen">
           <div className="flex items-center text-center gap-2 text-gray-500 text-sm animate-pulse py-6">
             <LoaderCircle className="w-8 h-8 animate-spin" />
@@ -76,18 +86,23 @@ const BookTable = () => {
 
   return (
     <div className="p-4 space-y-6 max-w-full">
-      <DeshboardHead icon={BookOpenCheck} heading="All Books" subheading="Manage and view all library books" />
-
+      <DeshboardHead
+        icon={BookOpenCheck}
+        heading="All Books"
+        subheading="Manage and view all library books"
+      />
 
       {/* Column Toggle Filters */}
       <div className="w-full  p-6  rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-        <div className="flex flex-col sm:flex-row  gap-6 mb-4 text-gray-800 ">
-          <div className="flex items-center gap-2 ">
+        <div className="flex flex-col sm:flex-row items-center gap-6 mb-4 text-gray-800">
+          {/* Show Columns */}
+          <div className="flex items-center gap-2">
             <LayoutList className="w-5 h-5 text-blue-600" />
             <h3 className="text-md font-semibold">Show Columns</h3>
           </div>
 
-          <div className="w-full sm:w-auto">
+          {/* Search Bar */}
+          <div className="w-full sm:w-auto flex-1">
             <input
               type="text"
               placeholder="Search books..."
@@ -96,6 +111,15 @@ const BookTable = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+
+          {/* Add Book Button */}
+          <button
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            onClick={() => handleRowClick('add')} // define this function to handle adding books
+          >
+            <Plus className="w-4 h-4" />
+            Add Book
+          </button>
         </div>
 
         <div

@@ -16,16 +16,16 @@ export default function Notice() {
 
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto px-6 py-12 bg-red-100 rounded-lg shadow-sm text-center text-red-700 text-lg">
-        কিছু ভুল হয়েছে: {error.message || error.toString()}
+      <div className="max-w-7xl mx-auto px-6 py-12 bg-red-100 rounded-lg shadow-sm text-center text-red-700 text-lg font-semibold">
+        An error occurred: {error.message || error.toString()}
       </div>
     );
   }
 
   if (!notices || notices.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-6 py-12 bg-yellow-100 rounded-lg shadow-sm text-center text-yellow-800 text-lg">
-        কোনো নোটিশ পাওয়া যায়নি।
+      <div className="max-w-7xl mx-auto px-6 py-12 bg-yellow-100 rounded-lg shadow-sm text-center text-yellow-800 text-lg font-semibold">
+        No notices found.
       </div>
     );
   }
@@ -97,15 +97,14 @@ export default function Notice() {
 
       {/* View All / Show Less বাটন */}
       {notices.length > 20 && (
-      <div className="text-right mt-8 px-6">
-  <button
-    onClick={() => setShowAll(!showAll)}
-    className=" text-gray-700 hover:text-gray-800 font-semibold px-6 py-2 rounded-md transition"
-  >
-    {showAll ? "Show Less" : "View All"}
-  </button>
-</div>
-
+        <div className="text-right mt-8 px-6">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className=" text-gray-700 hover:text-gray-800 font-semibold px-6 py-2 rounded-md transition"
+          >
+            {showAll ? "Show Less" : "View All"}
+          </button>
+        </div>
       )}
     </div>
   );
